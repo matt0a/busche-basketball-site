@@ -1,0 +1,30 @@
+# ---- Backend (Spring Boot / Maven) ----
+/basketball-backend/target/
+/basketball-backend/.idea/
+/basketball-backend/.classpath
+/basketball-backend/.project
+/basketball-backend/.settings/
+/basketball-backend/.vscode/
+
+# Logs
+/basketball-backend/*.log
+/basketball-backend/logs/
+
+# ---- Frontend (Vite + React) ----
+/busche-basketball-frontend/node_modules/
+/busche-basketball-frontend/dist/
+/busche-basketball-frontend/.vite/
+/busche-basketball-frontend/.env.local
+/busche-basketball-frontend/.env.development.local
+/busche-basketball-frontend/.env.production.local
+
+# ---- General ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# Don’t commit local env files
+.env
+.env.*
