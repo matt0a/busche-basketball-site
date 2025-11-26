@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+// src/auth/AuthContext.tsx
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import type { AuthResponse } from "../types";
 
 interface AuthState {
@@ -14,15 +20,22 @@ interface AuthContextValue extends AuthState {
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-const STORAGE_KEY = "busche_bb_auth";
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+// Store the full auth object here
+const STORAGE_KEY = "busche_bb_auth";
+// Store the bare JWT here (used by axios/adminStaffApi)
+const TOKEN_KEY = "authToken";
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+                                                                          children,
+                                                                      }) => {
     const [state, setState] = useState<AuthState>({
         token: null,
         fullName: null,
         email: null,
     });
 
+    // Rehydrate from localStorage on first load
     useEffect(() => {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -30,10 +43,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const parsed = JSON.parse(stored) as AuthState;
                 setState(parsed);
                 if (parsed.token) {
-                    localStorage.setItem("auth_token", parsed.token);
+                    localStorage.setItem(TOKEN_KEY, parsed.token);
                 }
             } catch {
-                // ignore
+                // ignore parse errors
             }
         }
     }, []);
@@ -46,13 +59,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
         setState(newState);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
-        localStorage.setItem("auth_token", resp.token);
+        localStorage.setItem(TOKEN_KEY, resp.token);
     };
 
     const logout = () => {
         setState({ token: null, fullName: null, email: null });
         localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem("auth_token");
+        localStorage.removeItem(TOKEN_KEY);
     };
 
     return (

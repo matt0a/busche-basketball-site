@@ -9,6 +9,7 @@ import org.buscheacademy.basketball.game.GameService;
 import org.buscheacademy.basketball.player.PlayerService;
 import org.buscheacademy.basketball.staff.StaffMemberService;
 import org.buscheacademy.basketball.team.TeamService;
+import org.buscheacademy.basketball.team.TeamLevel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,9 +59,15 @@ public class PublicApiController {
     }
 
     // ---------- Staff ----------
-
     @GetMapping("/staff")
-    public ResponseEntity<List<StaffMemberDto>> getStaff() {
-        return ResponseEntity.ok(staffMemberService.getAllStaff());
+    public ResponseEntity<List<StaffMemberDto>> getStaff(
+            @RequestParam(name = "teamLevel", required = false) TeamLevel teamLevel
+    ) {
+        return ResponseEntity.ok(staffMemberService.getPublicStaff(teamLevel));
+    }
+
+    @GetMapping("/staff/{id}")
+    public ResponseEntity<StaffMemberDto> getStaffMember(@PathVariable Long id) {
+        return ResponseEntity.ok(staffMemberService.getPublicStaffMember(id));
     }
 }

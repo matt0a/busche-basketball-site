@@ -28,3 +28,8 @@ Thumbs.db
 # Don’t commit local env files
 .env
 .env.*
+
+
+# Don't commit local server uploads
+/uploads/*
+!/uploads/.gitkeep

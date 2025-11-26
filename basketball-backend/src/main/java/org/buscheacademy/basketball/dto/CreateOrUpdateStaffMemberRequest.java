@@ -1,13 +1,38 @@
 package org.buscheacademy.basketball.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
+import org.buscheacademy.basketball.team.TeamLevel;
 
 public record CreateOrUpdateStaffMemberRequest(
-        @NotBlank String fullName,
-        @NotBlank String roleTitle,
+
+        @NotBlank
+        String fullName,
+
+        @NotNull
+        TeamLevel teamLevel,
+
+        @NotBlank
+        String position,
+
+        @Min(0)
+        int displayOrder,
+
+        @Size(max = 1000)
+        String primaryPhotoUrl,
+
+        @Size(max = 1000)
+        String secondaryPhotoUrl,
+
+        // long bio, no hard length validation
         String bio,
-        String photoUrl,
+
+        @Email
+        @Size(max = 255)
         String email,
-        String phone
+
+        @Size(max = 50)
+        String phone,
+
+        boolean active
 ) {
 }

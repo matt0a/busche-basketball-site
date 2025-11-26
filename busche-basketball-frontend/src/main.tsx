@@ -1,3 +1,5 @@
+// src/main.tsx or src/index.tsx
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -22,6 +24,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                         <Route path="/roster" element={<RosterPage />} />
                         <Route path="/schedule" element={<SchedulePage />} />
                         <Route path="/login" element={<LoginPage />} />
+
+                        {/* Admin / coach dashboard */}
+                        <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+                        {/* optional short alias */}
                         <Route path="/admin" element={<AdminDashboardPage />} />
                     </Routes>
                 </Layout>

@@ -1,12 +1,18 @@
 package org.buscheacademy.basketball.dto;
 
+import org.buscheacademy.basketball.team.TeamLevel;
+
 public record StaffMemberDto(
         Long id,
         String fullName,
-        String roleTitle,
+        TeamLevel teamLevel,
+        String position,
+        int displayOrder,
+        String primaryPhotoUrl,
+        String secondaryPhotoUrl,
         String bio,
-        String photoUrl,
         String email,
-        String phone
+        String phone,
+        boolean active
 ) {
 }

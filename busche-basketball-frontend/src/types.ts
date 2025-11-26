@@ -42,12 +42,21 @@ export interface PlayerDto {
 export interface StaffMemberDto {
     id: number;
     fullName: string;
-    roleTitle: string;
-    bio: string | null;
-    photoUrl: string | null;
+    teamLevel: TeamLevel; // "NATIONAL" | "REGIONAL"
+    position: string;
+    displayOrder: number;
+
+    primaryPhotoUrl: string | null;
+    secondaryPhotoUrl: string | null;
+
+    bio: string;
+
     email: string | null;
     phone: string | null;
+
+    active: boolean;
 }
+
 
 export interface AuthResponse {
     token: string;

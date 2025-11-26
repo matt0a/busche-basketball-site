@@ -19,7 +19,7 @@ public class DataInitializer {
             userService.createUserIfNotExists(
                     "Mike Mason",
                     "coach@buscheacademy.org",
-                    "password"
+                    "passsword"
             );
         };
     }

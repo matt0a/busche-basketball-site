@@ -1,40 +1,59 @@
 package org.buscheacademy.basketball.staff;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.buscheacademy.basketball.common.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.buscheacademy.basketball.team.TeamLevel;
 
 @Entity
 @Table(name = "staff_members")
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class StaffMember extends BaseEntity {
+public class StaffMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 120)
+    @Column(nullable = false)
     private String fullName;
 
-    /**
-     * e.g., "Head Coach", "Assistant Coach", "Athletic Director"
-     */
-    @Column(nullable = false, length = 120)
-    private String roleTitle;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 32)
+    private TeamLevel teamLevel; // NATIONAL / REGIONAL
 
-    @Column(length = 1500)
+    @Column(nullable = false)
+    private String position;   // e.g. Head Coach, Assistant Coach
+
+    // Order in which they appear on the page (small int)
+    @Column(nullable = false)
+    @Builder.Default
+    private int displayOrder = 0;
+
+    // Primary photo (default card image)
+    @Column(length = 1000)
+    private String primaryPhotoUrl;
+
+    // Secondary photo (hover image)
+    @Column(length = 1000)
+    private String secondaryPhotoUrl;
+
+    // Long bio – TEXT/LONGTEXT
+    @Column(columnDefinition = "TEXT")
     private String bio;
 
-    @Column(length = 500)
-    private String photoUrl;
-
-    @Column(length = 120)
+    // Contact info
+    @Column(length = 255)
     private String email;
 
-    @Column(length = 40)
+    @Column(length = 50)
     private String phone;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean active = true;
 }
