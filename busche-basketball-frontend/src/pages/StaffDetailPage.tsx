@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { publicApi } from "../api/publicApi";
 import type { StaffMemberDto } from "../types";
+import { FullScreenLoader } from "../components/FullScreenLoader";
 
 export const StaffDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -35,12 +36,9 @@ export const StaffDetailPage: React.FC = () => {
     }, [id]);
 
     if (loading) {
-        return (
-            <div className="py-10 max-w-4xl mx-auto px-4 lg:px-0">
-                <p className="text-sm text-slate-600">Loading profile…</p>
-            </div>
-        );
+        return <FullScreenLoader message="Loading Profile..." />;
     }
+
 
     if (error || !staff) {
         return (

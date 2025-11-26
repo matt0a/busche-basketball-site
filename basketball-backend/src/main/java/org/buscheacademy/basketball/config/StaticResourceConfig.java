@@ -13,11 +13,18 @@ public class StaticResourceConfig implements WebMvcConfigurer {
     @Value("${app.upload.staff-dir:uploads/staff}")
     private String staffDir;
 
+    @Value("${app.upload.player-dir:uploads/players}")
+    private String playerDir;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String location = Paths.get(staffDir).toAbsolutePath().toUri().toString();
+        String staffLocation = Paths.get(staffDir).toAbsolutePath().toUri().toString();
+        String playerLocation = Paths.get(playerDir).toAbsolutePath().toUri().toString();
 
         registry.addResourceHandler("/uploads/staff/**")
-                .addResourceLocations(location);
+                .addResourceLocations(staffLocation);
+
+        registry.addResourceHandler("/uploads/players/**")
+                .addResourceLocations(playerLocation);
     }
 }

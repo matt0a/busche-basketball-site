@@ -4,9 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.buscheacademy.basketball.dto.CreateOrUpdatePlayerRequest;
 import org.buscheacademy.basketball.dto.PlayerDto;
+import org.buscheacademy.basketball.player.PlayerImageStorageService;
 import org.buscheacademy.basketball.player.PlayerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class AdminPlayerController {
 
     private final PlayerService playerService;
+    private final PlayerImageStorageService playerImageStorageService;
 
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<PlayerDto>> listPlayersByTeam(@PathVariable Long teamId) {
@@ -38,4 +41,15 @@ public class AdminPlayerController {
         playerService.deletePlayer(id);
         return ResponseEntity.noContent().build();
     }
+
+    // --- NEW: upload player photo ---
+    @PostMapping("/photo")
+    public ResponseEntity<PlayerPhotoUploadResponse> uploadPlayerPhoto(
+            @RequestParam("file") MultipartFile file) {
+
+        String url = playerImageStorageService.storePlayerPhoto(file);
+        return ResponseEntity.ok(new PlayerPhotoUploadResponse(url));
+    }
+
+    public record PlayerPhotoUploadResponse(String url) { }
 }

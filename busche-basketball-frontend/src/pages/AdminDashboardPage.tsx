@@ -5,6 +5,7 @@ import type { StaffMemberDto, TeamLevel } from "../types";
 import { useAuth } from "../auth/AuthContext";
 import { adminStaffApi } from "../api/adminStaffApi";
 import type { StaffMemberInput } from "../api/adminStaffApi";
+import { AdminRosterManager } from "../components/AdminRosterManager";
 
 const DEFAULT_AVATAR = "/images/default-avatar.svg";
 
@@ -66,6 +67,8 @@ interface ImageDropzoneProps {
     uploading: boolean;
     onFileSelected: (file: File) => void;
 }
+
+type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE";
 
 /* ---------- Image dropzone ---------- */
 
@@ -201,6 +204,8 @@ export const AdminDashboardPage: React.FC = () => {
     const [secondaryPreview, setSecondaryPreview] = useState<string | null>(null);
     const [uploadingPrimary, setUploadingPrimary] = useState(false);
     const [uploadingSecondary, setUploadingSecondary] = useState(false);
+
+    const [activeTab, setActiveTab] = useState<AdminTab>("STAFF");
 
     // Also fall back to localStorage in case AuthContext hasn't hydrated yet
     const token =
@@ -403,21 +408,51 @@ export const AdminDashboardPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-50">
             <header className="border-b border-slate-200 bg-white">
-                <div className="max-w-6xl mx-auto px-4 lg:px-0 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="max-w-6xl mx-auto px-4 lg:px-0 py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <p className="text-[11px] font-semibold tracking-[0.3em] text-slate-500 uppercase">
                             Coach Dashboard
                         </p>
                         <h1 className="mt-1 text-xl sm:text-2xl font-semibold text-slate-900">
-                            Staff management
+                            Program administration
                         </h1>
                         <p className="mt-1 text-xs text-slate-500 max-w-xl">
-                            Add or edit coaching staff here. Changes are reflected immediately
-                            on the public <span className="font-semibold">Staff</span> page.
+                            Use the tabs on the right to manage coaching staff, player
+                            rosters, and (coming soon) game schedules.
                         </p>
                     </div>
 
-                    <div className="text-right text-xs text-slate-500 space-y-1">
+                    <div className="flex flex-col items-end gap-3">
+                        {/* Tab toggle */}
+                        <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 text-[11px] font-semibold">
+                            {(["STAFF", "ROSTER", "SCHEDULE"] as AdminTab[]).map(
+                                (tab) => {
+                                    const isActive = activeTab === tab;
+                                    const label =
+                                        tab === "STAFF"
+                                            ? "Staff"
+                                            : tab === "ROSTER"
+                                                ? "Roster"
+                                                : "Schedule";
+
+                                    return (
+                                        <button
+                                            key={tab}
+                                            type="button"
+                                            onClick={() => setActiveTab(tab)}
+                                            className={`px-3 sm:px-4 py-1.5 rounded-full transition-all ${
+                                                isActive
+                                                    ? "bg-sky-600 text-white shadow-sm"
+                                                    : "text-slate-600 hover:text-slate-900"
+                                            }`}
+                                        >
+                                            {label}
+                                        </button>
+                                    );
+                                }
+                            )}
+                        </div>
+
                         <button
                             type="button"
                             onClick={logout}
@@ -442,269 +477,304 @@ export const AdminDashboardPage: React.FC = () => {
                     </div>
                 )}
 
-                {/* Staff form */}
-                <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-base font-semibold text-slate-900">
-                            {editingId ? "Edit staff member" : "Add new staff member"}
-                        </h2>
-                        {editingId && (
-                            <button
-                                type="button"
-                                onClick={resetForm}
-                                className="text-xs text-sky-600 hover:text-sky-700 underline underline-offset-4"
-                            >
-                                Cancel edit
-                            </button>
-                        )}
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">
-                                    Full name *
-                                </label>
-                                <input
-                                    name="fullName"
-                                    value={form.fullName}
-                                    onChange={handleChange}
-                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">
-                                    Position / role *
-                                </label>
-                                <input
-                                    name="position"
-                                    value={form.position}
-                                    onChange={handleChange}
-                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="grid gap-4 sm:grid-cols-3">
-                            <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">
-                                    Team level
-                                </label>
-                                <select
-                                    name="teamLevel"
-                                    value={form.teamLevel}
-                                    onChange={handleChange}
-                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                >
-                                    <option value="NATIONAL">National</option>
-                                    <option value="REGIONAL">Regional</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">
-                                    Display order
-                                </label>
-                                <input
-                                    name="displayOrder"
-                                    type="number"
-                                    value={form.displayOrder}
-                                    onChange={handleChange}
-                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                    placeholder="1"
-                                />
-                                <p className="mt-1 text-[10px] text-slate-500">
-                                    Lower numbers appear first.
-                                </p>
-                            </div>
-
-                            <div className="flex items-center gap-2 mt-6 sm:mt-7">
-                                <input
-                                    id="active"
-                                    name="active"
-                                    type="checkbox"
-                                    checked={form.active}
-                                    onChange={handleChange}
-                                    className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
-                                />
-                                <label
-                                    htmlFor="active"
-                                    className="text-xs font-medium text-slate-700"
-                                >
-                                    Active (visible on public site)
-                                </label>
-                            </div>
-                        </div>
-
-                        {/* Image upload areas */}
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <ImageDropzone
-                                label="Primary photo"
-                                helperText="Main image used on the public staff card."
-                                previewUrl={primaryPreview}
-                                uploading={uploadingPrimary}
-                                onFileSelected={(file) => handlePhotoUpload(file, "primary")}
-                            />
-
-                            <ImageDropzone
-                                label="Secondary photo (hover)"
-                                helperText="Optional image shown when you hover over the staff card."
-                                previewUrl={secondaryPreview}
-                                uploading={uploadingSecondary}
-                                onFileSelected={(file) =>
-                                    handlePhotoUpload(file, "secondary")
-                                }
-                            />
-                        </div>
-
-                        {/* Contact + bio */}
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">
-                                    Email
-                                </label>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    value={form.email}
-                                    onChange={handleChange}
-                                    placeholder="coach@buscheacademy.org"
-                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">
-                                    Phone
-                                </label>
-                                <input
-                                    name="phone"
-                                    value={form.phone}
-                                    onChange={handleChange}
-                                    placeholder="+1 (555) 123-4567"
-                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-medium text-slate-700 mb-1">
-                                Bio
-                            </label>
-                            <textarea
-                                name="bio"
-                                rows={4}
-                                value={form.bio}
-                                onChange={handleChange}
-                                className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                                placeholder="Background, coaching experience, and role with the program."
-                            />
-                        </div>
-
-                        <div className="flex justify-end">
-                            <button
-                                type="submit"
-                                disabled={saving}
-                                className="inline-flex items-center rounded-md bg-sky-600 hover:bg-sky-700 disabled:opacity-60 disabled:cursor-not-allowed text-sm font-semibold text-white px-5 py-2.5 transition-colors"
-                            >
-                                {saving
-                                    ? "Saving…"
-                                    : editingId
-                                        ? "Update staff member"
-                                        : "Create staff member"}
-                            </button>
-                        </div>
-                    </form>
-                </section>
-
-                {/* Staff list */}
-                <section>
-                    <h2 className="text-base font-semibold text-slate-900 mb-4">
-                        Current staff
-                    </h2>
-
-                    {loading ? (
-                        <p className="text-sm text-slate-500">Loading staff…</p>
-                    ) : !staffList.length ? (
-                        <p className="text-sm text-slate-500">
-                            No staff members yet. Use the form above to add your first coach.
-                        </p>
-                    ) : (
-                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                            {staffList.map((member) => {
-                                const primarySrc =
-                                    buildStaffPhotoUrl(
-                                        member.primaryPhotoUrl ||
-                                        member.secondaryPhotoUrl
-                                    ) ?? DEFAULT_AVATAR;
-
-                                const teamLabel =
-                                    member.teamLevel === "NATIONAL"
-                                        ? "National Team"
-                                        : "Regional Team";
-
-                                return (
-                                    <div
-                                        key={member.id}
-                                        className="flex flex-col rounded-lg bg-white border border-slate-200 shadow-sm p-4"
+                {/* TAB: STAFF */}
+                {activeTab === "STAFF" && (
+                    <>
+                        {/* Staff form */}
+                        <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-base font-semibold text-slate-900">
+                                    {editingId
+                                        ? "Edit staff member"
+                                        : "Add new staff member"}
+                                </h2>
+                                {editingId && (
+                                    <button
+                                        type="button"
+                                        onClick={resetForm}
+                                        className="text-xs text-sky-600 hover:text-sky-700 underline underline-offset-4"
                                     >
-                                        <div className="flex flex-col items-center text-center flex-1">
-                                            <div className="w-20 h-20 rounded-md overflow-hidden bg-slate-100 mb-3">
-                                                <img
-                                                    src={primarySrc}
-                                                    alt={member.fullName}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
-                                            <p className="text-sm font-semibold text-slate-900">
-                                                {member.fullName}
-                                            </p>
-                                            <p className="text-xs text-sky-700 font-medium uppercase tracking-[0.18he m] mt-1">
-                                                {member.position}
-                                            </p>
-                                            <p className="text-[11px] text-slate-500 mt-1">
-                                                {teamLabel}
-                                            </p>
-                                            {member.email && (
-                                                <p className="mt-2 text-[11px] text-slate-500">
-                                                    {member.email}
-                                                </p>
-                                            )}
-                                            {member.phone && (
-                                                <p className="text-[11px] text-slate-500">
-                                                    {member.phone}
-                                                </p>
-                                            )}
-                                            {!member.active && (
-                                                <p className="mt-2 text-[10px] font-semibold text-amber-600">
-                                                    Inactive (hidden)
-                                                </p>
-                                            )}
-                                        </div>
+                                        Cancel edit
+                                    </button>
+                                )}
+                            </div>
 
-                                        <div className="mt-4 flex items-center justify-between gap-2">
-                                            <button
-                                                type="button"
-                                                onClick={() => handleEdit(member)}
-                                                className="flex-1 rounded-md border border-sky-500 text-xs text-sky-700 hover:bg-sky-50 px-3 py-1.5"
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                type="button"
-                                                onClick={() => handleDelete(member.id)}
-                                                className="flex-1 rounded-md border border-rose-500 text-xs text-rose-700 hover:bg-rose-50 px-3 py-1.5"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Full name *
+                                        </label>
+                                        <input
+                                            name="fullName"
+                                            value={form.fullName}
+                                            onChange={handleChange}
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        />
                                     </div>
-                                );
-                            })}
-                        </div>
-                    )}
-                </section>
+
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Position / role *
+                                        </label>
+                                        <input
+                                            name="position"
+                                            value={form.position}
+                                            onChange={handleChange}
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-4 sm:grid-cols-3">
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Team level
+                                        </label>
+                                        <select
+                                            name="teamLevel"
+                                            value={form.teamLevel}
+                                            onChange={handleChange}
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        >
+                                            <option value="NATIONAL">National</option>
+                                            <option value="REGIONAL">Regional</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Display order
+                                        </label>
+                                        <input
+                                            name="displayOrder"
+                                            type="number"
+                                            value={form.displayOrder}
+                                            onChange={handleChange}
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                            placeholder="1"
+                                        />
+                                        <p className="mt-1 text-[10px] text-slate-500">
+                                            Lower numbers appear first.
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 mt-6 sm:mt-7">
+                                        <input
+                                            id="active"
+                                            name="active"
+                                            type="checkbox"
+                                            checked={form.active}
+                                            onChange={handleChange}
+                                            className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                                        />
+                                        <label
+                                            htmlFor="active"
+                                            className="text-xs font-medium text-slate-700"
+                                        >
+                                            Active (visible on public site)
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {/* Image upload areas */}
+                                <div className="grid gap-6 md:grid-cols-2">
+                                    <ImageDropzone
+                                        label="Primary photo"
+                                        helperText="Main image used on the public staff card."
+                                        previewUrl={primaryPreview}
+                                        uploading={uploadingPrimary}
+                                        onFileSelected={(file) =>
+                                            handlePhotoUpload(file, "primary")
+                                        }
+                                    />
+
+                                    <ImageDropzone
+                                        label="Secondary photo (hover)"
+                                        helperText="Optional image shown when you hover over the staff card."
+                                        previewUrl={secondaryPreview}
+                                        uploading={uploadingSecondary}
+                                        onFileSelected={(file) =>
+                                            handlePhotoUpload(file, "secondary")
+                                        }
+                                    />
+                                </div>
+
+                                {/* Contact + bio */}
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Email
+                                        </label>
+                                        <input
+                                            name="email"
+                                            type="email"
+                                            value={form.email}
+                                            onChange={handleChange}
+                                            placeholder="coach@buscheacademy.org"
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Phone
+                                        </label>
+                                        <input
+                                            name="phone"
+                                            value={form.phone}
+                                            onChange={handleChange}
+                                            placeholder="+1 (555) 123-4567"
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                                        Bio
+                                    </label>
+                                    <textarea
+                                        name="bio"
+                                        rows={4}
+                                        value={form.bio}
+                                        onChange={handleChange}
+                                        className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        placeholder="Background, coaching experience, and role with the program."
+                                    />
+                                </div>
+
+                                <div className="flex justify-end">
+                                    <button
+                                        type="submit"
+                                        disabled={saving}
+                                        className="inline-flex items-center rounded-md bg-sky-600 hover:bg-sky-700 disabled:opacity-60 disabled:cursor-not-allowed text-sm font-semibold text-white px-5 py-2.5 transition-colors"
+                                    >
+                                        {saving
+                                            ? "Saving…"
+                                            : editingId
+                                                ? "Update staff member"
+                                                : "Create staff member"}
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
+
+                        {/* Staff list */}
+                        <section>
+                            <h2 className="text-base font-semibold text-slate-900 mb-4">
+                                Current staff
+                            </h2>
+
+                            {loading ? (
+                                <p className="text-sm text-slate-500">
+                                    Loading staff…
+                                </p>
+                            ) : !staffList.length ? (
+                                <p className="text-sm text-slate-500">
+                                    No staff members yet. Use the form above to
+                                    add your first coach.
+                                </p>
+                            ) : (
+                                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                    {staffList.map((member) => {
+                                        const primarySrc =
+                                            buildStaffPhotoUrl(
+                                                member.primaryPhotoUrl ||
+                                                member.secondaryPhotoUrl
+                                            ) ?? DEFAULT_AVATAR;
+
+                                        const teamLabel =
+                                            member.teamLevel === "NATIONAL"
+                                                ? "National Team"
+                                                : "Regional Team";
+
+                                        return (
+                                            <div
+                                                key={member.id}
+                                                className="flex flex-col rounded-lg bg-white border border-slate-200 shadow-sm p-4"
+                                            >
+                                                <div className="flex flex-col items-center text-center flex-1">
+                                                    <div className="w-20 h-20 rounded-md overflow-hidden bg-slate-100 mb-3">
+                                                        <img
+                                                            src={primarySrc}
+                                                            alt={member.fullName}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    </div>
+                                                    <p className="text-sm font-semibold text-slate-900">
+                                                        {member.fullName}
+                                                    </p>
+                                                    <p className="text-xs text-sky-700 font-medium uppercase tracking-[0.18em] mt-1">
+                                                        {member.position}
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-500 mt-1">
+                                                        {teamLabel}
+                                                    </p>
+                                                    {member.email && (
+                                                        <p className="mt-2 text-[11px] text-slate-500">
+                                                            {member.email}
+                                                        </p>
+                                                    )}
+                                                    {member.phone && (
+                                                        <p className="text-[11px] text-slate-500">
+                                                            {member.phone}
+                                                        </p>
+                                                    )}
+                                                    {!member.active && (
+                                                        <p className="mt-2 text-[10px] font-semibold text-amber-600">
+                                                            Inactive (hidden)
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                <div className="mt-4 flex items-center justify-between gap-2">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            handleEdit(member)
+                                                        }
+                                                        className="flex-1 rounded-md border border-sky-500 text-xs text-sky-700 hover:bg-sky-50 px-3 py-1.5"
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            handleDelete(
+                                                                member.id
+                                                            )
+                                                        }
+                                                        className="flex-1 rounded-md border border-rose-500 text-xs text-rose-700 hover:bg-rose-50 px-3 py-1.5"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </section>
+                    </>
+                )}
+
+                {/* TAB: ROSTER */}
+                {activeTab === "ROSTER" && <AdminRosterManager />}
+
+                {/* TAB: SCHEDULE (placeholder for now) */}
+                {activeTab === "SCHEDULE" && (
+                    <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+                        <h2 className="text-base font-semibold text-slate-900 mb-2">
+                            Schedule management
+                        </h2>
+                        <p className="text-sm text-slate-600">
+                            This section will let you add practices, games, and
+                            tournaments to the public schedule. We&apos;ll wire
+                            this up next.
+                        </p>
+                    </section>
+                )}
             </main>
         </div>
     );
