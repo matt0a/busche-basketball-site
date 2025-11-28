@@ -1,4 +1,3 @@
-// src/pages/AdminDashboardPage.tsx
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import type { StaffMemberDto, TeamLevel } from "../types";
@@ -6,6 +5,7 @@ import { useAuth } from "../auth/AuthContext";
 import { adminStaffApi } from "../api/adminStaffApi";
 import type { StaffMemberInput } from "../api/adminStaffApi";
 import { AdminRosterManager } from "../components/AdminRosterManager";
+import { AdminScheduleManager } from "../components/AdminScheduleManager";
 
 const DEFAULT_AVATAR = "/images/default-avatar.svg";
 
@@ -418,7 +418,7 @@ export const AdminDashboardPage: React.FC = () => {
                         </h1>
                         <p className="mt-1 text-xs text-slate-500 max-w-xl">
                             Use the tabs on the right to manage coaching staff, player
-                            rosters, and (coming soon) game schedules.
+                            rosters, and game schedules.
                         </p>
                     </div>
 
@@ -765,14 +765,7 @@ export const AdminDashboardPage: React.FC = () => {
                 {/* TAB: SCHEDULE (placeholder for now) */}
                 {activeTab === "SCHEDULE" && (
                     <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
-                        <h2 className="text-base font-semibold text-slate-900 mb-2">
-                            Schedule management
-                        </h2>
-                        <p className="text-sm text-slate-600">
-                            This section will let you add practices, games, and
-                            tournaments to the public schedule. We&apos;ll wire
-                            this up next.
-                        </p>
+                        <AdminScheduleManager />
                     </section>
                 )}
             </main>

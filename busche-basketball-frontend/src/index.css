@@ -21,3 +21,17 @@ body {
         transform: translateY(0);
     }
 }
+@layer base {
+    /* Regular text inside fields */
+    input,
+    select,
+    textarea {
+        @apply text-slate-900;
+    }
+
+    /* Placeholder text */
+    input::placeholder,
+    textarea::placeholder {
+        @apply text-slate-400;
+    }
+}
