@@ -1,64 +1,83 @@
 package org.buscheacademy.basketball.staff;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class StaffPhotoStorageService {
 
-    // Store under <working-dir>/uploads/staff
-    private final Path rootDir;
+    private final S3Client s3Client;
 
-    public StaffPhotoStorageService() {
-        // Absolute, normalized path so we’re not inside Tomcat’s temp dir
-        this.rootDir = Paths.get("uploads", "staff")
-                .toAbsolutePath()
-                .normalize();
+    @Value("${app.s3.bucket-name}")
+    private String bucketName;
+
+    @Value("${app.s3.region:us-east-1}")
+    private String region;
+
+    @Value("${app.s3.public-base-url:}")
+    private String publicBaseUrl;
+
+    @Value("${app.s3.staff-prefix:staff/}")
+    private String staffPrefix;
+
+    public String saveStaffPhoto(MultipartFile file) {
+        if (bucketName == null || bucketName.isBlank()) {
+            throw new IllegalStateException("S3 bucket is not configured (app.s3.bucket-name is blank)");
+        }
+
+        String originalFilename = file.getOriginalFilename();
+        String extension = "";
+        if (originalFilename != null && originalFilename.contains(".")) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
+
+        String key = staffPrefix + UUID.randomUUID() + extension;
 
         try {
-            Files.createDirectories(rootDir);
-            log.info("Staff photos will be stored under: {}", rootDir);
+            PutObjectRequest putRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .contentType(file.getContentType())
+                    .acl(ObjectCannedACL.PUBLIC_READ) // public object
+                    .build();
+
+            s3Client.putObject(
+                    putRequest,
+                    RequestBody.fromInputStream(file.getInputStream(), file.getSize())
+            );
+
+            String url = buildPublicUrl(key);
+            log.info("Stored staff photo in S3 at key {} (url={})", key, url);
+            return url;
         } catch (IOException e) {
-            log.error("Could not create staff uploads directory: {}", rootDir, e);
-            throw new IllegalStateException("Could not create staff uploads directory", e);
+            log.error("Failed to store staff photo in S3", e);
+            throw new RuntimeException("Failed to store staff photo", e);
         }
     }
 
-    public String saveStaffPhoto(MultipartFile file) {
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("Empty file");
+    private String buildPublicUrl(String key) {
+        // If you're using CloudFront or a custom domain, prefer that.
+        if (publicBaseUrl != null && !publicBaseUrl.isBlank()) {
+            if (publicBaseUrl.endsWith("/")) {
+                return publicBaseUrl + key;
+            } else {
+                return publicBaseUrl + "/" + key;
+            }
         }
 
-        String originalName = file.getOriginalFilename();
-        String ext = "";
-
-        if (originalName != null && originalName.contains(".")) {
-            ext = originalName.substring(originalName.lastIndexOf('.'));
-        }
-
-        String filename = UUID.randomUUID() + ext;
-        Path target = rootDir.resolve(filename).normalize();
-
-        try {
-            // Ensure parent exists at write time
-            Files.createDirectories(target.getParent());
-            // Spring 6 / Servlet 6 supports this Path overload
-            file.transferTo(target);
-            log.info("Stored staff photo at {}", target);
-        } catch (IOException e) {
-            log.error("Failed to store staff photo at {}", target, e);
-            throw new RuntimeException("Failed to store staff photo", e);
-        }
-
-        // URL the frontend should use
-        return "/uploads/staff/" + filename;
+        // Default S3 virtual-hosted–style URL
+        return "https://" + bucketName + ".s3." + region + ".amazonaws.com/" + key;
     }
 }

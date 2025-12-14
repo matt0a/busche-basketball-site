@@ -3,56 +3,73 @@ package org.buscheacademy.basketball.player;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.*;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class PlayerImageStorageService {
 
-    @Value("${app.upload.player-dir:uploads/players}")
-    private String playerDir;
+    private final S3Client s3Client;
 
-    /**
-     * Saves the uploaded image to disk and returns the URL path
-     * (e.g. "/uploads/players/abcd1234.webp") that the frontend can use.
-     */
+    @Value("${app.s3.bucket-name}")
+    private String bucketName;
+
+    @Value("${app.s3.region:us-east-1}")
+    private String region;
+
+    @Value("${app.s3.public-base-url:}")
+    private String publicBaseUrl;
+
+    @Value("${app.s3.player-prefix:players/}")
+    private String playerPrefix;
+
     public String storePlayerPhoto(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("Uploaded file is empty");
+        if (bucketName == null || bucketName.isBlank()) {
+            throw new IllegalStateException("S3 bucket is not configured (app.s3.bucket-name is blank)");
         }
 
-        String originalName = StringUtils.cleanPath(file.getOriginalFilename() != null
-                ? file.getOriginalFilename()
-                : "player-photo");
-
+        String originalFilename = file.getOriginalFilename();
         String extension = "";
-        int dot = originalName.lastIndexOf('.');
-        if (dot != -1) {
-            extension = originalName.substring(dot);
+        if (originalFilename != null && originalFilename.contains(".")) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
 
-        String filename = UUID.randomUUID() + extension;
+        String key = playerPrefix + UUID.randomUUID() + extension;
 
         try {
-            Path uploadRoot = Paths.get(playerDir).toAbsolutePath().normalize();
-            Files.createDirectories(uploadRoot);
+            PutObjectRequest putRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .contentType(file.getContentType())
+                    .acl(ObjectCannedACL.PUBLIC_READ)
+                    .build();
 
-            Path target = uploadRoot.resolve(filename);
+            s3Client.putObject(
+                    putRequest,
+                    RequestBody.fromInputStream(file.getInputStream(), file.getSize())
+            );
 
-            try (InputStream in = file.getInputStream()) {
-                Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
-            }
-
-            // This path lines up with the static handler in StaticResourceConfig
-            return "/uploads/players/" + filename;
+            return buildPublicUrl(key);
         } catch (IOException ex) {
             throw new RuntimeException("Failed to store player photo", ex);
         }
+    }
+
+    private String buildPublicUrl(String key) {
+        if (publicBaseUrl != null && !publicBaseUrl.isBlank()) {
+            if (publicBaseUrl.endsWith("/")) {
+                return publicBaseUrl + key;
+            } else {
+                return publicBaseUrl + "/" + key;
+            }
+        }
+        return "https://" + bucketName + ".s3." + region + ".amazonaws.com/" + key;
     }
 }

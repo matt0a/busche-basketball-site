@@ -6,10 +6,10 @@ import { adminStaffApi } from "../api/adminStaffApi";
 import type { StaffMemberInput } from "../api/adminStaffApi";
 import { AdminRosterManager } from "../components/AdminRosterManager";
 import { AdminScheduleManager } from "../components/AdminScheduleManager";
+import { AdminTeamManager } from "../components/AdminTeamManager";
 
 const DEFAULT_AVATAR = "/images/default-avatar.svg";
 
-// Point this at your backend; you can swap to an env var later if you like
 const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
 
@@ -68,7 +68,7 @@ interface ImageDropzoneProps {
     onFileSelected: (file: File) => void;
 }
 
-type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE";
+type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE" | "TEAMS";
 
 /* ---------- Image dropzone ---------- */
 
@@ -418,39 +418,38 @@ export const AdminDashboardPage: React.FC = () => {
                         </h1>
                         <p className="mt-1 text-xs text-slate-500 max-w-xl">
                             Use the tabs on the right to manage coaching staff, player
-                            rosters, and game schedules.
+                            rosters, game schedules, and teams.
                         </p>
                     </div>
 
                     <div className="flex flex-col items-end gap-3">
                         {/* Tab toggle */}
                         <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 text-[11px] font-semibold">
-                            {(["STAFF", "ROSTER", "SCHEDULE"] as AdminTab[]).map(
-                                (tab) => {
-                                    const isActive = activeTab === tab;
-                                    const label =
-                                        tab === "STAFF"
-                                            ? "Staff"
-                                            : tab === "ROSTER"
-                                                ? "Roster"
-                                                : "Schedule";
+                            {(
+                                ["STAFF", "ROSTER", "SCHEDULE", "TEAMS"] as AdminTab[]
+                            ).map((tab) => {
+                                const isActive = activeTab === tab;
+                                let label: string;
+                                if (tab === "STAFF") label = "Staff";
+                                else if (tab === "ROSTER") label = "Roster";
+                                else if (tab === "SCHEDULE") label = "Schedule";
+                                else label = "Teams";
 
-                                    return (
-                                        <button
-                                            key={tab}
-                                            type="button"
-                                            onClick={() => setActiveTab(tab)}
-                                            className={`px-3 sm:px-4 py-1.5 rounded-full transition-all ${
-                                                isActive
-                                                    ? "bg-sky-600 text-white shadow-sm"
-                                                    : "text-slate-600 hover:text-slate-900"
-                                            }`}
-                                        >
-                                            {label}
-                                        </button>
-                                    );
-                                }
-                            )}
+                                return (
+                                    <button
+                                        key={tab}
+                                        type="button"
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`px-3 sm:px-4 py-1.5 rounded-full transition-all ${
+                                            isActive
+                                                ? "bg-sky-600 text-white shadow-sm"
+                                                : "text-slate-600 hover:text-slate-900"
+                                        }`}
+                                    >
+                                        {label}
+                                    </button>
+                                );
+                            })}
                         </div>
 
                         <button
@@ -762,10 +761,17 @@ export const AdminDashboardPage: React.FC = () => {
                 {/* TAB: ROSTER */}
                 {activeTab === "ROSTER" && <AdminRosterManager />}
 
-                {/* TAB: SCHEDULE (placeholder for now) */}
+                {/* TAB: SCHEDULE */}
                 {activeTab === "SCHEDULE" && (
                     <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
                         <AdminScheduleManager />
+                    </section>
+                )}
+
+                {/* TAB: TEAMS */}
+                {activeTab === "TEAMS" && (
+                    <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+                        <AdminTeamManager />
                     </section>
                 )}
             </main>

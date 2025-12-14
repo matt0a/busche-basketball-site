@@ -33,3 +33,6 @@ Thumbs.db
 # Don't commit local server uploads
 /uploads/*
 !/uploads/.gitkeep
+
+# ---- Local config with secrets (do NOT commit) ----
+/basketball-backend/src/main/resources/application.properties
