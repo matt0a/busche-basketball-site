@@ -12,6 +12,7 @@ import { RosterPage } from "./pages/RosterPage";
 import { SchedulePage } from "./pages/SchedulePage";
 import { LoginPage } from "./pages/LoginPage";
 import { AdminDashboardPage } from "./pages/AdminDashboardPage";
+import { AboutPage } from "./pages/AboutPage";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Layout>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
+                        <Route path="/about" element={<AboutPage />} />
                         <Route path="/staff" element={<StaffPage />} />
                         <Route path="/roster" element={<RosterPage />} />
                         <Route path="/schedule" element={<SchedulePage />} />

@@ -47,21 +47,30 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                 end
                                 className={({ isActive }) =>
                                     `${navLinkClasses} ${
-                                        isActive
-                                            ? "border-b-2 border-primary text-primary"
-                                            : ""
+                                        isActive ? "border-b-2 border-primary text-primary" : ""
                                     }`
                                 }
                             >
                                 Home
                             </NavLink>
+
+                            {/* ✅ ADD: About link */}
+                            <NavLink
+                                to="/about"
+                                className={({ isActive }) =>
+                                    `${navLinkClasses} ${
+                                        isActive ? "border-b-2 border-primary text-primary" : ""
+                                    }`
+                                }
+                            >
+                                About
+                            </NavLink>
+
                             <NavLink
                                 to="/staff"
                                 className={({ isActive }) =>
                                     `${navLinkClasses} ${
-                                        isActive
-                                            ? "border-b-2 border-primary text-primary"
-                                            : ""
+                                        isActive ? "border-b-2 border-primary text-primary" : ""
                                     }`
                                 }
                             >
@@ -71,9 +80,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                 to="/roster"
                                 className={({ isActive }) =>
                                     `${navLinkClasses} ${
-                                        isActive
-                                            ? "border-b-2 border-primary text-primary"
-                                            : ""
+                                        isActive ? "border-b-2 border-primary text-primary" : ""
                                     }`
                                 }
                             >
@@ -83,9 +90,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                 to="/schedule"
                                 className={({ isActive }) =>
                                     `${navLinkClasses} ${
-                                        isActive
-                                            ? "border-b-2 border-primary text-primary"
-                                            : ""
+                                        isActive ? "border-b-2 border-primary text-primary" : ""
                                     }`
                                 }
                             >
@@ -98,9 +103,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                         to="/admin"
                                         className={({ isActive }) =>
                                             `${navLinkClasses} ${
-                                                isActive
-                                                    ? "border-b-2 border-primary text-primary"
-                                                    : ""
+                                                isActive ? "border-b-2 border-primary text-primary" : ""
                                             }`
                                         }
                                     >
@@ -119,9 +122,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                     to="/login"
                                     className={({ isActive }) =>
                                         `${navLinkClasses} ${
-                                            isActive
-                                                ? "border-b-2 border-primary text-primary"
-                                                : ""
+                                            isActive ? "border-b-2 border-primary text-primary" : ""
                                         }`
                                     }
                                 >
@@ -153,14 +154,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                 />
                             </svg>
                         </button>
-
                     </div>
                 </div>
 
                 {/* Mobile slide-over menu with slide animation */}
                 <div
                     className={`fixed inset-0 z-40 flex md:hidden transition-opacity duration-300 ${
-                        mobileNavOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                        mobileNavOpen
+                            ? "opacity-100 pointer-events-auto"
+                            : "opacity-0 pointer-events-none"
                     }`}
                 >
                     {/* Backdrop */}
@@ -216,6 +218,22 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                             >
                                 Home
                             </NavLink>
+
+                            {/* ✅ ADD: About link */}
+                            <NavLink
+                                to="/about"
+                                className={({ isActive }) =>
+                                    `block rounded-md px-3 py-2 text-sm font-medium ${
+                                        isActive
+                                            ? "bg-slate-100 text-primary"
+                                            : "hover:bg-slate-50 hover:text-primary"
+                                    }`
+                                }
+                                onClick={() => setMobileNavOpen(false)}
+                            >
+                                About
+                            </NavLink>
+
                             <NavLink
                                 to="/staff"
                                 className={({ isActive }) =>
@@ -299,7 +317,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                         </nav>
                     </div>
                 </div>
-                )
+                {/* ✅ FIX: removed the stray ")" that was here */}
             </header>
 
             {/* Main content */}
@@ -344,9 +362,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     {/* Right column */}
                     <div className="space-y-4 text-xs md:text-sm text-slate-600">
                         <div>
-                            <div className="font-semibold text-slate-900 mb-1">
-                                Contact
-                            </div>
+                            <div className="font-semibold text-slate-900 mb-1">Contact</div>
                             <p>Busche Academy Basketball</p>
                             <p>40 Chester Street</p>
                             <p>Chester, NH 03036 · USA</p>
@@ -379,7 +395,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                     className="text-primary hover:underline"
                                 >
                                     buscheacademy.org
-                                </a>.
+                                </a>
+                                .
                             </p>
                         </div>
                     </div>
@@ -390,9 +407,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                         {/* Social icons */}
                         <div className="flex items-center gap-4">
-        <span className="text-[11px] md:text-xs text-slate-500">
-          Follow Busche Academy
-        </span>
+              <span className="text-[11px] md:text-xs text-slate-500">
+                Follow Busche Academy
+              </span>
                             <div className="flex items-center gap-4">
                                 {/* Instagram */}
                                 <a
@@ -402,11 +419,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                     aria-label="Busche Academy Basketball on Instagram"
                                     className="text-slate-700 hover:text-primary transition-colors"
                                 >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                    >
+                                    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
                                         <rect
                                             x="3"
                                             y="3"
@@ -438,12 +451,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                     aria-label="Busche Academy on Facebook"
                                     className="text-slate-700 hover:text-primary transition-colors"
                                 >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                    >
-                                        {/* outer rounded square */}
+                                    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
                                         <rect
                                             x="3"
                                             y="3"
@@ -455,14 +463,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                             stroke="currentColor"
                                             strokeWidth="2"
                                         />
-                                        {/* bold "f" */}
                                         <path
                                             d="M13.5 8H15V6h-1.5C11.57 6 10 7.57 10 9.9V11H8v2h2v5h2.5v-5H15v-2h-2.5V9.75C12.5 8.8 12.93 8 13.5 8z"
                                             fill="currentColor"
                                         />
                                     </svg>
                                 </a>
-
 
                                 {/* X / Twitter */}
                                 <a
@@ -472,11 +478,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                     aria-label="Busche Academy on X (Twitter)"
                                     className="text-slate-700 hover:text-primary transition-colors"
                                 >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                    >
+                                    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
                                         <path
                                             d="M6 4l5.5 7.3L6.2 20h2.8l3.4-5.6L16.3 20h2.8l-5.1-7.5L18.5 4h-2.8l-3.1 5.2L9 4H6z"
                                             fill="currentColor"
