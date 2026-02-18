@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
 const navLinkClasses =
-    "text-sm tracking-wide hover:text-primary transition-colors px-3 py-1";
+    "text-sm tracking-wide hover:text-primary transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-slate-50";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { isAuthenticated, logout } = useAuth();
@@ -19,7 +19,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     return (
         <div className="min-h-screen flex flex-col bg-slate-50">
             {/* Top nav - white background for logo */}
-            <header className="bg-white border-b border-slate-200 shadow-sm">
+            <header className="bg-white border-b border-slate-200/80 shadow-soft sticky top-0 z-30">
                 <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
                     <div className="flex items-center gap-3">
                         {/* Logo on white background */}
@@ -112,7 +112,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                     <button
                                         type="button"
                                         onClick={handleLogout}
-                                        className="ml-2 text-xs px-3 py-1 rounded-full border border-slate-300 text-slate-700 hover:border-primary hover:text-primary transition-colors"
+                                        className="ml-2 text-xs px-3.5 py-1.5 rounded-full border border-slate-300 text-slate-700 hover:border-primary hover:text-primary hover:bg-sky-50 transition-all duration-200"
                                     >
                                         Logout
                                     </button>
@@ -324,7 +324,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <main className="flex-1">{children}</main>
 
             {/* Big footer similar to school site */}
-            <footer className="bg-white border-t border-slate-200 mt-8">
+            <footer className="bg-white border-t border-slate-200/80 mt-12">
                 <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col gap-8 md:flex-row md:justify-between">
                     {/* Left column */}
                     <div className="space-y-4 max-w-md">
@@ -343,13 +343,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                                 </div>
                             </div>
                         </div>
-                        <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
-                            Busche Academy is a small, college-preparatory boarding and day
-                            school located in Chester, New Hampshire. Our basketball program
-                            combines high-level training and competition with a rigorous
-                            academic environment.
-                        </p>
-                        <p className="max-w-3xl leading-snug text-[11px] md:text-xs text-slate-500">
+                        <p className="max-w-3xl leading-relaxed text-xs md:text-sm text-slate-500">
                             Busche Academy is a private coeducational boarding and day school in
                             Chester, New Hampshire, welcoming students from across the United
                             States and around the world. The school follows all applicable

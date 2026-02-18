@@ -93,8 +93,8 @@ export const StaffDetailPage: React.FC = () => {
                 </div>
 
                 {/* header card */}
-                <div className="rounded-3xl border border-slate-200 bg-slate-900/80 sm:bg-slate-900/70 shadow-xl shadow-black/20 px-8 py-8 flex flex-col items-center text-center text-slate-50">
-                    <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden mb-4 bg-slate-800">
+                <div className="rounded-2xl border border-slate-700/50 bg-slate-900 shadow-elevated px-8 py-10 flex flex-col items-center text-center text-slate-50">
+                    <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden mb-5 bg-slate-800 ring-4 ring-slate-700/50">
                         <img
                             src={mainPhoto}
                             alt={staff.fullName}
@@ -102,13 +102,13 @@ export const StaffDetailPage: React.FC = () => {
                         />
                     </div>
 
-                    <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-sky-300">
+                    <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-sky-400">
                         {teamLabel}
                     </p>
-                    <h1 className="mt-2 text-2xl sm:text-3xl font-semibold">
+                    <h1 className="mt-3 text-2xl sm:text-3xl font-semibold">
                         {staff.fullName}
                     </h1>
-                    <p className="mt-1 text-sm font-medium text-sky-200">
+                    <p className="mt-2 text-sm font-medium text-sky-300">
                         {staff.position}
                     </p>
 

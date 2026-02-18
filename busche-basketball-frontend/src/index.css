@@ -5,7 +5,10 @@
 body {
     @apply bg-slate-950 text-slate-100;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
+
 /* Simple fade-in-up used on roster switch */
 .fade-in-up {
     animation: fadeInUp 220ms ease-out;
@@ -21,6 +24,7 @@ body {
         transform: translateY(0);
     }
 }
+
 @layer base {
     /* Regular text inside fields */
     input,
@@ -33,5 +37,72 @@ body {
     input::placeholder,
     textarea::placeholder {
         @apply text-slate-400;
+    }
+}
+
+@layer components {
+    /* Refined card styling */
+    .card {
+        @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+        @apply transition-all duration-200 ease-out;
+    }
+
+    .card:hover {
+        @apply shadow-md border-slate-300;
+    }
+
+    /* Primary button */
+    .btn-primary {
+        @apply inline-flex items-center justify-center px-4 py-2;
+        @apply bg-primary text-white font-medium text-sm rounded-lg;
+        @apply transition-all duration-200 ease-out;
+        @apply hover:bg-sky-600 hover:shadow-md;
+        @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
+        @apply active:scale-[0.98];
+    }
+
+    /* Secondary/outline button */
+    .btn-secondary {
+        @apply inline-flex items-center justify-center px-4 py-2;
+        @apply border border-slate-300 text-slate-700 font-medium text-sm rounded-lg bg-white;
+        @apply transition-all duration-200 ease-out;
+        @apply hover:border-primary hover:text-primary hover:bg-sky-50;
+        @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
+        @apply active:scale-[0.98];
+    }
+
+    /* Input styling */
+    .input {
+        @apply w-full px-3 py-2 text-sm;
+        @apply border border-slate-300 rounded-lg bg-white text-slate-900;
+        @apply transition-all duration-200;
+        @apply placeholder:text-slate-400;
+        @apply focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary;
+    }
+
+    /* Badge/pill styling */
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5;
+        @apply text-[11px] font-semibold uppercase tracking-wide rounded-full;
+    }
+
+    .badge-primary {
+        @apply bg-sky-100 text-sky-800;
+    }
+
+    .badge-success {
+        @apply bg-emerald-100 text-emerald-800;
+    }
+
+    .badge-warning {
+        @apply bg-amber-100 text-amber-800;
+    }
+
+    .badge-error {
+        @apply bg-rose-100 text-rose-800;
+    }
+
+    .badge-neutral {
+        @apply bg-slate-100 text-slate-700;
     }
 }
