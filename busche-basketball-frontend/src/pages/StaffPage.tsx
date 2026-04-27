@@ -276,12 +276,12 @@ export const StaffPage: React.FC = () => {
                         We're always looking for passionate coaches who share our commitment
                         to developing student-athletes.
                     </p>
-                    <a
-                        href="mailto:info@buscheacademy.org?subject=Coaching%20Opportunity%20Inquiry"
-                        className="btn-primary px-6 py-3"
-                    >
-                        Contact Us
-                    </a>
+                    <p className="text-slate-600">
+                        For coaching inquiries, email us at{" "}
+                        <a href="mailto:info@buscheacademy.org" className="text-primary hover:underline font-medium">
+                            info@buscheacademy.org
+                        </a>
+                    </p>
                 </div>
             </section>
 

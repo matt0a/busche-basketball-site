@@ -39,6 +39,8 @@ export interface PlayerDto {
     teamName: string;
 }
 
+export type StaffCategory = "BASKETBALL" | "ACADEMIC" | "DINING" | "ADMINISTRATION" | "FACILITIES";
+
 export interface StaffMemberDto {
     id: number;
     fullName: string;
@@ -55,8 +57,16 @@ export interface StaffMemberDto {
     phone: string | null;
 
     active: boolean;
+
+    staffCategory?: StaffCategory | null;
 }
 
+export interface SiteDocumentDto {
+    id: number;
+    documentKey: string;
+    fileUrl: string;
+    uploadedAt: string; // ISO instant string
+}
 
 export interface AuthResponse {
     token: string;

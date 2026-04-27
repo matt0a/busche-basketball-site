@@ -4,7 +4,7 @@ import type { GameDto, HomeAway } from "../types";
 
 // IMPORTANT: direct hit to your backend, no "/api" prefix
 const apiClient = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080",
 });
 
 // Attach the JWT from localStorage (if present) to every request

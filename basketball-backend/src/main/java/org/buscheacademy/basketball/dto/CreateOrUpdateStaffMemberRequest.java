@@ -1,6 +1,7 @@
 package org.buscheacademy.basketball.dto;
 
 import jakarta.validation.constraints.*;
+import org.buscheacademy.basketball.staff.StaffCategory;
 import org.buscheacademy.basketball.team.TeamLevel;
 
 public record CreateOrUpdateStaffMemberRequest(
@@ -33,6 +34,8 @@ public record CreateOrUpdateStaffMemberRequest(
         @Size(max = 50)
         String phone,
 
-        boolean active
+        boolean active,
+
+        StaffCategory staffCategory
 ) {
 }

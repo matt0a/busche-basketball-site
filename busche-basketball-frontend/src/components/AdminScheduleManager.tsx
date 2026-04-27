@@ -3,6 +3,7 @@ import type { ChangeEvent, FormEvent } from "react";
 import { publicApi } from "../api/publicApi";
 import type { GameDto, HomeAway, TeamDto } from "../types";
 import { adminGameApi, type GameInput } from "../api/adminGameApi";
+import { clearScheduleCache } from "../lib/ttlCache";
 
 interface GroupedGames {
     dateKey: string;
@@ -235,6 +236,7 @@ export const AdminScheduleManager: React.FC = () => {
                         : "Game updated."
                 );
             }
+            clearScheduleCache();
         } catch (e) {
             console.error("Failed to save game", e);
             setError("Unable to save game. Please try again.");
@@ -253,6 +255,7 @@ export const AdminScheduleManager: React.FC = () => {
         try {
             await adminGameApi.remove(game.id);
             setGames((prev) => prev.filter((g) => g.id !== game.id));
+            clearScheduleCache();
             if (editingId === game.id) {
                 resetForm();
             }

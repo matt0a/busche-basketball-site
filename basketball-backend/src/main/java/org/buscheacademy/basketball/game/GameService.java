@@ -5,6 +5,9 @@ import org.buscheacademy.basketball.dto.CreateOrUpdateGameRequest;
 import org.buscheacademy.basketball.dto.GameDto;
 import org.buscheacademy.basketball.team.Team;
 import org.buscheacademy.basketball.team.TeamService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +22,7 @@ public class GameService {
 
     // ---------- Public read methods ----------
 
+    @Cacheable("scheduleFull")
     public List<GameDto> getFullSchedule() {
         return gameRepository.findAllByOrderByGameDateTimeAsc()
                 .stream()
@@ -26,6 +30,7 @@ public class GameService {
                 .toList();
     }
 
+    @Cacheable(cacheNames = "scheduleUpcoming", key = "#limit")
     public List<GameDto> getUpcomingGames(int limit) {
         LocalDateTime now = LocalDateTime.now();
         return gameRepository.findByGameDateTimeAfterOrderByGameDateTimeAsc(now)
@@ -35,6 +40,7 @@ public class GameService {
                 .toList();
     }
 
+    @Cacheable(cacheNames = "scheduleRecent", key = "#limit")
     public List<GameDto> getRecentGames(int limit) {
         LocalDateTime now = LocalDateTime.now();
         return gameRepository.findByGameDateTimeBeforeOrderByGameDateTimeDesc(now)
@@ -46,6 +52,11 @@ public class GameService {
 
     // ---------- Admin CRUD methods ----------
 
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "scheduleFull", allEntries = true),
+            @CacheEvict(cacheNames = "scheduleUpcoming", allEntries = true),
+            @CacheEvict(cacheNames = "scheduleRecent", allEntries = true)
+    })
     public GameDto createGame(CreateOrUpdateGameRequest request) {
         Team team = teamService.getByIdOrThrow(request.teamId());
 
@@ -64,6 +75,11 @@ public class GameService {
         return toDto(gameRepository.save(game));
     }
 
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "scheduleFull", allEntries = true),
+            @CacheEvict(cacheNames = "scheduleUpcoming", allEntries = true),
+            @CacheEvict(cacheNames = "scheduleRecent", allEntries = true)
+    })
     public GameDto updateGame(Long id, CreateOrUpdateGameRequest request) {
         Game game = gameRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Game not found: " + id));
@@ -83,6 +99,11 @@ public class GameService {
         return toDto(gameRepository.save(game));
     }
 
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "scheduleFull", allEntries = true),
+            @CacheEvict(cacheNames = "scheduleUpcoming", allEntries = true),
+            @CacheEvict(cacheNames = "scheduleRecent", allEntries = true)
+    })
     public void deleteGame(Long id) {
         if (!gameRepository.existsById(id)) {
             throw new IllegalArgumentException("Game not found: " + id);

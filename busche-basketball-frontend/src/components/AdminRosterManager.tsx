@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { publicApi } from "../api/publicApi";
 import { adminPlayerApi, type PlayerInput } from "../api/adminPlayerApi";
+import { clearPlayersCache } from "../lib/ttlCache";
 import type { PlayerDto, TeamDto } from "../types";
 
 const API_BASE_URL =
@@ -316,6 +317,7 @@ export const AdminRosterManager: React.FC = () => {
         try {
             setSaving(true);
             await adminPlayerApi.remove(player.id);
+            clearPlayersCache();
             if (adminSelectedTeamId != null) {
                 const list = await adminPlayerApi.listByTeam(adminSelectedTeamId);
                 setAdminPlayers(list);
@@ -377,6 +379,7 @@ export const AdminRosterManager: React.FC = () => {
             } else {
                 await adminPlayerApi.create(payload);
             }
+            clearPlayersCache();
 
             const currentTeamId = Number(formValues.teamId);
             setAdminSelectedTeamId(currentTeamId);

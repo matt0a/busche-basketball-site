@@ -2,7 +2,7 @@ import axios, { type AxiosRequestHeaders } from "axios";
 import type { TeamDto, TeamLevel } from "../types";
 
 const apiClient = axios.create({
-    baseURL: "http://localhost:8080", // later: import.meta.env.VITE_API_BASE_URL
+    baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080",
 });
 
 apiClient.interceptors.request.use(

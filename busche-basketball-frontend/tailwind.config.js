@@ -6,6 +6,9 @@ export default {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+            },
             colors: {
                 primary: "#009FFD",
                 charcoal: "#264653",

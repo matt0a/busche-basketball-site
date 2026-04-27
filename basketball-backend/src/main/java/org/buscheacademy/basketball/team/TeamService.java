@@ -3,6 +3,8 @@ package org.buscheacademy.basketball.team;
 import lombok.RequiredArgsConstructor;
 import org.buscheacademy.basketball.dto.CreateOrUpdateTeamRequest;
 import org.buscheacademy.basketball.dto.TeamDto;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
+    @Cacheable("teams")
     public List<TeamDto> getAllTeams() {
         return teamRepository.findAll().stream()
                 .map(this::toDto)
@@ -30,7 +33,7 @@ public class TeamService {
         return toDto(getByIdOrThrow(id));
     }
 
-    // 👉 NEW: create team
+    @CacheEvict(cacheNames = "teams", allEntries = true)
     public TeamDto createTeam(CreateOrUpdateTeamRequest request) {
         Team team = new Team();
         apply(request, team);
@@ -41,7 +44,7 @@ public class TeamService {
         return toDto(saved);
     }
 
-    // 👉 NEW: update team
+    @CacheEvict(cacheNames = "teams", allEntries = true)
     public TeamDto updateTeam(Long id, CreateOrUpdateTeamRequest request) {
         Team team = getByIdOrThrow(id);
         apply(request, team);
@@ -52,7 +55,7 @@ public class TeamService {
         return toDto(saved);
     }
 
-    // 👉 NEW: delete team
+    @CacheEvict(cacheNames = "teams", allEntries = true)
     public void deleteTeam(Long id) {
         if (!teamRepository.existsById(id)) {
             return; // silently ignore if not found

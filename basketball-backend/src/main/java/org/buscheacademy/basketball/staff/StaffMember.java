@@ -56,4 +56,8 @@ public class StaffMember {
     @Column(nullable = false)
     @Builder.Default
     private boolean active = true;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 32)
+    private StaffCategory staffCategory;
 }

@@ -7,6 +7,8 @@ import type { StaffMemberInput } from "../api/adminStaffApi";
 import { AdminRosterManager } from "../components/AdminRosterManager";
 import { AdminScheduleManager } from "../components/AdminScheduleManager";
 import { AdminTeamManager } from "../components/AdminTeamManager";
+import { AdminDocumentManager } from "../components/AdminDocumentManager";
+import { clearStaffCache } from "../lib/ttlCache";
 
 const DEFAULT_AVATAR = "/images/default-avatar.svg";
 
@@ -45,6 +47,7 @@ interface StaffFormValues {
     phone: string;
     bio: string;
     active: boolean;
+    staffCategory: string;
 }
 
 const emptyForm: StaffFormValues = {
@@ -58,6 +61,7 @@ const emptyForm: StaffFormValues = {
     phone: "",
     bio: "",
     active: true,
+    staffCategory: "",
 };
 
 interface ImageDropzoneProps {
@@ -68,17 +72,17 @@ interface ImageDropzoneProps {
     onFileSelected: (file: File) => void;
 }
 
-type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE" | "TEAMS";
+type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE" | "TEAMS" | "DOCUMENTS";
 
 /* ---------- Image dropzone ---------- */
 
-const ImageDropzone: React.FC<ImageDropzoneProps> = ({
-                                                         label,
-                                                         helperText,
-                                                         previewUrl,
-                                                         uploading,
-                                                         onFileSelected,
-                                                     }) => {
+const ImageDropzone = ({
+    label,
+    helperText,
+    previewUrl,
+    uploading,
+    onFileSelected,
+}: ImageDropzoneProps) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
 
@@ -188,7 +192,7 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({
 
 /* ---------- Main page ---------- */
 
-export const AdminDashboardPage: React.FC = () => {
+export const AdminDashboardPage = () => {
     const { isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -275,6 +279,7 @@ export const AdminDashboardPage: React.FC = () => {
         phone: form.phone.trim() || null,
         bio: form.bio.trim() || null,
         active: form.active,
+        staffCategory: (form.staffCategory as StaffMemberInput["staffCategory"]) || undefined,
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -299,6 +304,7 @@ export const AdminDashboardPage: React.FC = () => {
                 setStatus("Staff member created.");
             }
 
+            clearStaffCache();
             const updated = await adminStaffApi.list();
             setStaff(updated);
             resetForm();
@@ -324,6 +330,7 @@ export const AdminDashboardPage: React.FC = () => {
             phone: member.phone ?? "",
             bio: member.bio ?? "",
             active: member.active ?? true,
+            staffCategory: member.staffCategory ?? "",
         });
 
         const primaryUrl =
@@ -343,6 +350,7 @@ export const AdminDashboardPage: React.FC = () => {
         try {
             await adminStaffApi.remove(id);
             setStaff((prev) => prev.filter((s) => s.id !== id));
+            clearStaffCache();
         } catch (e) {
             console.error(e);
             setError("Unable to delete staff member.");
@@ -426,14 +434,15 @@ export const AdminDashboardPage: React.FC = () => {
                         {/* Tab toggle */}
                         <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 text-[11px] font-semibold">
                             {(
-                                ["STAFF", "ROSTER", "SCHEDULE", "TEAMS"] as AdminTab[]
+                                ["STAFF", "ROSTER", "SCHEDULE", "TEAMS", "DOCUMENTS"] as AdminTab[]
                             ).map((tab) => {
                                 const isActive = activeTab === tab;
                                 let label: string;
                                 if (tab === "STAFF") label = "Staff";
                                 else if (tab === "ROSTER") label = "Roster";
                                 else if (tab === "SCHEDULE") label = "Schedule";
-                                else label = "Teams";
+                                else if (tab === "TEAMS") label = "Teams";
+                                else label = "Documents";
 
                                 return (
                                     <button
@@ -543,6 +552,27 @@ export const AdminDashboardPage: React.FC = () => {
 
                                     <div>
                                         <label className="block text-xs font-medium text-slate-700 mb-1">
+                                            Category
+                                        </label>
+                                        <select
+                                            name="staffCategory"
+                                            value={form.staffCategory}
+                                            onChange={handleChange}
+                                            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        >
+                                            <option value="" disabled>
+                                                — Select Category —
+                                            </option>
+                                            <option value="BASKETBALL">Basketball Program</option>
+                                            <option value="ACADEMIC">Academic Faculty</option>
+                                            <option value="DINING">Dining Services</option>
+                                            <option value="ADMINISTRATION">Administration</option>
+                                            <option value="FACILITIES">Facilities</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-medium text-slate-700 mb-1">
                                             Display order
                                         </label>
                                         <input
@@ -557,23 +587,23 @@ export const AdminDashboardPage: React.FC = () => {
                                             Lower numbers appear first.
                                         </p>
                                     </div>
+                                </div>
 
-                                    <div className="flex items-center gap-2 mt-6 sm:mt-7">
-                                        <input
-                                            id="active"
-                                            name="active"
-                                            type="checkbox"
-                                            checked={form.active}
-                                            onChange={handleChange}
-                                            className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
-                                        />
-                                        <label
-                                            htmlFor="active"
-                                            className="text-xs font-medium text-slate-700"
-                                        >
-                                            Active (visible on public site)
-                                        </label>
-                                    </div>
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        id="active"
+                                        name="active"
+                                        type="checkbox"
+                                        checked={form.active}
+                                        onChange={handleChange}
+                                        className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                                    />
+                                    <label
+                                        htmlFor="active"
+                                        className="text-xs font-medium text-slate-700"
+                                    >
+                                        Active (visible on public site)
+                                    </label>
                                 </div>
 
                                 {/* Image upload areas */}
@@ -710,6 +740,11 @@ export const AdminDashboardPage: React.FC = () => {
                                                     <p className="text-[11px] text-slate-500 mt-1">
                                                         {teamLabel}
                                                     </p>
+                                                    {member.staffCategory && (
+                                                        <p className="text-[11px] text-slate-400 mt-0.5">
+                                                            {member.staffCategory}
+                                                        </p>
+                                                    )}
                                                     {member.email && (
                                                         <p className="mt-2 text-[11px] text-slate-500">
                                                             {member.email}
@@ -773,6 +808,13 @@ export const AdminDashboardPage: React.FC = () => {
                     <section className="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
                         <AdminTeamManager />
                     </section>
+                )}
+
+                {/* TAB: DOCUMENTS */}
+                {activeTab === "DOCUMENTS" && (
+                    <div className="space-y-6">
+                        <AdminDocumentManager />
+                    </div>
                 )}
             </main>
         </div>

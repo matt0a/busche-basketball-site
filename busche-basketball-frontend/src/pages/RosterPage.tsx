@@ -324,12 +324,12 @@ export const RosterPage: React.FC = () => {
                         We're always looking for talented, dedicated student-athletes who want
                         to compete at a high level while excelling academically.
                     </p>
-                    <a
-                        href="mailto:info@buscheacademy.org?subject=Basketball%20Tryout%20Inquiry"
-                        className="btn-primary px-6 py-3"
-                    >
-                        Inquire About Tryouts
-                    </a>
+                    <p className="text-slate-600">
+                        To inquire about tryouts, email our coach at{" "}
+                        <a href="mailto:mmason@buscheacademy.org" className="text-primary hover:underline font-medium">
+                            mmason@buscheacademy.org
+                        </a>
+                    </p>
                 </div>
             </section>
         </div>

@@ -1,5 +1,6 @@
 package org.buscheacademy.basketball.dto;
 
+import org.buscheacademy.basketball.staff.StaffCategory;
 import org.buscheacademy.basketball.team.TeamLevel;
 
 public record StaffMemberDto(
@@ -13,6 +14,7 @@ public record StaffMemberDto(
         String bio,
         String email,
         String phone,
-        boolean active
+        boolean active,
+        StaffCategory staffCategory
 ) {
 }

@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.buscheacademy.basketball.dto.CreateOrUpdateStaffMemberRequest;
 import org.buscheacademy.basketball.dto.StaffMemberDto;
 import org.buscheacademy.basketball.team.TeamLevel;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,10 @@ public class StaffMemberService {
                 .toList();
     }
 
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "publicStaff", allEntries = true),
+            @CacheEvict(cacheNames = "publicStaffMember", allEntries = true)
+    })
     public StaffMemberDto createStaff(CreateOrUpdateStaffMemberRequest request) {
         StaffMember staff = StaffMember.builder()
                 .fullName(request.fullName())
@@ -35,11 +42,16 @@ public class StaffMemberService {
                 .email(request.email())
                 .phone(request.phone())
                 .active(request.active())
+                .staffCategory(request.staffCategory())
                 .build();
 
         return toDto(staffMemberRepository.save(staff));
     }
 
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "publicStaff", allEntries = true),
+            @CacheEvict(cacheNames = "publicStaffMember", allEntries = true)
+    })
     public StaffMemberDto updateStaff(Long id, CreateOrUpdateStaffMemberRequest request) {
         StaffMember staff = staffMemberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Staff member not found: " + id));
@@ -54,10 +66,15 @@ public class StaffMemberService {
         staff.setEmail(request.email());
         staff.setPhone(request.phone());
         staff.setActive(request.active());
+        staff.setStaffCategory(request.staffCategory());
 
         return toDto(staffMemberRepository.save(staff));
     }
 
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "publicStaff", allEntries = true),
+            @CacheEvict(cacheNames = "publicStaffMember", allEntries = true)
+    })
     public void deleteStaff(Long id) {
         if (!staffMemberRepository.existsById(id)) {
             throw new IllegalArgumentException("Staff member not found: " + id);
@@ -67,11 +84,19 @@ public class StaffMemberService {
 
     // ---------- Public ----------
 
-    public List<StaffMemberDto> getPublicStaff(TeamLevel teamLevel) {
+    @Cacheable(cacheNames = "publicStaff",
+            key = "((#teamLevel == null ? 'ALL' : #teamLevel.name()) + '_' + (#staffCategory == null ? 'ALL' : #staffCategory.name()))")
+    public List<StaffMemberDto> getPublicStaff(TeamLevel teamLevel, StaffCategory staffCategory) {
         List<StaffMember> staff;
-        if (teamLevel != null) {
+        if (teamLevel != null && staffCategory != null) {
+            staff = staffMemberRepository
+                    .findByTeamLevelAndStaffCategoryAndActiveTrueOrderByDisplayOrderAscFullNameAsc(teamLevel, staffCategory);
+        } else if (teamLevel != null) {
             staff = staffMemberRepository
                     .findByTeamLevelAndActiveTrueOrderByDisplayOrderAscFullNameAsc(teamLevel);
+        } else if (staffCategory != null) {
+            staff = staffMemberRepository
+                    .findByStaffCategoryAndActiveTrueOrderByDisplayOrderAscFullNameAsc(staffCategory);
         } else {
             staff = staffMemberRepository
                     .findByActiveTrueOrderByDisplayOrderAscFullNameAsc();
@@ -82,6 +107,7 @@ public class StaffMemberService {
                 .toList();
     }
 
+    @Cacheable(cacheNames = "publicStaffMember", key = "#id")
     public StaffMemberDto getPublicStaffMember(Long id) {
         StaffMember staff = staffMemberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Staff member not found: " + id));
@@ -107,7 +133,8 @@ public class StaffMemberService {
                 staff.getBio(),
                 staff.getEmail(),
                 staff.getPhone(),
-                staff.isActive()
+                staff.isActive(),
+                staff.getStaffCategory()
         );
     }
 }

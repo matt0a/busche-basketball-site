@@ -1,12 +1,15 @@
 package org.buscheacademy.basketball.api;
 
 import lombok.RequiredArgsConstructor;
+import org.buscheacademy.basketball.document.SiteDocumentService;
+import org.buscheacademy.basketball.dto.SiteDocumentDto;
 import org.buscheacademy.basketball.dto.GameDto;
 import org.buscheacademy.basketball.dto.PlayerDto;
 import org.buscheacademy.basketball.dto.StaffMemberDto;
 import org.buscheacademy.basketball.dto.TeamDto;
 import org.buscheacademy.basketball.game.GameService;
 import org.buscheacademy.basketball.player.PlayerService;
+import org.buscheacademy.basketball.staff.StaffCategory;
 import org.buscheacademy.basketball.staff.StaffMemberService;
 import org.buscheacademy.basketball.team.TeamService;
 import org.buscheacademy.basketball.team.TeamLevel;
@@ -24,6 +27,7 @@ public class PublicApiController {
     private final PlayerService playerService;
     private final GameService gameService;
     private final StaffMemberService staffMemberService;
+    private final SiteDocumentService documentService;
 
     // ---------- Teams & Roster ----------
 
@@ -59,15 +63,32 @@ public class PublicApiController {
     }
 
     // ---------- Staff ----------
+
     @GetMapping("/staff")
     public ResponseEntity<List<StaffMemberDto>> getStaff(
-            @RequestParam(name = "teamLevel", required = false) TeamLevel teamLevel
+            @RequestParam(name = "teamLevel", required = false) TeamLevel teamLevel,
+            @RequestParam(name = "staffCategory", required = false) StaffCategory staffCategory
     ) {
-        return ResponseEntity.ok(staffMemberService.getPublicStaff(teamLevel));
+        return ResponseEntity.ok(staffMemberService.getPublicStaff(teamLevel, staffCategory));
     }
 
     @GetMapping("/staff/{id}")
     public ResponseEntity<StaffMemberDto> getStaffMember(@PathVariable Long id) {
         return ResponseEntity.ok(staffMemberService.getPublicStaffMember(id));
+    }
+
+    // ---------- Documents ----------
+
+    @GetMapping("/documents")
+    public List<SiteDocumentDto> getAllDocuments() {
+        return documentService.getAll().stream().map(documentService::toDto).toList();
+    }
+
+    @GetMapping("/documents/{key}")
+    public ResponseEntity<SiteDocumentDto> getDocument(@PathVariable String key) {
+        return documentService.getByKey(key)
+                .map(documentService::toDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

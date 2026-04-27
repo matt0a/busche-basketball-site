@@ -5,6 +5,8 @@ import org.buscheacademy.basketball.dto.CreateOrUpdatePlayerRequest;
 import org.buscheacademy.basketball.dto.PlayerDto;
 import org.buscheacademy.basketball.team.Team;
 import org.buscheacademy.basketball.team.TeamService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class PlayerService {
 
     // ---------- Public ----------
 
+    @Cacheable(cacheNames = "playersByTeam", key = "#teamId")
     public List<PlayerDto> getPlayersByTeam(Long teamId) {
         return playerRepository.findByTeamIdOrderByJerseyNumberAsc(teamId)
                 .stream()
@@ -27,6 +30,7 @@ public class PlayerService {
 
     // ---------- Admin CRUD ----------
 
+    @CacheEvict(cacheNames = "playersByTeam", allEntries = true)
     public PlayerDto createPlayer(CreateOrUpdatePlayerRequest request) {
         Team team = teamService.getByIdOrThrow(request.teamId());
 
@@ -45,6 +49,7 @@ public class PlayerService {
         return toDto(playerRepository.save(player));
     }
 
+    @CacheEvict(cacheNames = "playersByTeam", allEntries = true)
     public PlayerDto updatePlayer(Long id, CreateOrUpdatePlayerRequest request) {
         Player player = playerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Player not found: " + id));
@@ -64,6 +69,7 @@ public class PlayerService {
         return toDto(playerRepository.save(player));
     }
 
+    @CacheEvict(cacheNames = "playersByTeam", allEntries = true)
     public void deletePlayer(Long id) {
         if (!playerRepository.existsById(id)) {
             throw new IllegalArgumentException("Player not found: " + id);

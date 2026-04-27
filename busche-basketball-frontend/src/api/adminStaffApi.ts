@@ -1,10 +1,10 @@
 // src/api/adminStaffApi.ts
 import axios, { type AxiosRequestHeaders } from "axios";
-import type { StaffMemberDto, TeamLevel } from "../types";
+import type { StaffMemberDto, StaffCategory, TeamLevel } from "../types";
 
 // IMPORTANT: direct hit to your backend, no "/api" prefix
 const apiClient = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080",
 });
 
 // Attach the JWT from localStorage (if present) to every request
@@ -55,6 +55,7 @@ export interface StaffMemberInput {
     phone: string | null;
     bio: string | null;
     active: boolean;
+    staffCategory?: StaffCategory | null;
 }
 
 export const adminStaffApi = {

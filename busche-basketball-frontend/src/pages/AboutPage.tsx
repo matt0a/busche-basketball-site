@@ -1,47 +1,57 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
+import { SectionNav } from "../components/SectionNav";
 import { TestimonialsMarquee } from "../components/TestimonialsMarquee";
+import { MissionSection } from "../components/MissionSection";
+import { publicApi } from "../api/publicApi";
+import type { StaffMemberDto, StaffCategory } from "../types";
 
-// Icons as simple SVG components
-const AcademicsIcon = () => (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-    </svg>
+
+const SECTION_NAV = [
+    { id: "overview", label: "Overview" },
+    { id: "mission", label: "Mission & Values" },
+    { id: "program", label: "Our Program" },
+    { id: "faculty", label: "Faculty & Staff" },
+    { id: "contact", label: "Contact" },
+];
+
+const CATEGORY_ORDER: Array<StaffCategory | null> = [
+    "ADMINISTRATION",
+    "BASKETBALL",
+    "ACADEMIC",
+    "DINING",
+    "FACILITIES",
+    null,
+];
+
+const CATEGORY_LABELS: Record<string, string> = {
+    ADMINISTRATION: "Administration",
+    BASKETBALL: "Basketball Program",
+    ACADEMIC: "Academic Faculty",
+    DINING: "Dining Services",
+    FACILITIES: "Facilities",
+};
+
+function getCategoryLabel(cat: StaffCategory | null | undefined): string {
+    if (!cat) return "Staff";
+    return CATEGORY_LABELS[cat] ?? "Staff";
+}
+
+// Accent divider used between major page sections
+const AccentDivider = () => (
+    <div className="max-w-6xl mx-auto px-4">
+        <div className="h-px bg-gradient-to-r from-primary/40 via-aqua/30 to-transparent" />
+    </div>
 );
 
-const BasketballIcon = () => (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <circle cx="12" cy="12" r="9" strokeWidth={1.5} />
-        <path strokeLinecap="round" strokeWidth={1.5} d="M12 3v18M3 12h18M5.5 5.5c3.5 2 5 5 5 6.5s-1.5 4.5-5 6.5M18.5 5.5c-3.5 2-5 5-5 6.5s1.5 4.5 5 6.5" />
-    </svg>
-);
-
-const CharacterIcon = () => (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-    </svg>
-);
-
-const GlobeIcon = () => (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-);
-
-const CheckIcon = () => (
-    <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-    </svg>
-);
-
-export const AboutPage: React.FC = () => {
+export const AboutPage = () => {
     const heroRef = useRef<HTMLDivElement | null>(null);
-    const cardsRef = useRef<HTMLDivElement | null>(null);
+    const [staff, setStaff] = useState<StaffMemberDto[]>([]);
+    const [staffLoading, setStaffLoading] = useState(true);
+    const [staffError, setStaffError] = useState(false);
 
     useEffect(() => {
-        // Simple fade-in animations
         if (heroRef.current) {
             gsap.fromTo(
                 heroRef.current,
@@ -49,295 +59,194 @@ export const AboutPage: React.FC = () => {
                 { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
             );
         }
-        if (cardsRef.current) {
-            gsap.fromTo(
-                cardsRef.current.children,
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, delay: 0.3, ease: "power2.out" }
-            );
-        }
     }, []);
 
-    const quickFacts = [
-        {
-            icon: <AcademicsIcon />,
-            title: "Earn College Credits",
-            description: "Through our CMCC partnership, students take real college courses alongside high school classes — graduating with an Associate's Degree.",
-            stat: "60+",
-            statLabel: "College Credits Available"
-        },
-        {
-            icon: <BasketballIcon />,
-            title: "Elite Basketball Training",
-            description: "Year-round development with professional coaching, competitive schedules, and exposure to college programs.",
-            stat: "2",
-            statLabel: "Competitive Teams"
-        },
-        {
-            icon: <CharacterIcon />,
-            title: "Character Development",
-            description: "Building leaders on and off the court through mentorship, accountability, and a values-driven culture.",
-            stat: "24/7",
-            statLabel: "Support System"
-        }
-    ];
+    useEffect(() => {
+        let cancelled = false;
+        setStaffLoading(true);
+        setStaffError(false);
 
-    const valueProps = [
-        "Professional coaching staff with college and pro experience",
-        "Competitive schedule against top prep programs",
-        "College recruiting support and exposure events",
-        "Daily skill development and strength training",
-        "Small-school academic environment with tutoring",
-        "International community from around the world",
-        "Beautiful New Hampshire campus near Boston",
-        "Structured boarding program with supervision"
-    ];
+        publicApi
+            .getStaff()
+            .then((data) => {
+                if (!cancelled) {
+                    setStaff(data.filter((s) => s.active));
+                }
+            })
+            .catch(() => {
+                if (!cancelled) setStaffError(true);
+            })
+            .finally(() => {
+                if (!cancelled) setStaffLoading(false);
+            });
 
-    const programHighlights = [
-        {
-            title: "Training Philosophy",
-            description: "Our development model focuses on individual skill acquisition, basketball IQ, and physical preparation. Every player receives personalized attention to maximize their potential."
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    // Group staff by category in defined order
+    const groupedStaff = CATEGORY_ORDER.reduce<Array<{ key: string; label: string; members: StaffMemberDto[] }>>(
+        (acc, cat) => {
+            const members = staff.filter((s) => (s.staffCategory ?? null) === cat);
+            if (members.length > 0) {
+                acc.push({
+                    key: cat ?? "null",
+                    label: getCategoryLabel(cat),
+                    members: [...members].sort((a, b) => {
+                        const oa = a.displayOrder ?? 0;
+                        const ob = b.displayOrder ?? 0;
+                        return oa !== ob ? oa - ob : a.fullName.localeCompare(b.fullName);
+                    }),
+                });
+            }
+            return acc;
         },
-        {
-            title: "Academic Excellence",
-            description: "Student-athletes attend Busche Academy's college-preparatory program, balancing rigorous coursework with competitive basketball. Study hall, tutoring, and college guidance are built into the schedule."
-        },
-        {
-            title: "Recruiting Pipeline",
-            description: "We work directly with college coaches at all levels. Through film, showcases, and relationships, we help student-athletes find the right fit for their next chapter."
-        },
-        {
-            title: "Global Community",
-            description: "Our roster includes players from across the United States and around the world. This diversity creates a unique locker room culture and lifelong connections."
-        }
-    ];
+        []
+    );
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Hero Section */}
+            {/* Hero */}
             <section className="relative bg-slate-900 text-white overflow-hidden">
-                {/* Background pattern */}
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: `radial-gradient(circle at 25% 25%, #009FFD 0%, transparent 50%), radial-gradient(circle at 75% 75%, #2AFC98 0%, transparent 50%)`
-                    }} />
+                {/* #1 — gradient opacity bumped to 15 */}
+                <div className="absolute inset-0 opacity-15">
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            backgroundImage:
+                                "radial-gradient(circle at 25% 25%, #009FFD 0%, transparent 50%), radial-gradient(circle at 75% 75%, #2AFC98 0%, transparent 50%)",
+                        }}
+                    />
                 </div>
-
-                <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 py-20 md:py-28">
+                {/* #2 — hero content with pb-20 to clear stat strip */}
+                <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 py-20 md:py-28 pb-20">
                     <div className="max-w-3xl">
                         <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-4">
-                            About Our Program
+                            ABOUT BUSCHE ACADEMY
                         </p>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                            Where Basketball Meets
-                            <span className="text-primary"> Academic Excellence</span>
+                            Where Every Student Becomes a Leader
                         </h1>
                         <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
-                            Busche Academy Basketball combines elite athletic training with a
-                            rigorous college-preparatory education. We develop student-athletes
-                            who excel on the court, in the classroom, and in life.
+                            A private coeducational boarding and day school in Chester, New Hampshire, empowering
+                            students from around the world.
                         </p>
                         <div className="flex flex-wrap gap-4">
-                            <a
-                                href="mailto:info@buscheacademy.org?subject=Basketball%20Program%20Inquiry"
-                                className="btn-primary px-6 py-3"
-                            >
-                                Contact Us
-                            </a>
+                            <Link to="/admissions" className="btn-primary px-6 py-3">
+                                Learn About Admissions
+                            </Link>
                             <Link
-                                to="/roster"
-                                className="btn-secondary bg-transparent border-slate-500 text-white hover:bg-white/10 hover:border-white px-6 py-3"
+                                to="/student-life"
+                                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg border border-slate-500 text-white hover:bg-white/10 hover:border-white transition-all duration-200"
                             >
-                                View Our Roster
+                                Explore Campus Life
                             </Link>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            {/* Quick Facts Cards */}
-            <section className="py-16 md:py-20 bg-slate-50">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
-                            At A Glance
-                        </p>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                            The Busche Academy Difference
-                        </h2>
-                    </div>
-
-                    <div ref={cardsRef} className="grid md:grid-cols-3 gap-6">
-                        {quickFacts.map((fact, idx) => (
-                            <div
-                                key={idx}
-                                className="bg-white rounded-2xl p-8 shadow-card hover:shadow-card-hover border border-slate-200 hover:border-primary/30 transition-all duration-300 group"
-                            >
-                                <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                                    {fact.icon}
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                                    {fact.title}
-                                </h3>
-                                <p className="text-slate-600 leading-relaxed mb-5">
-                                    {fact.description}
-                                </p>
-                                <div className="pt-4 border-t border-slate-100">
-                                    <p className="text-3xl font-bold text-primary">{fact.stat}</p>
-                                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                                        {fact.statLabel}
-                                    </p>
-                                </div>
+                {/* #2 — frosted-glass stat strip (hidden on mobile to avoid overlap) */}
+                <div className="hidden sm:block absolute bottom-0 left-0 right-0 backdrop-blur-sm bg-white/5 border-t border-white/10">
+                    <div className="max-w-6xl mx-auto px-4 py-4 grid grid-cols-3 divide-x divide-white/10">
+                        {[
+                            { value: "70 Acres", label: "Campus" },
+                            { value: "Grades 6–12 + PG", label: "Enrollment" },
+                            { value: "Chester, NH", label: "Location" },
+                        ].map((s) => (
+                            <div key={s.label} className="px-4 first:pl-0 text-center">
+                                <p className="text-lg font-bold text-white">{s.value}</p>
+                                <p className="text-xs text-slate-400 uppercase tracking-wide">{s.label}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Mission Statement */}
-            <section className="py-16 md:py-20 bg-white">
+            {/* SectionNav */}
+            <SectionNav sections={SECTION_NAV} />
+
+            {/* Section: Overview */}
+            <section
+                id="overview"
+                className="py-16 md:py-20 bg-white"
+                style={{ scrollMarginTop: "80px" }}
+            >
                 <div className="max-w-6xl mx-auto px-4">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
-                                Our Mission
-                            </p>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                                Developing Student-Athletes for Success
-                            </h2>
-                            <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                                At Busche Academy, we believe that basketball and academics are not
-                                competing priorities — they're complementary disciplines that teach
-                                the same core skills: discipline, preparation, teamwork, and resilience.
+                    {/* #3 — eyebrow accent bar */}
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        OUR SCHOOL
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
+                        A Diverse Community Built for Excellence
+                    </h2>
+
+                    <div className="grid lg:grid-cols-2 gap-12 items-start">
+                        {/* Left */}
+                        <div className="space-y-5">
+                            <p className="text-slate-600 leading-relaxed">
+                                Busche Academy (BA) is a private coeducational boarding and day school in Chester,
+                                New Hampshire, offering a college preparatory, multicultural education to students
+                                in grades 6–12 and postgraduates.
                             </p>
                             <p className="text-slate-600 leading-relaxed">
-                                Our program brings together talented young players from across the
-                                United States and around the world. In this diverse, supportive
-                                environment, student-athletes push each other to grow — on the court,
-                                in the classroom, and as young leaders preparing for the next chapter.
+                                Located in southeastern New Hampshire, Chester is a quaint, New England town with
+                                rural character and warm hospitality. Our campus spans 70 acres originally home to
+                                Chester College — a true collegiate environment for our students.
                             </p>
-                        </div>
-
-                        <div className="bg-slate-900 rounded-2xl p-8 text-white">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                                    <GlobeIcon />
-                                </div>
-                                <p className="text-sm font-semibold uppercase tracking-wide text-slate-400">
-                                    A Global Locker Room
+                            <div className="bg-primary/5 border-l-4 border-primary p-6 rounded-r-xl">
+                                <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-2">
+                                    OUR MISSION
+                                </p>
+                                <p className="text-slate-800 font-medium leading-relaxed">
+                                    To empower students to become lifelong learners and leaders of the world.
                                 </p>
                             </div>
-                            <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-6">
-                                "Basketball is our vehicle, but character is our destination.
-                                We're building young men who will succeed long after the final buzzer."
-                            </blockquote>
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-sm font-bold">
-                                    BA
-                                </div>
-                                <div>
-                                    <p className="font-semibold">Busche Academy Coaching Staff</p>
-                                    <p className="text-sm text-slate-400">Basketball Program</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* CMCC Partnership */}
-            <section className="py-16 md:py-20 bg-primary/5 border-y border-primary/10">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="grid lg:grid-cols-5 gap-8 items-center">
-                        <div className="lg:col-span-3">
-                            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-semibold mb-4">
-                                <AcademicsIcon />
-                                <span>Exclusive Partnership</span>
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                                Graduate with Your Associate's Degree
-                            </h2>
-                            <p className="text-lg text-slate-600 leading-relaxed mb-4">
-                                Busche Academy partners with <strong>Central Maine Community College (CMCC)</strong> to
-                                offer students the opportunity to earn real college credits while completing their
-                                high school education.
-                            </p>
-                            <p className="text-slate-600 leading-relaxed">
-                                Students who complete their entire high school career at Busche Academy can graduate
-                                with both their high school diploma and an <strong>Associate's Degree</strong> — giving
-                                them a significant head start on their college journey and future career.
-                            </p>
-                        </div>
-                        <div className="lg:col-span-2">
-                            <div className="bg-white rounded-2xl p-8 shadow-card border border-slate-200">
-                                <p className="text-5xl font-bold text-primary mb-2">2-in-1</p>
-                                <p className="text-lg font-semibold text-slate-900 mb-4">
-                                    High School Diploma + Associate's Degree
-                                </p>
-                                <ul className="space-y-3 text-sm text-slate-600">
-                                    <li className="flex items-start gap-2">
-                                        <CheckIcon />
-                                        <span>Real college courses, real credits</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <CheckIcon />
-                                        <span>Transfer credits to 4-year universities</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <CheckIcon />
-                                        <span>Save time and tuition costs</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <CheckIcon />
-                                        <span>Stand out in college admissions</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Why Busche */}
-            <section className="py-16 md:py-20 bg-slate-50">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="grid lg:grid-cols-2 gap-12">
-                        <div>
-                            <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
-                                Why Busche Academy
-                            </p>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                                What Sets Us Apart
-                            </h2>
-                            <p className="text-slate-600 leading-relaxed mb-8">
-                                Choosing the right basketball program is one of the most important
-                                decisions a family can make. Here's why families choose Busche Academy:
-                            </p>
-
-                            <ul className="space-y-4">
-                                {valueProps.map((prop, idx) => (
-                                    <li key={idx} className="flex items-start gap-3">
-                                        <div className="mt-0.5 flex-shrink-0">
-                                            <CheckIcon />
-                                        </div>
-                                        <span className="text-slate-700">{prop}</span>
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
 
+                        {/* Right: value cards — #8 upgraded */}
                         <div className="space-y-4">
-                            {programHighlights.map((highlight, idx) => (
+                            {[
+                                {
+                                    title: "Diversity",
+                                    body: "The school deeply values the diverse makeup of its school community and encourages students from every possible cultural background.",
+                                    borderColor: "border-l-primary",
+                                    icon: (
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    ),
+                                },
+                                {
+                                    title: "Excellence",
+                                    body: "A high level of rigor and expectation of excellence in all components of the school's operation — academic, athletic, and boarding program.",
+                                    borderColor: "border-l-aqua",
+                                    icon: (
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                    ),
+                                },
+                                {
+                                    title: "Community & Family",
+                                    body: "The sense of community and family, not only within the school itself, but also in the greater Chester community, is a critical value.",
+                                    borderColor: "border-l-primary",
+                                    icon: (
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    ),
+                                },
+                            ].map((card) => (
                                 <div
-                                    key={idx}
-                                    className="bg-white rounded-xl p-6 shadow-card border border-slate-200 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300"
+                                    key={card.title}
+                                    className={`bg-white rounded-2xl border border-slate-200 border-l-4 ${card.borderColor} shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300`}
                                 >
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                                        {highlight.title}
-                                    </h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        {highlight.description}
-                                    </p>
+                                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                                        {card.icon}
+                                    </div>
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
                                 </div>
                             ))}
                         </div>
@@ -345,47 +254,428 @@ export const AboutPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Testimonial / Social Proof */}
-            <section className="py-16 md:py-20 bg-white">
+            {/* #5 — accent divider */}
+            <AccentDivider />
+
+            {/* Section: Mission, Vision & Values */}
+            <div id="mission" style={{ scrollMarginTop: "80px" }}>
+                <MissionSection />
+            </div>
+
+            {/* #5 — accent divider */}
+            <AccentDivider />
+
+            {/* Section: Our Program */}
+            <section
+                id="program"
+                className="py-16 md:py-20 bg-slate-50"
+                style={{ scrollMarginTop: "80px" }}
+            >
                 <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
-                            What Families Say
-                        </p>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                            Join Our Community
-                        </h2>
+                    {/* #3 — eyebrow accent bar */}
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        ACADEMICS &amp; ATHLETICS
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
+                        What Sets Busche Academy Apart
+                    </h2>
+
+                    {/* CMCC Partnership highlight */}
+                    <div className="bg-slate-900 text-white rounded-2xl p-8 md:p-10 mb-10">
+                        <div className="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <p className="text-primary font-semibold text-xs uppercase tracking-[0.2em] mb-3">
+                                    EXCLUSIVE PARTNERSHIP
+                                </p>
+                                <h3 className="text-2xl md:text-3xl font-bold mb-4 leading-tight">
+                                    Graduate with Your Associate's Degree
+                                </h3>
+                                <p className="text-slate-300 leading-relaxed mb-6">
+                                    Through our exclusive partnership with Community College of the North (CMCC),
+                                    Busche Academy students can simultaneously earn their high school diploma
+                                    and an Associate's Degree — graduating with 60+ college credits before
+                                    ever setting foot on a university campus.
+                                </p>
+                                <Link
+                                    to="/academics"
+                                    className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm"
+                                >
+                                    Learn more about Academics
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </Link>
+                            </div>
+                            {/* #9 — CMCC bullet points upgraded to icon wells */}
+                            <div className="space-y-4">
+                                {[
+                                    {
+                                        title: "2-in-1 Degree",
+                                        body: "Students earn a High School Diploma and an Associate's Degree simultaneously.",
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                            </svg>
+                                        ),
+                                    },
+                                    {
+                                        title: "60+ College Credits",
+                                        body: "Earn transferable credits that count toward a Bachelor's Degree at most universities.",
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                            </svg>
+                                        ),
+                                    },
+                                    {
+                                        title: "Save on Tuition",
+                                        body: "Arrive at university as a sophomore — significantly reducing the time and cost of your degree.",
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        ),
+                                    },
+                                    {
+                                        title: "Stand Out in Admissions",
+                                        body: "College admissions officers recognize the achievement of dual-degree graduates.",
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                            </svg>
+                                        ),
+                                    },
+                                ].map((item) => (
+                                    <div key={item.title} className="flex items-start gap-3">
+                                        <div className="w-6 h-6 rounded-lg bg-primary/20 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            {item.icon}
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-white text-sm">{item.title}</p>
+                                            <p className="text-slate-400 text-sm leading-relaxed">{item.body}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
-                    <TestimonialsMarquee />
+                    {/* Program highlight cards */}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+                        {[
+                            {
+                                icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                ),
+                                title: "Training Philosophy",
+                                body: "Our coaches focus on individual development, film study, and competitive game preparation to maximize each athlete's potential.",
+                            },
+                            {
+                                icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                ),
+                                title: "Academic Excellence",
+                                body: "Small class sizes, dedicated faculty, and the CMCC partnership ensure every student thrives academically.",
+                            },
+                            {
+                                icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                    </svg>
+                                ),
+                                title: "Recruiting Pipeline",
+                                body: "Exposure games, film, and direct coach relationships connect our athletes with college programs across all divisions.",
+                            },
+                            {
+                                icon: (
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                ),
+                                title: "Global Community",
+                                body: "Students from the US and around the world build lifelong friendships and a truly international network.",
+                            },
+                        ].map((card) => (
+                            <div
+                                key={card.title}
+                                className="bg-white rounded-2xl border border-slate-200 shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300"
+                            >
+                                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                                    {card.icon}
+                                </div>
+                                <h3 className="font-bold text-slate-900 mb-2">{card.title}</h3>
+                                <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* #10 — 8 Reasons with group hover on number badge */}
+                    <div className="bg-white rounded-2xl border border-slate-200 p-8">
+                        <h3 className="text-xl font-bold text-slate-900 mb-6">8 Reasons to Choose Busche Academy</h3>
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            {[
+                                "NCAA-certified program with proven college placement",
+                                "Exclusive CMCC partnership — earn an Associate's Degree while in high school",
+                                "Small 9:1 student-to-faculty ratio for personalized attention",
+                                "70-acre campus just 40 miles from Boston",
+                                "Coeducational boarding and day enrollment for grades 6–12 + postgrad",
+                                "Financial aid available to qualified students",
+                                "Diverse community with students from the US and around the world",
+                                "Dedicated coaching staff focused on college recruiting and player development",
+                            ].map((item, idx) => (
+                                <div key={idx} className="group flex items-start gap-3">
+                                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+                                        {idx + 1}
+                                    </span>
+                                    <p className="text-slate-700 text-sm leading-relaxed">{item}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
+            {/* #5 — accent divider */}
+            <AccentDivider />
+
+            {/* Testimonials */}
+            <section className="py-12 bg-white border-t border-slate-100">
+                <div className="max-w-6xl mx-auto px-4 mb-8">
+                    {/* #3 — eyebrow accent bar */}
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em]">
+                        VOICES FROM OUR COMMUNITY
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mt-1" />
+                </div>
+                <TestimonialsMarquee />
+            </section>
+
+            {/* #5 — accent divider */}
+            <AccentDivider />
+
+            {/* Section: Faculty & Staff */}
+            <section
+                id="faculty"
+                className="py-16 md:py-20 bg-slate-50"
+                style={{ scrollMarginTop: "80px" }}
+            >
+                <div className="max-w-6xl mx-auto px-4">
+                    {/* #3 — eyebrow accent bar */}
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        OUR PEOPLE
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+                        Meet the Team
+                    </h2>
+                    <p className="text-slate-600 mb-10">
+                        The dedicated faculty and staff who make Busche Academy exceptional.
+                    </p>
+
+                    {staffLoading && (
+                        <div className="flex items-center gap-3 text-slate-500 py-12">
+                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                    fill="none"
+                                />
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                />
+                            </svg>
+                            <span>Loading faculty...</span>
+                        </div>
+                    )}
+
+                    {staffError && !staffLoading && (
+                        <p className="text-slate-500 italic py-12">Faculty information coming soon.</p>
+                    )}
+
+                    {!staffLoading && !staffError && (
+                        <>
+                            {groupedStaff.map((group) => (
+                                <div key={group.key}>
+                                    <h3 className="text-lg font-semibold text-slate-700 uppercase tracking-wide mb-4 mt-8">
+                                        {group.label}
+                                    </h3>
+                                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                                        {/* #12 — added hover:-translate-y-1 to staff cards */}
+                                        {group.members.map((member) => (
+                                            <div
+                                                key={member.id}
+                                                className="bg-white rounded-xl border border-slate-200 shadow-card hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                                            >
+                                                <div className="h-48 bg-slate-100 overflow-hidden">
+                                                    {member.primaryPhotoUrl ? (
+                                                        <img
+                                                            src={member.primaryPhotoUrl}
+                                                            alt={member.fullName}
+                                                            className="w-full h-full object-cover object-top"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                            <img
+                                                                src="/images/default-avatar.svg"
+                                                                alt={member.fullName}
+                                                                className="w-16 h-16 opacity-40"
+                                                                onError={(e) => {
+                                                                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="p-4">
+                                                    <p className="font-bold text-slate-900">{member.fullName}</p>
+                                                    <p className="text-primary text-sm font-semibold uppercase tracking-wide mt-0.5">
+                                                        {member.position}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+
+                            {groupedStaff.length === 0 && (
+                                <p className="text-slate-500 italic py-12">Faculty information coming soon.</p>
+                            )}
+                        </>
+                    )}
+                </div>
+            </section>
+
+            {/* #5 — accent divider */}
+            <AccentDivider />
+
+            {/* Section: Contact */}
+            <section
+                id="contact"
+                className="py-16 md:py-20 bg-white"
+                style={{ scrollMarginTop: "80px" }}
+            >
+                <div className="max-w-6xl mx-auto px-4">
+                    {/* #3 — eyebrow accent bar */}
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        GET IN TOUCH
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
+                        Contact Busche Academy
+                    </h2>
+
+                    <div className="grid md:grid-cols-2 gap-8 items-start">
+                        {/* Left: contact info */}
+                        <div className="bg-slate-900 text-white rounded-2xl p-8 space-y-5">
+                            <div className="flex items-start gap-3">
+                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <div>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Address</p>
+                                    <p className="text-slate-100">40 Chester Street</p>
+                                    <p className="text-slate-100">Chester, New Hampshire 03036</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <div>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Phone</p>
+                                    <p className="text-slate-100">(603) 887-5200</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <div>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Email</p>
+                                    <a
+                                        href="mailto:info@buscheacademy.org"
+                                        className="text-primary hover:underline"
+                                    >
+                                        info@buscheacademy.org
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <div>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Office Hours</p>
+                                    <p className="text-slate-100">Monday–Friday, 8:00am–4:30pm</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right: contact info + apply card */}
+                        <div className="space-y-4">
+                            <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-3">
+                                <p className="text-slate-700 text-sm leading-relaxed">
+                                    To schedule a visit, email us at{" "}
+                                    <a href="mailto:info@buscheacademy.org" className="text-primary hover:underline font-medium">
+                                        info@buscheacademy.org
+                                    </a>
+                                </p>
+                                <p className="text-slate-700 text-sm leading-relaxed">
+                                    For general information about our programs, email us at{" "}
+                                    <a href="mailto:info@buscheacademy.org" className="text-primary hover:underline font-medium">
+                                        info@buscheacademy.org
+                                    </a>
+                                </p>
+                            </div>
+                            <a
+                                href="https://bit.ly/gobuscheacademy"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-4 w-full bg-primary text-white rounded-2xl p-6 hover:bg-primary/90 transition-all duration-200 group"
+                            >
+                                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </div>
+                                <div className="flex-1">
+                                    <p className="font-bold">Apply Now</p>
+                                    <p className="text-sm text-blue-100 mt-0.5">Start your application today</p>
+                                </div>
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA strip */}
             <section className="py-16 md:py-20 bg-slate-900 text-white">
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        Ready to Take the Next Step?
+                        Join the Busche Academy Community
                     </h2>
-                    <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-                        Learn more about Busche Academy Basketball and how we can help you
-                        achieve your goals on and off the court.
+                    <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
+                        Take the first step toward an exceptional education in Chester, New Hampshire.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <a
-                            href="mailto:info@buscheacademy.org?subject=Basketball%20Program%20-%20Schedule%20a%20Visit"
-                            className="btn-primary px-8 py-3 text-base"
-                        >
-                            Schedule a Visit
-                        </a>
-                        <a
-                            href="mailto:info@buscheacademy.org?subject=Basketball%20Program%20-%20Admissions%20Inquiry"
-                            className="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg border border-slate-500 text-white hover:bg-white/10 hover:border-white transition-all duration-200"
-                        >
-                            Request Information
-                        </a>
-                        <a
-                            href="https://form.jotform.com/252083454902455"
+                            href="https://bit.ly/gobuscheacademy"
                             target="_blank"
                             rel="noreferrer"
                             className="btn-primary px-8 py-3 text-base"
@@ -393,44 +683,12 @@ export const AboutPage: React.FC = () => {
                             Apply Now
                         </a>
                     </div>
-                    <p className="mt-8 text-sm text-slate-400">
-                        Questions? Email us at{" "}
+                    <p className="text-slate-400 text-sm mt-6">
+                        For admissions inquiries, email us at{" "}
                         <a href="mailto:info@buscheacademy.org" className="text-primary hover:underline">
                             info@buscheacademy.org
-                        </a>{" "}
-                        or call{" "}
-                        <span className="text-white">(603) 887-0001</span>
-                    </p>
-                </div>
-            </section>
-
-            {/* Location / Campus Brief */}
-            <section className="py-12 bg-slate-50 border-t border-slate-200">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                        <div>
-                            <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-1">
-                                Our Campus
-                            </p>
-                            <p className="text-lg font-medium text-slate-900">
-                                Chester, New Hampshire — Just 40 miles from Boston
-                            </p>
-                            <p className="text-slate-600 text-sm mt-1">
-                                A safe, focused environment where student-athletes can thrive.
-                            </p>
-                        </div>
-                        <a
-                            href="https://buscheacademy.org"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 text-primary hover:text-sky-600 font-medium transition-colors"
-                        >
-                            Visit buscheacademy.org
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
                         </a>
-                    </div>
+                    </p>
                 </div>
             </section>
         </div>

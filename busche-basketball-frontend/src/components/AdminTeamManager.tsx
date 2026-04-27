@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import type { TeamDto, TeamLevel } from "../types";
 import { adminTeamApi, type TeamInput } from "../api/adminTeamApi";
+import { clearTeamsCache } from "../lib/ttlCache";
 
 type Mode = "CREATE" | "EDIT";
 
@@ -106,6 +107,7 @@ export const AdminTeamManager: React.FC = () => {
                 );
                 setStatus("Team updated.");
             }
+            clearTeamsCache();
         } catch (e) {
             console.error("Failed to save team", e);
             setError("Unable to save team. Please try again.");
@@ -123,6 +125,7 @@ export const AdminTeamManager: React.FC = () => {
         try {
             await adminTeamApi.remove(team.id!);
             setTeams((prev) => prev.filter((t) => t.id !== team.id));
+            clearTeamsCache();
             if (form.id === team.id) {
                 resetForm();
             }

@@ -15,4 +15,10 @@ public interface StaffMemberRepository extends JpaRepository<StaffMember, Long> 
 
     // Public listing filtered by team level
     List<StaffMember> findByTeamLevelAndActiveTrueOrderByDisplayOrderAscFullNameAsc(TeamLevel teamLevel);
+
+    // Public listing filtered by staffCategory only
+    List<StaffMember> findByStaffCategoryAndActiveTrueOrderByDisplayOrderAscFullNameAsc(StaffCategory staffCategory);
+
+    // Public listing filtered by both teamLevel and staffCategory
+    List<StaffMember> findByTeamLevelAndStaffCategoryAndActiveTrueOrderByDisplayOrderAscFullNameAsc(TeamLevel teamLevel, StaffCategory staffCategory);
 }
