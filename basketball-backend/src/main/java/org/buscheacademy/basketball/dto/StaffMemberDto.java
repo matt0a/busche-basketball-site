@@ -15,6 +15,7 @@ public record StaffMemberDto(
         String email,
         String phone,
         boolean active,
+        boolean adminStaff,
         StaffCategory staffCategory
 ) {
 }

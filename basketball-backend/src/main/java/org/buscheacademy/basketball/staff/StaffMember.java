@@ -23,8 +23,8 @@ public class StaffMember {
     private String fullName;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 32)
-    private TeamLevel teamLevel; // NATIONAL / REGIONAL
+    @Column(length = 32)
+    private TeamLevel teamLevel; // NATIONAL / REGIONAL — null for non-basketball staff
 
     @Column(nullable = false)
     private String position;   // e.g. Head Coach, Assistant Coach
@@ -56,6 +56,10 @@ public class StaffMember {
     @Column(nullable = false)
     @Builder.Default
     private boolean active = true;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    @Builder.Default
+    private boolean adminStaff = false;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 32)

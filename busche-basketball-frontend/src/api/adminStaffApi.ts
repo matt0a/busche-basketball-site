@@ -46,7 +46,7 @@ apiClient.interceptors.response.use(
 
 export interface StaffMemberInput {
     fullName: string;
-    teamLevel: TeamLevel;
+    teamLevel: TeamLevel | null;
     position: string;
     displayOrder: number | null;
     primaryPhotoUrl: string | null;
@@ -55,6 +55,7 @@ export interface StaffMemberInput {
     phone: string | null;
     bio: string | null;
     active: boolean;
+    adminStaff?: boolean;
     staffCategory?: StaffCategory | null;
 }
 

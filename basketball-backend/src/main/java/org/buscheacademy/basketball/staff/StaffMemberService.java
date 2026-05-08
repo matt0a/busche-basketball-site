@@ -42,6 +42,7 @@ public class StaffMemberService {
                 .email(request.email())
                 .phone(request.phone())
                 .active(request.active())
+                .adminStaff(request.adminStaff())
                 .staffCategory(request.staffCategory())
                 .build();
 
@@ -66,6 +67,7 @@ public class StaffMemberService {
         staff.setEmail(request.email());
         staff.setPhone(request.phone());
         staff.setActive(request.active());
+        staff.setAdminStaff(request.adminStaff());
         staff.setStaffCategory(request.staffCategory());
 
         return toDto(staffMemberRepository.save(staff));
@@ -134,6 +136,7 @@ public class StaffMemberService {
                 staff.getEmail(),
                 staff.getPhone(),
                 staff.isActive(),
+                staff.isAdminStaff(),
                 staff.getStaffCategory()
         );
     }

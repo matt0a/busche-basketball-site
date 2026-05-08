@@ -44,7 +44,7 @@ export type StaffCategory = "BASKETBALL" | "ACADEMIC" | "DINING" | "ADMINISTRATI
 export interface StaffMemberDto {
     id: number;
     fullName: string;
-    teamLevel: TeamLevel; // "NATIONAL" | "REGIONAL"
+    teamLevel: TeamLevel | null;
     position: string;
     displayOrder: number;
 
@@ -57,6 +57,7 @@ export interface StaffMemberDto {
     phone: string | null;
 
     active: boolean;
+    adminStaff?: boolean;
 
     staffCategory?: StaffCategory | null;
 }

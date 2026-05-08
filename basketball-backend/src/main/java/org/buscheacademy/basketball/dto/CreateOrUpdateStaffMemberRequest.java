@@ -9,7 +9,6 @@ public record CreateOrUpdateStaffMemberRequest(
         @NotBlank
         String fullName,
 
-        @NotNull
         TeamLevel teamLevel,
 
         @NotBlank
@@ -35,6 +34,8 @@ public record CreateOrUpdateStaffMemberRequest(
         String phone,
 
         boolean active,
+
+        boolean adminStaff,
 
         StaffCategory staffCategory
 ) {
