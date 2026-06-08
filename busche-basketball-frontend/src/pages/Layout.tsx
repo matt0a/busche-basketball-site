@@ -5,150 +5,12 @@ import { useAuth } from "../auth/AuthContext";
 const flatLinkClasses =
     "text-sm tracking-wide hover:text-primary transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-slate-50";
 
-interface DropdownItem {
-    label: string;
-    href: string;
-}
-
-interface DropdownNavItemProps {
-    label: string;
-    href: string;
-    items: DropdownItem[];
-}
-
-const DropdownNavItem = ({ label, href, items }: DropdownNavItemProps) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div
-            className="relative"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-        >
-            <Link
-                to={href}
-                className={`${flatLinkClasses} flex items-center gap-1 ${
-                    open ? "text-primary bg-slate-50" : "text-slate-800"
-                }`}
-                aria-haspopup="true"
-                aria-expanded={open}
-            >
-                {label}
-                <svg
-                    className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                >
-                    <polyline points="6 9 12 15 18 9" />
-                </svg>
-            </Link>
-
-            {open && (
-                <div className="absolute top-full left-0 pt-1 w-44 z-50">
-                    <div className="bg-white border border-slate-200 rounded-xl shadow-lg py-1">
-                        {items.map((item) => (
-                            <Link
-                                key={item.href}
-                                to={item.href}
-                                className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors"
-                                onClick={() => setOpen(false)}
-                            >
-                                {item.label}
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
-
-interface MobileAccordionItemProps {
-    label: string;
-    items: DropdownItem[];
-    openId: string | null;
-    setOpenId: (id: string | null) => void;
-    onNavClose: () => void;
-}
-
-const MobileAccordionItem = ({
-    label,
-    items,
-    openId,
-    setOpenId,
-    onNavClose,
-}: MobileAccordionItemProps) => {
-    const isOpen = openId === label;
-
-    return (
-        <div>
-            <button
-                type="button"
-                className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary"
-                onClick={() => setOpenId(isOpen ? null : label)}
-                aria-expanded={isOpen}
-            >
-                {label}
-                <svg
-                    className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? "rotate-180 text-primary" : ""}`}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                >
-                    <polyline points="6 9 12 15 18 9" />
-                </svg>
-            </button>
-
-            {isOpen && (
-                <div className="ml-4 mt-1 space-y-0.5">
-                    {items.map((item) => (
-                        <Link
-                            key={item.href}
-                            to={item.href}
-                            className="block rounded-md px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-primary transition-colors"
-                            onClick={onNavClose}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-};
-
-const ABOUT_ITEMS: DropdownItem[] = [
-    { label: "Overview", href: "/about" },
-    { label: "Faculty", href: "/about#faculty" },
-    { label: "Contact", href: "/about#contact" },
-];
-
-const ADMISSIONS_ITEMS: DropdownItem[] = [
-    { label: "How to Apply", href: "/admissions" },
-    { label: "Tuition & Fees", href: "/admissions#tuition" },
-];
-
-const BASKETBALL_ITEMS: DropdownItem[] = [
-    { label: "Program", href: "/basketball" },
-    { label: "Coaches", href: "/basketball#coaches" },
-    { label: "Media", href: "/basketball#media" },
-];
 
 export const Layout = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
-    const [mobileAccordionOpen, setMobileAccordionOpen] = useState<string | null>(null);
 
     // Body scroll lock — prevents page scroll while sidebar is open
     useEffect(() => {
@@ -166,7 +28,6 @@ export const Layout = ({ children }: { children: ReactNode }) => {
 
     const closeMobileNav = () => {
         setMobileNavOpen(false);
-        setMobileAccordionOpen(null);
     };
 
     return (
@@ -201,17 +62,23 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 Home
                             </NavLink>
 
-                            <DropdownNavItem
-                                label="About"
-                                href="/about"
-                                items={ABOUT_ITEMS}
-                            />
+                            <NavLink
+                                to="/about"
+                                className={({ isActive }) =>
+                                    `${flatLinkClasses} ${isActive ? "border-b-2 border-primary text-primary" : ""}`
+                                }
+                            >
+                                About
+                            </NavLink>
 
-                            <DropdownNavItem
-                                label="Admissions"
-                                href="/admissions"
-                                items={ADMISSIONS_ITEMS}
-                            />
+                            <NavLink
+                                to="/admissions"
+                                className={({ isActive }) =>
+                                    `${flatLinkClasses} ${isActive ? "border-b-2 border-primary text-primary" : ""}`
+                                }
+                            >
+                                Admissions
+                            </NavLink>
 
                             <NavLink
                                 to="/academics"
@@ -235,11 +102,14 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 Student Life
                             </NavLink>
 
-                            <DropdownNavItem
-                                label="Basketball"
-                                href="/basketball"
-                                items={BASKETBALL_ITEMS}
-                            />
+                            <NavLink
+                                to="/basketball"
+                                className={({ isActive }) =>
+                                    `${flatLinkClasses} ${isActive ? "border-b-2 border-primary text-primary" : ""}`
+                                }
+                            >
+                                Basketball
+                            </NavLink>
 
                             <NavLink
                                 to="/roster"
@@ -392,21 +262,33 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             Home
                         </NavLink>
 
-                        <MobileAccordionItem
-                            label="About"
-                            items={ABOUT_ITEMS}
-                            openId={mobileAccordionOpen}
-                            setOpenId={setMobileAccordionOpen}
-                            onNavClose={closeMobileNav}
-                        />
+                        <NavLink
+                            to="/about"
+                            className={({ isActive }) =>
+                                `block rounded-md px-3 py-2 text-sm font-medium ${
+                                    isActive
+                                        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                                        : "hover:bg-slate-50 hover:text-primary"
+                                }`
+                            }
+                            onClick={closeMobileNav}
+                        >
+                            About
+                        </NavLink>
 
-                        <MobileAccordionItem
-                            label="Admissions"
-                            items={ADMISSIONS_ITEMS}
-                            openId={mobileAccordionOpen}
-                            setOpenId={setMobileAccordionOpen}
-                            onNavClose={closeMobileNav}
-                        />
+                        <NavLink
+                            to="/admissions"
+                            className={({ isActive }) =>
+                                `block rounded-md px-3 py-2 text-sm font-medium ${
+                                    isActive
+                                        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                                        : "hover:bg-slate-50 hover:text-primary"
+                                }`
+                            }
+                            onClick={closeMobileNav}
+                        >
+                            Admissions
+                        </NavLink>
 
                         <NavLink
                             to="/academics"
@@ -436,13 +318,19 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             Student Life
                         </NavLink>
 
-                        <MobileAccordionItem
-                            label="Basketball"
-                            items={BASKETBALL_ITEMS}
-                            openId={mobileAccordionOpen}
-                            setOpenId={setMobileAccordionOpen}
-                            onNavClose={closeMobileNav}
-                        />
+                        <NavLink
+                            to="/basketball"
+                            className={({ isActive }) =>
+                                `block rounded-md px-3 py-2 text-sm font-medium ${
+                                    isActive
+                                        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                                        : "hover:bg-slate-50 hover:text-primary"
+                                }`
+                            }
+                            onClick={closeMobileNav}
+                        >
+                            Basketball
+                        </NavLink>
 
                         <NavLink
                             to="/roster"

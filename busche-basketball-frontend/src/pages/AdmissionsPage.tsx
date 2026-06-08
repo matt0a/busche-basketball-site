@@ -203,7 +203,7 @@ export const AdmissionsPage = () => (
                 </p>
                 <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-                    2025–26 Academic Year
+                    2026–27 Academic Year
                 </h2>
                 <p className="text-slate-600 mb-10 max-w-2xl">
                     Busche Academy offers an exceptional school experience at an accessible price,

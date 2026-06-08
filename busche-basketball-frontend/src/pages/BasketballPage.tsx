@@ -47,7 +47,7 @@ const HIGHLIGHT_CARDS = [
             </svg>
         ),
         title: "60+ College Credits",
-        body: "Through CMCC, student-athletes can earn an Associate's Degree alongside their high school diploma.",
+        body: "Through CMCC, student-athletes have opportunities to earn college credits in high school, helping reduce time and cost in college.",
     },
     {
         icon: (
@@ -189,8 +189,8 @@ export const BasketballPage = () => {
                             campus just 40 miles from Boston.
                         </p>
                         <p>
-                            Through the CMCC partnership, basketball players can also earn college
-                            credits and graduate with an Associate's Degree.
+                            Through the CMCC partnership, basketball players have opportunities to
+                            earn college credits in high school, helping reduce time and cost in college.
                         </p>
                     </div>
 

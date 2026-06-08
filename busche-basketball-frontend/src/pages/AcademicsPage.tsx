@@ -80,7 +80,7 @@ type HighlightCard = {
 const HIGHLIGHT_CARDS: HighlightCard[] = [
     {
         title: "CMCC Partnership",
-        body: "Students can earn 60+ college credits and graduate with both a high school diploma and an Associate's Degree through our partnership with Central Maine Community College (CMCC).",
+        body: "Through our concurrent enrollment partnership with Central Maine Community College (CMCC), students have the opportunity to earn college credits in high school, helping reduce time and cost in college.",
         icon: <GraduationCapIcon />,
         accent: "primary",
     },
@@ -92,7 +92,7 @@ const HIGHLIGHT_CARDS: HighlightCard[] = [
     },
     {
         title: "Grades 6–12 + PG",
-        body: "We serve students from middle school through high school and postgraduate year, meeting each student where they are.",
+        body: "We serve students from middle school through high school and postgraduate year. PG students have additional pathways to earn college credits through CLEP exams, with free preparation available through Modern States.",
         icon: <BookOpenIcon />,
         accent: "primary",
     },
@@ -117,7 +117,7 @@ const ACCREDITATION_ITEMS: AccreditationItem[] = [
     },
     {
         heading: "CMCC Partnership",
-        body: "Dual-enrollment through Central Maine Community College (CMCC).",
+        body: "Concurrent enrollment through Central Maine Community College (CMCC).",
         icon: <StarIcon />,
     },
 ];
