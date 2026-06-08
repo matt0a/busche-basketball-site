@@ -359,45 +359,60 @@ export const BasketballPage = () => {
                     Photos &amp; Highlights
                 </h2>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                        <div
-                            key={i}
-                            className="bg-slate-100 rounded-xl h-48 flex items-center justify-center"
-                        >
-                            <svg
-                                className="w-10 h-10 text-slate-300"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={1.5}
-                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                />
-                            </svg>
-                        </div>
-                    ))}
+                {/* Featured row: photo 1 (large) + photo 2 (tall) */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
+                    <div className="col-span-2 sm:col-span-2 rounded-xl overflow-hidden h-64">
+                        <img
+                            src="/highlight-1.jpg"
+                            alt="Busche Academy team in the gym"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    <div className="col-span-2 sm:col-span-1 rounded-xl overflow-hidden h-64">
+                        <img
+                            src="/highlight-2.jpg"
+                            alt="Busche Academy at Manchester Ballers"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
                 </div>
 
-                <p className="text-center text-slate-500 text-sm mt-4">
-                    Media gallery coming soon. Check back for game highlights, photos, and more.
-                </p>
+                {/* Bottom row: 3 equal photos */}
+                <div className="grid grid-cols-3 gap-4">
+                    <div className="rounded-xl overflow-hidden h-48">
+                        <img
+                            src="/highlight-3.jpg"
+                            alt="Team road trip"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    <div className="rounded-xl overflow-hidden h-48">
+                        <img
+                            src="/highlight-4.jpg"
+                            alt="Graduation ceremony"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    <div className="rounded-xl overflow-hidden h-48">
+                        <img
+                            src="/highlight-5.jpg"
+                            alt="Team celebration"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                </div>
 
-                <p className="text-center text-slate-600 text-sm mt-3">
+                <p className="text-center text-slate-600 text-sm mt-6">
                     Follow us on{" "}
                     <a
-                        href="https://www.instagram.com/busche_academy_basketball_?igsh=cHVmbjNyNnRwajdl"
+                        href="https://www.instagram.com/buschebasketball?igsh=cHVmbjNyNnRwajdl"
                         target="_blank"
                         rel="noreferrer"
                         className="text-primary font-semibold hover:underline"
                     >
-                        Instagram
+                        @buschebasketball
                     </a>{" "}
-                    for the latest photos.
+                    for the latest photos and highlights.
                 </p>
             </section>
 

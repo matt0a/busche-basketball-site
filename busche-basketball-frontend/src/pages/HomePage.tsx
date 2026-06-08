@@ -26,6 +26,12 @@ const slides = [
         headline: "A Campus Built for Growth",
         sub: "70 acres in rural New Hampshire — where students live, learn, and become leaders.",
     },
+    {
+        image: "/hero-4.jpg",
+        label: "Community",
+        headline: "Bonds That Go Beyond the Court",
+        sub: "At Busche Academy, teammates become family — celebrating every milestone together.",
+    },
 ];
 
 
