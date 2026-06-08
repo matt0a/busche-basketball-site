@@ -21,7 +21,7 @@ const slides = [
         sub: "Student-athletes competing at the highest level while thriving in the classroom.",
     },
     {
-        image: "/hero-3.jpg",
+        image: "/hero-3.avif",
         label: "Student Life",
         headline: "A Campus Built for Growth",
         sub: "70 acres in rural New Hampshire — where students live, learn, and become leaders.",
@@ -247,6 +247,20 @@ export const HomePage = () => {
                     ))}
                 </div>
             </section>
+
+            {/* CREDENTIALS TRUST STRIP */}
+            <div className="bg-slate-50 border-b border-slate-100 py-5">
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12">
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-[0.2em] shrink-0">
+                        Recognized &amp; Accredited By
+                    </p>
+                    <div className="flex items-center gap-8 flex-wrap justify-center">
+                        <img src="/nh-doe-logo.jpg" alt="NH Department of Education" className="h-7 object-contain" />
+                        <img src="/ncaa-approved-badge.jpg" alt="NCAA Approved" className="h-12 w-12 object-contain" />
+                        <img src="/ncaa-approved-courses.jpg" alt="NCAA Approved Courses" className="h-8 object-contain" />
+                    </div>
+                </div>
+            </div>
 
             {/* SECTION 2 — AT A GLANCE */}
             <AtAGlanceGrid />

@@ -178,27 +178,39 @@ export const StudentLifePage = () => (
                         {
                             name: "Adams Hall",
                             desc: "One of two historic residence halls on the former Chester College campus. Students live in shared rooms with classic college-style furniture.",
+                            exterior: "/adams-hall-exterior.jpg",
+                            interior: "/adams-hall-interior.jpg",
                         },
                         {
                             name: "Preston Hall",
                             desc: "Our second dormitory, offering the same quality living environment. Both halls are supervised by adult staff who live alongside students.",
+                            exterior: "/preston-hall-exterior.jpg",
+                            interior: "/preston-hall-interior.jpg",
                         },
                     ].map((dorm) => (
                         <div
                             key={dorm.name}
-                            className="bg-white rounded-2xl border border-slate-200 shadow-card p-6 border-l-4 border-l-primary
+                            className="bg-white rounded-2xl border border-slate-200 shadow-card overflow-hidden border-l-4 border-l-primary
                                 hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/40
                                 transition-all duration-300"
                         >
-                            {/* Photo placeholder with building icon */}
-                            <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl h-40 mb-4 flex flex-col items-center justify-center gap-2">
-                                <div className="bg-primary/10 text-primary rounded-xl p-3">
-                                    <BuildingIcon />
-                                </div>
-                                <p className="text-sm text-slate-400">Photo Coming Soon</p>
+                            {/* 2-photo grid: exterior + interior */}
+                            <div className="grid grid-cols-2 h-52">
+                                <img
+                                    src={dorm.exterior}
+                                    alt={`${dorm.name} exterior`}
+                                    className="w-full h-full object-cover"
+                                />
+                                <img
+                                    src={dorm.interior}
+                                    alt={`${dorm.name} interior`}
+                                    className="w-full h-full object-cover border-l-2 border-white"
+                                />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">{dorm.name}</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed">{dorm.desc}</p>
+                            <div className="p-6">
+                                <h3 className="text-xl font-bold text-slate-900 mb-2">{dorm.name}</h3>
+                                <p className="text-slate-600 text-sm leading-relaxed">{dorm.desc}</p>
+                            </div>
                         </div>
                     ))}
                 </div>

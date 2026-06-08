@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
 const flatLinkClasses =
@@ -146,6 +146,7 @@ const BASKETBALL_ITEMS: DropdownItem[] = [
 export const Layout = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const [mobileAccordionOpen, setMobileAccordionOpen] = useState<string | null>(null);
 
@@ -519,7 +520,11 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             </div>
 
             {/* Main content */}
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">
+                <div key={pathname} className="page-fade-in">
+                    {children}
+                </div>
+            </main>
 
             {/* Footer — white with full content */}
             <footer className="bg-white border-t border-slate-200/80 mt-12">
@@ -538,42 +543,34 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             A private coeducational boarding and day school in Chester, New Hampshire,
                             welcoming students from across the United States and around the world.
                         </p>
-                        <div className="flex items-center gap-4 pt-1">
+                        <div className="flex flex-col gap-2 pt-1">
                             <a
-                                href="https://www.instagram.com/busche_academy_basketball_?igsh=cHVmbjNyNnRwajdl"
+                                href="https://www.instagram.com/buscheacademy?igsh=emN4YWYyc2Fudmh4"
                                 target="_blank"
                                 rel="noreferrer"
-                                aria-label="Instagram"
-                                className="text-slate-400 hover:text-primary transition-colors"
+                                aria-label="Busche Academy Instagram"
+                                className="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors"
                             >
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
                                     <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
                                     <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
                                     <circle cx="17" cy="7" r="1.2" fill="currentColor" />
                                 </svg>
+                                <span className="text-xs font-medium">@buscheacademy</span>
                             </a>
                             <a
-                                href="https://www.facebook.com/BuscheAcademy/?_rdr"
+                                href="https://www.instagram.com/buschebasketball?igsh=cHVmbjNyNnRwajdl"
                                 target="_blank"
                                 rel="noreferrer"
-                                aria-label="Facebook"
-                                className="text-slate-400 hover:text-primary transition-colors"
+                                aria-label="Busche Basketball Instagram"
+                                className="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors"
                             >
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-                                    <rect x="3" y="3" width="18" height="18" rx="4" ry="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <path d="M13.5 8H15V6h-1.5C11.57 6 10 7.57 10 9.9V11H8v2h2v5h2.5v-5H15v-2h-2.5V9.75C12.5 8.8 12.93 8 13.5 8z" fill="currentColor" />
+                                <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
+                                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="17" cy="7" r="1.2" fill="currentColor" />
                                 </svg>
-                            </a>
-                            <a
-                                href="https://x.com/BuscheAcademy?s=20&t=H53KEcbecPURoWMjmTtrcw"
-                                target="_blank"
-                                rel="noreferrer"
-                                aria-label="X (Twitter)"
-                                className="text-slate-400 hover:text-primary transition-colors"
-                            >
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-                                    <path d="M6 4l5.5 7.3L6.2 20h2.8l3.4-5.6L16.3 20h2.8l-5.1-7.5L18.5 4h-2.8l-3.1 5.2L9 4H6z" fill="currentColor" />
-                                </svg>
+                                <span className="text-xs font-medium">@buschebasketball</span>
                             </a>
                         </div>
                     </div>
@@ -607,7 +604,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             <p>40 Chester Street</p>
                             <p>Chester, NH 03036 · USA</p>
                             <p className="pt-1">
-                                <a href="tel:+16038870001" className="hover:text-slate-900 transition-colors">(603) 887-0001</a>
+                                <a href="tel:+16038875200" className="hover:text-slate-900 transition-colors">(603) 887-5200</a>
                             </p>
                             <p>
                                 <a href="mailto:info@buscheacademy.org" className="text-primary hover:text-sky-600 transition-colors">

@@ -5,6 +5,7 @@ import { CollegeMarquee } from "../components/CollegeMarquee";
 const SECTION_NAV = [
     { id: "overview", label: "Overview" },
     { id: "curriculum", label: "Curriculum" },
+    { id: "ncaa-eligibility", label: "NCAA Eligibility" },
     { id: "outcomes", label: "College Outcomes" },
 ];
 
@@ -235,9 +236,15 @@ export const AcademicsPage = () => (
 
                 {/* Accreditation box */}
                 <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 mt-10">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-6">
+                    <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-5">
                         ACCREDITATION & RECOGNITION
                     </p>
+                    {/* Official logos */}
+                    <div className="flex flex-wrap items-center gap-8 mb-6 pb-6 border-b border-primary/10">
+                        <img src="/nh-doe-logo.jpg" alt="NH Department of Education" className="h-8 object-contain" />
+                        <img src="/ncaa-approved-badge.jpg" alt="NCAA Approved" className="h-14 w-14 object-contain" />
+                        <img src="/ncaa-approved-courses.jpg" alt="NCAA Approved Courses" className="h-8 object-contain" />
+                    </div>
                     <div className="grid md:grid-cols-3 gap-6">
                         {ACCREDITATION_ITEMS.map((item) => (
                             <div key={item.heading} className="flex gap-3 items-start group">
@@ -294,6 +301,36 @@ export const AcademicsPage = () => (
                         info@buscheacademy.org
                     </a>{" "}
                     if you need the latest version.
+                </p>
+            </div>
+        </section>
+
+        <AccentDivider />
+
+        {/* ── NCAA Eligibility ── */}
+        <section id="ncaa-eligibility" className="py-16 md:py-20 bg-white" style={{ scrollMarginTop: "80px" }}>
+            <div className="max-w-6xl mx-auto px-4">
+                <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                    NCAA ELIGIBILITY
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1">
+                    Officially NCAA Listed
+                </h2>
+                <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-6" />
+                <p className="text-slate-600 mb-8 max-w-2xl">
+                    Busche Academy is officially registered in the NCAA Eligibility Center. Student-athletes
+                    who complete our NCAA-approved core courses meet the academic requirements for
+                    collegiate athletic eligibility at D1, D2, and D3 programs.
+                </p>
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-card overflow-hidden max-w-2xl">
+                    <img
+                        src="/ncaa-eligibility.jpg"
+                        alt="NCAA Eligibility Center — Busche Academy listed with approved core courses"
+                        className="w-full object-contain"
+                    />
+                </div>
+                <p className="text-sm text-slate-500 mt-4">
+                    NCAA HS Code: 853269 · CEEB/ACT Code: 301517 · Chester, New Hampshire
                 </p>
             </div>
         </section>
