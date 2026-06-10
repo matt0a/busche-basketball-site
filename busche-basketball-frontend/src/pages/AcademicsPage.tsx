@@ -242,8 +242,26 @@ export const AcademicsPage = () => (
                         </div>
                     </div>
 
-                    {/* Right: highlight cards */}
+                    {/* Right: highlight cards + campus photos */}
                     <div className="space-y-5">
+                        {/* Campus photos */}
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-2xl overflow-hidden aspect-video">
+                                <img
+                                    src="/hero-3.avif"
+                                    alt="Busche Academy campus"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="rounded-2xl overflow-hidden aspect-video">
+                                <img
+                                    src="/academics-classroom.jpg"
+                                    alt="Busche Academy classroom"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+
                         {HIGHLIGHT_CARDS.map((card) => (
                             <div
                                 key={card.title}

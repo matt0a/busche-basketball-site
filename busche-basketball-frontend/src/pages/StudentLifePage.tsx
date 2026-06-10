@@ -352,6 +352,24 @@ export const StudentLifePage = () => (
                         </p>
                     </div>
                 </div>
+
+                {/* Dining photos */}
+                <div className="grid md:grid-cols-2 gap-4 mt-8">
+                    <div className="rounded-2xl overflow-hidden h-56">
+                        <img
+                            src="/dining-cafeteria.jpg"
+                            alt="Busche Academy cafeteria"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="rounded-2xl overflow-hidden h-56">
+                        <img
+                            src="/dining-kitchen.jpg"
+                            alt="Busche Academy kitchen"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                </div>
             </div>
         </section>
 

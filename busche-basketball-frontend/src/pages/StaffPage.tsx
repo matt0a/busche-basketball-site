@@ -42,7 +42,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
             className="group bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover border border-slate-200 hover:border-primary/30 transition-all duration-300 text-left w-full"
         >
             {/* Photo area */}
-            <div className="relative h-64 bg-slate-100 overflow-hidden">
+            <div className="relative h-24 sm:h-36 lg:h-48 bg-slate-100 overflow-hidden">
                 {hasPhoto ? (
                     <>
                         {primarySrc && (
@@ -69,8 +69,8 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
                     </div>
                 )}
                 {/* Team badge */}
-                <div className="absolute top-3 left-3">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wide backdrop-blur-sm ${
+                <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3">
+                    <span className={`inline-flex items-center px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-semibold uppercase tracking-wide backdrop-blur-sm ${
                         member.teamLevel === "NATIONAL"
                             ? "bg-primary/90 text-white"
                             : "bg-slate-900/80 text-white"
@@ -81,16 +81,16 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
             </div>
 
             {/* Info area */}
-            <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors">
+            <div className="p-2 sm:p-3 lg:p-4">
+                <h3 className="text-[10px] sm:text-sm lg:text-base font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight">
                     {member.fullName}
                 </h3>
-                <p className="text-primary font-semibold text-sm uppercase tracking-wide mt-1">
+                <p className="text-primary font-semibold text-[9px] sm:text-xs lg:text-sm uppercase tracking-wide mt-0.5">
                     {member.position}
                 </p>
 
                 {(member.email || member.phone) && (
-                    <div className="mt-4 pt-4 border-t border-slate-100 space-y-1 text-sm text-slate-600">
+                    <div className="hidden sm:block mt-4 pt-4 border-t border-slate-100 space-y-1 text-sm text-slate-600">
                         {member.email && (
                             <p className="truncate">{member.email}</p>
                         )}
@@ -100,7 +100,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
                     </div>
                 )}
 
-                <p className="mt-4 text-xs text-slate-500 group-hover:text-primary transition-colors flex items-center gap-1">
+                <p className="hidden sm:flex mt-4 text-xs text-slate-500 group-hover:text-primary transition-colors items-center gap-1">
                     View full profile
                     <svg className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -128,9 +128,11 @@ const StaffSection: React.FC<StaffSectionProps> = ({ title, subtitle, staff, onS
                 <p className="text-slate-600 mt-2">{subtitle}</p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                 {staff.map((member) => (
-                    <StaffCard key={member.id} member={member} onSelect={onSelect} />
+                    <div key={member.id} className="w-[30%] lg:w-[18%] min-w-0">
+                        <StaffCard member={member} onSelect={onSelect} />
+                    </div>
                 ))}
             </div>
         </section>

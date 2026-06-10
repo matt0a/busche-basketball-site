@@ -7,10 +7,18 @@ import { MissionSection } from "../components/MissionSection";
 import { publicApi } from "../api/publicApi";
 import type { StaffMemberDto } from "../types";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+
+function buildStaffPhotoUrl(path: string | null | undefined): string | null {
+    if (!path) return null;
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    if (path.startsWith("/")) return `${API_BASE_URL}${path}`;
+    return `${API_BASE_URL}/${path}`;
+}
 
 const SECTION_NAV = [
     { id: "overview", label: "Overview" },
-    { id: "mission", label: "Mission & Values" },
+    { id: "mission", label: "Mission" },
     { id: "program", label: "Our Program" },
     { id: "faculty", label: "Faculty & Staff" },
     { id: "contact", label: "Contact" },
@@ -29,10 +37,10 @@ const StaffCard = ({ member, onSelect }: { member: StaffMemberDto; onSelect: (m:
         onClick={() => onSelect(member)}
         className="group text-left bg-white rounded-xl border border-slate-200 shadow-card hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden w-full"
     >
-        <div className="h-48 bg-slate-100 overflow-hidden">
-            {member.primaryPhotoUrl ? (
+        <div className="h-24 sm:h-36 lg:h-48 bg-slate-100 overflow-hidden">
+            {buildStaffPhotoUrl(member.primaryPhotoUrl) ? (
                 <img
-                    src={member.primaryPhotoUrl}
+                    src={buildStaffPhotoUrl(member.primaryPhotoUrl)!}
                     alt={member.fullName}
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
@@ -49,12 +57,12 @@ const StaffCard = ({ member, onSelect }: { member: StaffMemberDto; onSelect: (m:
                 </div>
             )}
         </div>
-        <div className="p-4">
-            <p className="font-bold text-slate-900 group-hover:text-primary transition-colors">{member.fullName}</p>
-            <p className="text-primary text-sm font-semibold uppercase tracking-wide mt-0.5">
+        <div className="p-2 sm:p-3 lg:p-4">
+            <p className="text-[10px] sm:text-sm lg:text-base font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight">{member.fullName}</p>
+            <p className="text-primary text-[9px] sm:text-xs lg:text-sm font-semibold uppercase tracking-wide mt-0.5">
                 {member.position}
             </p>
-            <p className="mt-2 text-xs text-slate-400 group-hover:text-primary transition-colors flex items-center gap-1">
+            <p className="hidden sm:flex mt-2 text-xs text-slate-400 group-hover:text-primary transition-colors items-center gap-1">
                 View profile
                 <svg className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -530,9 +538,9 @@ export const AboutPage = () => {
                             )}
 
                             {adminStaff.length > 0 && (
-                                <div className="flex flex-wrap justify-center gap-5">
+                                <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                                     {adminStaff.map((member) => (
-                                        <div key={member.id} className="w-full sm:w-56 lg:w-60 xl:w-64">
+                                        <div key={member.id} className="w-[30%] lg:w-[18%] min-w-0">
                                             <StaffCard member={member} onSelect={setSelectedStaff} />
                                         </div>
                                     ))}
@@ -544,9 +552,9 @@ export const AboutPage = () => {
                             )}
 
                             {departmentStaff.length > 0 && (
-                                <div className="flex flex-wrap justify-center gap-5">
+                                <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                                     {departmentStaff.map((member) => (
-                                        <div key={member.id} className="w-full sm:w-56 lg:w-60 xl:w-64">
+                                        <div key={member.id} className="w-[30%] lg:w-[18%] min-w-0">
                                             <StaffCard member={member} onSelect={setSelectedStaff} />
                                         </div>
                                     ))}
@@ -718,8 +726,8 @@ export const AboutPage = () => {
                         </button>
                         <div className="absolute -bottom-12 left-8">
                             <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-200 border-4 border-white shadow-lg">
-                                {selectedStaff.primaryPhotoUrl ? (
-                                    <img src={selectedStaff.primaryPhotoUrl} alt={selectedStaff.fullName} className="w-full h-full object-cover" />
+                                {buildStaffPhotoUrl(selectedStaff.primaryPhotoUrl) ? (
+                                    <img src={buildStaffPhotoUrl(selectedStaff.primaryPhotoUrl)!} alt={selectedStaff.fullName} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-slate-400">
                                         <svg viewBox="0 0 24 24" className="w-10 h-10" aria-hidden="true">
