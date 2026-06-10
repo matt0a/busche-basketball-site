@@ -211,21 +211,30 @@ export const BasketballPage = () => {
                     </div>
                 </div>
 
-                {/* Wide info box */}
-                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6">
-                    <p className="text-primary font-semibold text-xs uppercase tracking-[0.15em] mb-2">
-                        NCAA-Certified Program
-                    </p>
-                    <p className="text-slate-700 leading-relaxed mb-3">
-                        Busche Academy is an NCAA-certified program. Our student-athletes meet
-                        eligibility requirements for collegiate athletics.
-                    </p>
-                    <a
-                        href="mailto:info@buscheacademy.org?subject=Basketball%20Program%20Inquiry"
-                        className="text-primary font-semibold text-sm hover:underline"
-                    >
-                        Contact us to learn more &rarr;
-                    </a>
+                {/* NCAA info + court photo */}
+                <div className="grid md:grid-cols-2 gap-6 items-stretch">
+                    <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 flex flex-col justify-center">
+                        <p className="text-primary font-semibold text-xs uppercase tracking-[0.15em] mb-2">
+                            NCAA-Certified Program
+                        </p>
+                        <p className="text-slate-700 leading-relaxed mb-3">
+                            Busche Academy is an NCAA-certified program. Our student-athletes meet
+                            eligibility requirements for collegiate athletics.
+                        </p>
+                        <a
+                            href="mailto:info@buscheacademy.org?subject=Basketball%20Program%20Inquiry"
+                            className="text-primary font-semibold text-sm hover:underline"
+                        >
+                            Contact us to learn more &rarr;
+                        </a>
+                    </div>
+                    <div className="rounded-2xl overflow-hidden h-56">
+                        <img
+                            src="/dorm-basketball-1.jpg"
+                            alt="Busche Academy basketball court"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
                 </div>
             </section>
 
