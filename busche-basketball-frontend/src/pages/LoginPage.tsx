@@ -1,16 +1,12 @@
 // src/pages/LoginPage.tsx
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authApi } from "../api/authApi";
 import { useAuth } from "../auth/AuthContext";
 
 export const LoginPage: React.FC = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { login } = useAuth();
-
-    const resetSuccess =
-        (location.state as { resetSuccess?: boolean } | null)?.resetSuccess ?? false;
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -49,14 +45,6 @@ export const LoginPage: React.FC = () => {
                         Sign in to manage staff, roster, and schedule.
                     </p>
                 </div>
-
-                {resetSuccess && (
-                    <div className="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200">
-                        <p className="text-sm text-emerald-700">
-                            Your password has been updated. Sign in with your new password.
-                        </p>
-                    </div>
-                )}
 
                 {error && (
                     <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200">
@@ -128,15 +116,6 @@ export const LoginPage: React.FC = () => {
                         {loading ? "Signing in…" : "Sign in"}
                     </button>
                 </form>
-
-                <div className="mt-6 text-center">
-                    <Link
-                        to="/forgot-password"
-                        className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
-                    >
-                        Forgot password?
-                    </Link>
-                </div>
             </div>
         </div>
     );
