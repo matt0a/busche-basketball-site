@@ -330,7 +330,7 @@ export const AboutPage = () => {
                             <div className="space-y-4">
                                 {[
                                     {
-                                        title: "Head Start",
+                                        title: "Earn Credits Early",
                                         body: "Students have the opportunity to earn college credits while completing their high school diploma.",
                                         icon: (
                                             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

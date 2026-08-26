@@ -16,6 +16,8 @@ import { HomePage } from "./pages/HomePage";
 import { RosterPage } from "./pages/RosterPage";
 import { SchedulePage } from "./pages/SchedulePage";
 import { LoginPage } from "./pages/LoginPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { StaffSignupPage } from "./pages/StaffSignupPage";
 import { AdminDashboardPage } from "./pages/AdminDashboardPage";
 import { AboutPage } from "./pages/AboutPage";
@@ -37,6 +39,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                         <Route path="/roster" element={<RosterPage />} />
                         <Route path="/schedule" element={<SchedulePage />} />
                         <Route path="/login" element={<LoginPage />} />
+                        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                        <Route path="/reset-password" element={<ResetPasswordPage />} />
                         <Route path="/staffsignup123" element={<StaffSignupPage />} />
                         <Route path="/admissions" element={<AdmissionsPage />} />
                         <Route path="/academics" element={<AcademicsPage />} />

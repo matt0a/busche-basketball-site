@@ -19,6 +19,11 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User updatePassword(User user, String rawPassword) {
+        user.setPasswordHash(passwordEncoder.encode(rawPassword));
+        return userRepository.save(user);
+    }
+
     public User register(String fullName, String email, String rawPassword) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "An account with that email already exists.");

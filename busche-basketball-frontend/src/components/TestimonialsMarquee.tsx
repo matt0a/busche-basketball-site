@@ -8,10 +8,6 @@ const testimonials = [
         attribution: "Alumni Parent",
     },
     {
-        quote: "The CMCC college credit program gave my son a two-year head start. He's now thriving at a D1 university.",
-        attribution: "Parent, Class of 2023",
-    },
-    {
         quote: "International students are welcomed like family here. The support system is incredible.",
         attribution: "Parent from Spain",
     },
