@@ -12,7 +12,7 @@ const slides = [
         image: "/hero-1.jpg",
         label: "Chester, NH",
         headline: "Experience Education From Around the World",
-        sub: "A private coeducational boarding school 40 miles from Boston.",
+        sub: "A private boarding school 40 miles from Boston.",
     },
     {
         image: "/hero-2.jpg",

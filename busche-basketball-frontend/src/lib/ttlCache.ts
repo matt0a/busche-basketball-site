@@ -56,4 +56,5 @@ export const clearStaffCache = () => {
   invalidate("publicStaff");
   invalidate("publicStaffMember");
 };
+export const clearDiningMenusCache = () => invalidate("diningMenus");
 export const clearAllCache = invalidateAll;

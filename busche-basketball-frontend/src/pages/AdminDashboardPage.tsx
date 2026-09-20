@@ -8,6 +8,7 @@ import { AdminRosterManager } from "../components/AdminRosterManager";
 import { AdminScheduleManager } from "../components/AdminScheduleManager";
 import { AdminTeamManager } from "../components/AdminTeamManager";
 import { AdminDocumentManager } from "../components/AdminDocumentManager";
+import { AdminDiningMenuManager } from "../components/AdminDiningMenuManager";
 import { clearStaffCache } from "../lib/ttlCache";
 
 const DEFAULT_AVATAR = "/images/default-avatar.svg";
@@ -74,7 +75,7 @@ interface ImageDropzoneProps {
     onFileSelected: (file: File) => void;
 }
 
-type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE" | "TEAMS" | "DOCUMENTS";
+type AdminTab = "STAFF" | "ROSTER" | "SCHEDULE" | "TEAMS" | "DOCUMENTS" | "MENUS";
 
 /* ---------- Image dropzone ---------- */
 
@@ -439,7 +440,7 @@ export const AdminDashboardPage = () => {
                         {/* Tab toggle */}
                         <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 text-[11px] font-semibold">
                             {(
-                                ["STAFF", "ROSTER", "SCHEDULE", "TEAMS", "DOCUMENTS"] as AdminTab[]
+                                ["STAFF", "ROSTER", "SCHEDULE", "TEAMS", "DOCUMENTS", "MENUS"] as AdminTab[]
                             ).map((tab) => {
                                 const isActive = activeTab === tab;
                                 let label: string;
@@ -447,7 +448,8 @@ export const AdminDashboardPage = () => {
                                 else if (tab === "ROSTER") label = "Roster";
                                 else if (tab === "SCHEDULE") label = "Schedule";
                                 else if (tab === "TEAMS") label = "Teams";
-                                else label = "Documents";
+                                else if (tab === "DOCUMENTS") label = "Documents";
+                                else label = "Dining Menus";
 
                                 return (
                                     <button
@@ -826,6 +828,13 @@ export const AdminDashboardPage = () => {
                 {activeTab === "DOCUMENTS" && (
                     <div className="space-y-6">
                         <AdminDocumentManager />
+                    </div>
+                )}
+
+                {/* TAB: MENUS */}
+                {activeTab === "MENUS" && (
+                    <div className="space-y-6">
+                        <AdminDiningMenuManager />
                     </div>
                 )}
             </main>

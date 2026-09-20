@@ -1,5 +1,6 @@
 import axios from "axios";
 import type {
+    DiningMenuDto,
     GameDto,
     PlayerDto,
     SiteDocumentDto,
@@ -24,6 +25,9 @@ const TTL = {
     scheduleFull: 10 * MINUTES,
     scheduleShort: 5 * MINUTES,
     documents: 30 * MINUTES,
+    // Short: the dining menu changes weekly and staff expect to see an upload
+    // reflected right away. Also explicitly invalidated on write.
+    diningMenus: 5 * MINUTES,
 } as const;
 
 // Raw fetchers (private)
@@ -66,6 +70,9 @@ const raw = {
 
     getDocument: (key: string) =>
         apiClient.get<SiteDocumentDto>(`/public/documents/${key}`).then((r) => r.data),
+
+    getDiningMenus: () =>
+        apiClient.get<DiningMenuDto[]>("/public/dining-menus").then((r) => r.data),
 };
 
 // Cached public API
@@ -108,4 +115,7 @@ export const publicApi = {
 
     getDocument: (key: string) =>
         cachedFetch(`document:${key}`, TTL.documents, () => raw.getDocument(key)),
+
+    getDiningMenus: () =>
+        cachedFetch("diningMenus", TTL.diningMenus, raw.getDiningMenus),
 };

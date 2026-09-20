@@ -69,6 +69,14 @@ export interface SiteDocumentDto {
     uploadedAt: string; // ISO instant string
 }
 
+export interface DiningMenuDto {
+    id: number;
+    title: string;
+    imageUrl: string;
+    displayOrder: number;
+    uploadedAt: string; // ISO instant string
+}
+
 export interface AuthResponse {
     token: string;
     fullName: string;

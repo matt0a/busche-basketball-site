@@ -220,7 +220,7 @@ export const SchedulePage: React.FC = () => {
             <div className="bg-slate-900 text-white">
                 <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
                     <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-primary mb-3">
-                        2024-25 Season
+                        2026-27 Season
                     </p>
                     <h1 className="text-3xl md:text-4xl font-bold mb-3">
                         Game Schedule

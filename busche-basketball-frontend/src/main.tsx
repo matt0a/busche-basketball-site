@@ -23,6 +23,7 @@ import { AdmissionsPage } from "./pages/AdmissionsPage";
 import { AcademicsPage } from "./pages/AcademicsPage";
 import { StudentLifePage } from "./pages/StudentLifePage";
 import { BasketballPage } from "./pages/BasketballPage";
+import { HockeyPage } from "./pages/HockeyPage";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                         <Route path="/academics" element={<AcademicsPage />} />
                         <Route path="/student-life" element={<StudentLifePage />} />
                         <Route path="/basketball" element={<BasketballPage />} />
+                        <Route path="/hockey" element={<HockeyPage />} />
 
                         {/* Admin / coach dashboard */}
                         <Route path="/admin/dashboard" element={<AdminDashboardPage />} />

@@ -148,7 +148,7 @@ export const AboutPage = () => {
                             Where Every Student Becomes a Leader
                         </h1>
                         <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
-                            A private coeducational boarding and day school in Chester, New Hampshire, empowering
+                            A private boarding and day school in Chester, New Hampshire, empowering
                             students from around the world.
                         </p>
                         <div className="flex flex-wrap gap-4">
@@ -204,7 +204,7 @@ export const AboutPage = () => {
                         {/* Left */}
                         <div className="space-y-5">
                             <p className="text-slate-600 leading-relaxed">
-                                Busche Academy (BA) is a private coeducational boarding and day school in Chester,
+                                Busche Academy (BA) is a private boarding and day school in Chester,
                                 New Hampshire, offering a college preparatory, multicultural education to students
                                 in grades 6–12 and postgraduates.
                             </p>
@@ -451,7 +451,7 @@ export const AboutPage = () => {
                                 "Exclusive CMCC partnership — opportunities to earn college credits in high school",
                                 "Small 9:1 student-to-faculty ratio for personalized attention",
                                 "70-acre campus just 40 miles from Boston",
-                                "Coeducational boarding and day enrollment for grades 6–12 + postgrad",
+                                "Boarding and day enrollment for grades 6–12 + postgrad",
                                 "Financial aid available to qualified students",
                                 "Diverse community with students from the US and around the world",
                                 "Dedicated coaching staff focused on college recruiting and player development",

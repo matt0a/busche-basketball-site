@@ -1,7 +1,9 @@
 package org.buscheacademy.basketball.api;
 
 import lombok.RequiredArgsConstructor;
+import org.buscheacademy.basketball.dining.DiningMenuService;
 import org.buscheacademy.basketball.document.SiteDocumentService;
+import org.buscheacademy.basketball.dto.DiningMenuDto;
 import org.buscheacademy.basketball.dto.SiteDocumentDto;
 import org.buscheacademy.basketball.dto.GameDto;
 import org.buscheacademy.basketball.dto.PlayerDto;
@@ -28,6 +30,7 @@ public class PublicApiController {
     private final GameService gameService;
     private final StaffMemberService staffMemberService;
     private final SiteDocumentService documentService;
+    private final DiningMenuService diningMenuService;
 
     // ---------- Teams & Roster ----------
 
@@ -90,5 +93,14 @@ public class PublicApiController {
                 .map(documentService::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    // ---------- Dining menus ----------
+
+    @GetMapping("/dining-menus")
+    public ResponseEntity<List<DiningMenuDto>> getDiningMenus() {
+        return ResponseEntity.ok(
+                diningMenuService.getAll().stream().map(diningMenuService::toDto).toList()
+        );
     }
 }

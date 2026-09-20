@@ -1,5 +1,6 @@
 import { SectionNav } from "../components/SectionNav";
 import { DocumentLink } from "../components/DocumentLink";
+import { DiningMenuBoard } from "../components/DiningMenuBoard";
 
 const SECTION_NAV = [
     { id: "housing", label: "Housing" },
@@ -352,6 +353,9 @@ export const StudentLifePage = () => (
                         </p>
                     </div>
                 </div>
+
+                {/* Weekly / special event menus */}
+                <DiningMenuBoard />
 
                 {/* Dining photos */}
                 <div className="grid md:grid-cols-2 gap-4 mt-8">

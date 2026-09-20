@@ -186,7 +186,7 @@ export const RosterPage: React.FC = () => {
 
                 <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
                     <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-3">
-                        2024-25 Season
+                        2026-27 Season
                     </p>
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">
                         Team Roster

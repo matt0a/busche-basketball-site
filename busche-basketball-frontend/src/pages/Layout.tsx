@@ -5,6 +5,32 @@ import { useAuth } from "../auth/AuthContext";
 const flatLinkClasses =
     "text-sm tracking-wide hover:text-primary transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-slate-50";
 
+const SOCIAL_LINKS = [
+    {
+        handle: "@buscheacademy",
+        href: "https://www.instagram.com/buscheacademy",
+        label: "Busche Academy on Instagram",
+    },
+    {
+        handle: "@buschebasketball",
+        href: "https://www.instagram.com/buschebasketball",
+        label: "Busche Basketball on Instagram",
+    },
+    {
+        handle: "@seacoastperformanceacademy",
+        href: "https://www.instagram.com/seacoastperformanceacademy",
+        label: "Seacoast Performance Academy on Instagram",
+    },
+];
+
+const InstagramIcon = () => (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
+        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
+        <circle cx="17" cy="7" r="1.2" fill="currentColor" />
+    </svg>
+);
+
 
 export const Layout = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated, logout } = useAuth();
@@ -109,6 +135,15 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 }
                             >
                                 Basketball
+                            </NavLink>
+
+                            <NavLink
+                                to="/hockey"
+                                className={({ isActive }) =>
+                                    `${flatLinkClasses} ${isActive ? "border-b-2 border-primary text-primary" : ""}`
+                                }
+                            >
+                                Hockey
                             </NavLink>
 
                             <NavLink
@@ -333,6 +368,20 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                         </NavLink>
 
                         <NavLink
+                            to="/hockey"
+                            className={({ isActive }) =>
+                                `block rounded-md px-3 py-2 text-sm font-medium ${
+                                    isActive
+                                        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                                        : "hover:bg-slate-50 hover:text-primary"
+                                }`
+                            }
+                            onClick={closeMobileNav}
+                        >
+                            Hockey
+                        </NavLink>
+
+                        <NavLink
                             to="/roster"
                             className={({ isActive }) =>
                                 `block rounded-md px-3 py-2 text-sm font-medium ${
@@ -428,39 +477,9 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             <span className="text-base font-bold text-slate-900 tracking-tight">Busche Academy</span>
                         </div>
                         <p className="text-sm text-slate-500 leading-relaxed">
-                            A private coeducational boarding and day school in Chester, New Hampshire,
+                            A private boarding and day school in Chester, New Hampshire,
                             welcoming students from across the United States and around the world.
                         </p>
-                        <div className="flex flex-col gap-2 pt-1">
-                            <a
-                                href="https://www.instagram.com/buscheacademy?igsh=emN4YWYyc2Fudmh4"
-                                target="_blank"
-                                rel="noreferrer"
-                                aria-label="Busche Academy Instagram"
-                                className="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors"
-                            >
-                                <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
-                                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="17" cy="7" r="1.2" fill="currentColor" />
-                                </svg>
-                                <span className="text-xs font-medium">@buscheacademy</span>
-                            </a>
-                            <a
-                                href="https://www.instagram.com/buschebasketball?igsh=cHVmbjNyNnRwajdl"
-                                target="_blank"
-                                rel="noreferrer"
-                                aria-label="Busche Basketball Instagram"
-                                className="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors"
-                            >
-                                <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
-                                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="17" cy="7" r="1.2" fill="currentColor" />
-                                </svg>
-                                <span className="text-xs font-medium">@buschebasketball</span>
-                            </a>
-                        </div>
                     </div>
 
                     {/* Quick links */}
@@ -473,6 +492,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 { label: "Academics", href: "/academics" },
                                 { label: "Student Life", href: "/student-life" },
                                 { label: "Basketball", href: "/basketball" },
+                                { label: "Hockey", href: "/hockey" },
                                 { label: "Roster", href: "/roster" },
                                 { label: "Schedule", href: "/schedule" },
                             ].map((l) => (
@@ -500,6 +520,30 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 </a>
                             </p>
                         </address>
+                    </div>
+                </div>
+
+                {/* Social bar */}
+                <div className="border-t border-slate-200">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
+                            Follow Us
+                        </p>
+                        <div className="flex flex-wrap items-center justify-center gap-3">
+                            {SOCIAL_LINKS.map((social) => (
+                                <a
+                                    key={social.href}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    aria-label={social.label}
+                                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-slate-500 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors"
+                                >
+                                    <InstagramIcon />
+                                    <span className="text-xs font-medium">{social.handle}</span>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
