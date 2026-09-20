@@ -16,39 +16,38 @@ const HIGHLIGHT_CARDS = [
     {
         icon: (
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-        ),
-        title: "65–70 Games",
-        body: "A full season from mid-August through the end of March, including national championships.",
-    },
-    {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
         ),
-        title: "5 Teams",
-        body: "U14, U15, U16 and U18 squads plus a U20 junior team, so players compete at the right level.",
+        title: "6 Teams",
+        body: "U13, U14, U15, U16, U18 Prep, U18 National",
     },
     {
         icon: (
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
         ),
-        title: "116 Beds",
-        body: "On-campus housing in Adams Hall and Preston Hall, minutes from the classroom and dining hall.",
+        title: "65+ Games",
+        body: "Leagues, Showcases, Tournaments, National Championships",
     },
     {
         icon: (
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4zM7 4H5a2 2 0 000 4h2M17 4h2a2 2 0 010 4h-2" />
             </svg>
         ),
-        title: "13 Classrooms",
-        body: "Ten on the Chester campus and three at the rink, so school never stops for the season.",
+        title: "Success",
+        body: "10+ NCAA D1 Commitments in 2025 & 2026. Plus a recent USHL Tender.",
+    },
+    {
+        icon: (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342a3 3 0 100-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.368-2.684 3 3 0 00-5.368 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+        ),
+        title: "Network",
+        body: "Our coaching staff includes multiple USHL, WHL, OHL, and QMJHL Scouts",
     },
 ];
 
@@ -56,11 +55,11 @@ const TRAINING_CARDS = [
     {
         icon: (
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
         ),
-        title: "Power Skating",
-        body: "Two edge work and power skating sessions every week with professional skills coach Mark Farrington.",
+        title: "100+ Team Practices",
+        body: "3-4x per week",
     },
     {
         icon: (
@@ -68,8 +67,17 @@ const TRAINING_CARDS = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
         ),
-        title: "Position Skills",
-        body: "Two position-specific sessions per week, with separate work for forwards, defensemen and goaltenders.",
+        title: "50+ Position Skills Sessions",
+        body: "2x per week",
+    },
+    {
+        icon: (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+        ),
+        title: "50+ Edge Work & Power Skating Sessions",
+        body: "2x per week",
     },
     {
         icon: (
@@ -77,17 +85,8 @@ const TRAINING_CARDS = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.5 6.5v11m11-11v11M4 9v6m16-6v6M6.5 12h11" />
             </svg>
         ),
-        title: "Strength & Conditioning",
-        body: "A fully equipped weight room at the rink. Every team trains one to two times per week, with unlimited player access.",
-    },
-    {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-        ),
-        title: "Goaltending & Video",
-        body: "A dedicated goalie centre with video review, led by two-time Stanley Cup champion Mike Buckley.",
+        title: "Off-Ice Training",
+        body: "Team Workouts 2-3x per week, Unlimited Strength & Conditioning",
     },
 ];
 
@@ -194,23 +193,19 @@ export const HockeyPage = () => {
                     {/* Left — text */}
                     <div className="space-y-5 text-slate-600 leading-relaxed">
                         <p>
-                            Our hockey program is operated jointly with Seacoast Performance Academy
-                            (SPA), based at The Rinks at Exeter in Exeter, New Hampshire.
-                            Student-athletes train on two sheets of ice, live on the Busche Academy
-                            campus in Chester, and follow a full college-preparatory curriculum.
+                            The Busche Academy hockey program is jointly operated with the Seacoast
+                            Performance Academy (SPA) in Exeter, New Hampshire. We are committed to
+                            developing skilled, disciplined, and driven hockey players. We offer a
+                            comprehensive training program, top-notch coaching, NCAA-approved
+                            high-level academics, and a supportive environment designed to help
+                            players reach their full potential both on and off the ice.
                         </p>
                         <p>
-                            The rink was built by the NHL in 1999 to grow the game, and Bauer
-                            Hockey&apos;s global headquarters sits one mile down the street. Alongside
-                            the two sheets are a dedicated goaltending centre, a weight room and
-                            classrooms &mdash; so training, school and recovery all happen in the same
-                            place.
-                        </p>
-                        <p>
-                            Teams compete against the strongest programs in the country, including
-                            Shattuck St. Mary&apos;s, Mount St. Charles and Bishop Kearney. Players come
-                            from across the United States and around the world, and move on to NCAA
-                            college hockey and Canadian major junior.
+                            Our state-of-the-art facilities and experienced coaching staff focus on
+                            enhancing every aspect of your game. SPA provides opportunities to
+                            compete at the highest levels and showcase your talents in various
+                            tournaments and leagues. Our program emphasizes not just hockey skills,
+                            but also academic excellence, leadership, and personal growth.
                         </p>
                     </div>
 
@@ -247,8 +242,8 @@ export const HockeyPage = () => {
                         Develop Every Part of Your Game
                     </h2>
                     <p className="text-slate-600 leading-relaxed max-w-2xl mb-10">
-                        Two to three hours on the ice every day, backed by strength work, video
-                        sessions and position-specific coaching.
+                        Our comprehensive training program is designed to help players improve,
+                        compete, and reach their goals.
                     </p>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

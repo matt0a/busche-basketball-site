@@ -18,7 +18,10 @@ const SECTIONS = [
     { id: "overview", label: "Overview" },
     { id: "coaches", label: "Coaches" },
     { id: "media", label: "Media" },
+    { id: "follow", label: "Follow" },
 ];
+
+const BASKETBALL_INSTAGRAM = "https://www.instagram.com/buschebasketball";
 
 const HIGHLIGHT_CARDS = [
     {
@@ -411,18 +414,48 @@ export const BasketballPage = () => {
                     </div>
                 </div>
 
-                <p className="text-center text-slate-600 text-sm mt-6">
-                    Follow us on{" "}
-                    <a
-                        href="https://www.instagram.com/buschebasketball?igsh=cHVmbjNyNnRwajdl"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-primary font-semibold hover:underline"
-                    >
-                        @buschebasketball
-                    </a>{" "}
-                    for the latest photos and highlights.
-                </p>
+            </section>
+
+            {/* ── Follow ───────────────────────────────────────── */}
+            <section
+                id="follow"
+                className="bg-white border-y border-slate-200"
+                style={{ scrollMarginTop: "80px" }}
+            >
+                <div className="max-w-6xl mx-auto px-4 py-16 md:py-20">
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        STAY CONNECTED
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                        Follow the Program
+                    </h2>
+
+                    <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <div className="flex items-center gap-2 text-slate-900 mb-2">
+                                <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-primary" aria-hidden="true">
+                                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="17" cy="7" r="1.2" fill="currentColor" />
+                                </svg>
+                                <span className="font-bold">@buschebasketball</span>
+                            </div>
+                            <p className="text-slate-600 text-sm leading-relaxed max-w-xl">
+                                Latest photos, highlights, game results and behind-the-scenes
+                                content from Busche Academy Basketball.
+                            </p>
+                        </div>
+                        <a
+                            href={BASKETBALL_INSTAGRAM}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn-primary px-6 py-3 text-base shrink-0"
+                        >
+                            Follow on Instagram
+                        </a>
+                    </div>
+                </div>
             </section>
 
             {/* ── Bottom CTA ───────────────────────────────────────────── */}
