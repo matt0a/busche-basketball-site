@@ -57,6 +57,9 @@ public class DiningMenuImageStorageService {
         String key = menuPrefix + UUID.randomUUID() + extension;
 
         try {
+            byte[] data = file.getBytes();
+            verifyMagicBytes(data, file.getContentType());
+
             PutObjectRequest putRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(key)
@@ -64,10 +67,7 @@ public class DiningMenuImageStorageService {
                     .acl(ObjectCannedACL.PUBLIC_READ)
                     .build();
 
-            s3Client.putObject(
-                    putRequest,
-                    RequestBody.fromInputStream(file.getInputStream(), file.getSize())
-            );
+            s3Client.putObject(putRequest, RequestBody.fromBytes(data));
 
             return buildPublicUrl(key);
         } catch (IOException ex) {
@@ -75,8 +75,47 @@ public class DiningMenuImageStorageService {
         }
     }
 
+    /**
+     * The multipart content type is supplied by the client, so it is only a claim.
+     * Check the leading bytes actually match the declared type before putting the
+     * object on a publicly readable bucket.
+     */
+    private void verifyMagicBytes(byte[] data, String contentType) {
+        boolean matches = switch (contentType) {
+            case "image/jpeg" -> data.length >= 3
+                    && (data[0] & 0xFF) == 0xFF && (data[1] & 0xFF) == 0xD8 && (data[2] & 0xFF) == 0xFF;
+            case "image/png" -> data.length >= 8
+                    && (data[0] & 0xFF) == 0x89 && data[1] == 'P' && data[2] == 'N' && data[3] == 'G'
+                    && (data[4] & 0xFF) == 0x0D && (data[5] & 0xFF) == 0x0A
+                    && (data[6] & 0xFF) == 0x1A && (data[7] & 0xFF) == 0x0A;
+            // RIFF....WEBP — bytes 4-7 are the little-endian file size and are not checked.
+            case "image/webp" -> data.length >= 12
+                    && data[0] == 'R' && data[1] == 'I' && data[2] == 'F' && data[3] == 'F'
+                    && data[8] == 'W' && data[9] == 'E' && data[10] == 'B' && data[11] == 'P';
+            default -> false;
+        };
+
+        if (!matches) {
+            throw new IllegalArgumentException("File content does not match its declared image type");
+        }
+    }
+
+    /**
+     * Only the stored URL is persisted, never the S3 key, so the key has to be
+     * recovered from the URL. Anchor it on the menu prefix rather than trusting the
+     * whole path: that keeps a malformed or hand-edited row from targeting an object
+     * outside menus/, and it stays correct when app.s3.public-base-url carries its own
+     * path segment (a CloudFront origin path, say).
+     */
     public void deleteMenuImage(String fileUrl) {
-        String s3Key = URI.create(fileUrl).getPath().replaceFirst("^/", "");
+        String path = URI.create(fileUrl).getPath().replaceFirst("^/", "");
+
+        int prefixStart = path.indexOf(menuPrefix);
+        if (prefixStart < 0) {
+            throw new IllegalArgumentException("Refusing to delete an object outside " + menuPrefix);
+        }
+
+        String s3Key = path.substring(prefixStart);
         s3Client.deleteObject(DeleteObjectRequest.builder()
                 .bucket(bucketName)
                 .key(s3Key)
