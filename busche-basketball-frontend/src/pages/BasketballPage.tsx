@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { publicApi } from "../api/publicApi";
 import { SectionNav } from "../components/SectionNav";
+import { TopoBackground } from "../components/TopoBackground";
 import type { StaffMemberDto } from "../types";
 
 const API_BASE_URL =
@@ -160,7 +161,7 @@ export const BasketballPage = () => {
                 </div>
             </section>
 
-            {/* ── Section Nav ───────────────────────────────────────────── */}
+            {/* ── Section Nav ───────────────────────────── */}
             <SectionNav sections={SECTIONS} />
 
             {/* ── Overview ─────────────────────────────────────────────── */}
@@ -172,45 +173,29 @@ export const BasketballPage = () => {
                 <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
                     THE PROGRAM
                 </p>
+                <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
                     Elite Basketball, Exceptional Academics
                 </h2>
 
-                {/* 2-column */}
-                <div className="grid md:grid-cols-2 gap-12 mb-12">
-                    {/* Left — text */}
-                    <div className="space-y-5 text-slate-600 leading-relaxed">
-                        <p>
-                            Busche Academy Basketball combines year-round elite training with a rigorous
-                            college-preparatory education. Our student-athletes balance structured
-                            on-court development, strength and conditioning, and competitive schedules
-                            with the academic support of a small boarding school.
-                        </p>
+                {/* Prose */}
+                <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 text-slate-600 leading-relaxed mb-12">
+                    <p>
+                        Busche Academy Basketball combines year-round elite training with a rigorous
+                        college-preparatory education. Our student-athletes balance structured
+                        on-court development, strength and conditioning, and competitive schedules
+                        with the academic support of a small boarding school.
+                    </p>
+                    <div className="space-y-5">
                         <p>
                             Our diverse roster includes student-athletes from across the United States
-                            and around the world — a global locker room on a beautiful New Hampshire
+                            and around the world &mdash; a global locker room on a beautiful New Hampshire
                             campus just 40 miles from Boston.
                         </p>
                         <p>
                             Through the CMCC partnership, basketball players have opportunities to
                             earn college credits in high school, helping reduce time and cost in college.
                         </p>
-                    </div>
-
-                    {/* Right — 2×2 highlight cards */}
-                    <div className="grid grid-cols-2 gap-4">
-                        {HIGHLIGHT_CARDS.map((card) => (
-                            <div
-                                key={card.title}
-                                className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm"
-                            >
-                                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-3">
-                                    {card.icon}
-                                </div>
-                                <p className="font-bold text-slate-900 text-sm mb-1">{card.title}</p>
-                                <p className="text-xs text-slate-500 leading-relaxed">{card.body}</p>
-                            </div>
-                        ))}
                     </div>
                 </div>
 
@@ -241,6 +226,33 @@ export const BasketballPage = () => {
                 </div>
             </section>
 
+            {/* ── By the numbers ─────────────────────────── */}
+            <section className="relative bg-slate-900 text-white overflow-hidden">
+                <div className="absolute inset-0 opacity-10" aria-hidden="true">
+                    <div
+                        className="absolute inset-0"
+                        style={{ backgroundImage: "radial-gradient(circle at 25% 25%, #009FFD 0%, transparent 50%), radial-gradient(circle at 75% 75%, #2AFC98 0%, transparent 50%)" }}
+                    />
+                </div>
+                <TopoBackground opacity={0.05} />
+
+                <div className="relative max-w-6xl mx-auto px-4 py-14 md:py-16">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 lg:gap-x-0 lg:divide-x lg:divide-white/10">
+                        {HIGHLIGHT_CARDS.map((card) => (
+                            <div key={card.title} className="lg:px-7 lg:first:pl-0 lg:last:pr-0">
+                                <div className="w-11 h-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
+                                    {card.icon}
+                                </div>
+                                <p className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
+                                    {card.title}
+                                </p>
+                                <p className="text-sm text-slate-300 leading-relaxed">{card.body}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* ── Coaches ──────────────────────────────────────────────── */}
             <section
                 id="coaches"
@@ -251,6 +263,7 @@ export const BasketballPage = () => {
                     <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
                         COACHING STAFF
                     </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
                         Meet the Coaches
                     </h2>
@@ -367,6 +380,7 @@ export const BasketballPage = () => {
                 <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
                     MEDIA
                 </p>
+                <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
                     Photos &amp; Highlights
                 </h2>

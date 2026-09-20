@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { SectionNav } from "../components/SectionNav";
 import { VideoEmbed } from "../components/VideoEmbed";
+import { TopoBackground } from "../components/TopoBackground";
 
 const SECTIONS = [
     { id: "overview", label: "Overview" },
@@ -58,8 +59,9 @@ const TRAINING_CARDS = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
         ),
-        title: "100+ Team Practices",
-        body: "3-4x per week",
+        value: "100+",
+        label: "Team Practices",
+        detail: "3-4x per week",
     },
     {
         icon: (
@@ -67,8 +69,9 @@ const TRAINING_CARDS = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
         ),
-        title: "50+ Position Skills Sessions",
-        body: "2x per week",
+        value: "50+",
+        label: "Position Skills Sessions",
+        detail: "2x per week",
     },
     {
         icon: (
@@ -76,8 +79,9 @@ const TRAINING_CARDS = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
         ),
-        title: "50+ Edge Work & Power Skating Sessions",
-        body: "2x per week",
+        value: "50+",
+        label: "Edge Work & Power Skating Sessions",
+        detail: "2x per week",
     },
     {
         icon: (
@@ -85,8 +89,9 @@ const TRAINING_CARDS = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.5 6.5v11m11-11v11M4 9v6m16-6v6M6.5 12h11" />
             </svg>
         ),
-        title: "Off-Ice Training",
-        body: "Team Workouts 2-3x per week, Unlimited Strength & Conditioning",
+        value: "",
+        label: "Off-Ice Training",
+        detail: "Team Workouts 2-3x per week, Unlimited Strength & Conditioning",
     },
 ];
 
@@ -140,6 +145,7 @@ export const HockeyPage = () => {
                         }}
                     />
                 </div>
+                <TopoBackground opacity={0.06} />
 
                 <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 py-20 md:py-28">
                     <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-3">
@@ -189,38 +195,46 @@ export const HockeyPage = () => {
                     Elite Hockey, Exceptional Academics
                 </h2>
 
-                <div className="grid md:grid-cols-2 gap-12 mb-12">
-                    {/* Left — text */}
-                    <div className="space-y-5 text-slate-600 leading-relaxed">
-                        <p>
-                            The Busche Academy hockey program is jointly operated with the Seacoast
-                            Performance Academy (SPA) in Exeter, New Hampshire. We are committed to
-                            developing skilled, disciplined, and driven hockey players. We offer a
-                            comprehensive training program, top-notch coaching, NCAA-approved
-                            high-level academics, and a supportive environment designed to help
-                            players reach their full potential both on and off the ice.
-                        </p>
-                        <p>
-                            Our state-of-the-art facilities and experienced coaching staff focus on
-                            enhancing every aspect of your game. SPA provides opportunities to
-                            compete at the highest levels and showcase your talents in various
-                            tournaments and leagues. Our program emphasizes not just hockey skills,
-                            but also academic excellence, leadership, and personal growth.
-                        </p>
-                    </div>
+                <div className="grid md:grid-cols-2 gap-x-12 gap-y-5 text-slate-600 leading-relaxed">
+                    <p>
+                        The Busche Academy hockey program is jointly operated with the Seacoast
+                        Performance Academy (SPA) in Exeter, New Hampshire. We are committed to
+                        developing skilled, disciplined, and driven hockey players. We offer a
+                        comprehensive training program, top-notch coaching, NCAA-approved
+                        high-level academics, and a supportive environment designed to help
+                        players reach their full potential both on and off the ice.
+                    </p>
+                    <p>
+                        Our state-of-the-art facilities and experienced coaching staff focus on
+                        enhancing every aspect of your game. SPA provides opportunities to
+                        compete at the highest levels and showcase your talents in various
+                        tournaments and leagues. Our program emphasizes not just hockey skills,
+                        but also academic excellence, leadership, and personal growth.
+                    </p>
+                </div>
+            </section>
 
-                    {/* Right — 2×2 highlight cards */}
-                    <div className="grid grid-cols-2 gap-4">
+            {/* ── By the numbers ─────────────────────────── */}
+            <section className="relative bg-slate-900 text-white overflow-hidden">
+                <div className="absolute inset-0 opacity-10" aria-hidden="true">
+                    <div
+                        className="absolute inset-0"
+                        style={{ backgroundImage: "radial-gradient(circle at 25% 25%, #009FFD 0%, transparent 50%), radial-gradient(circle at 75% 75%, #2AFC98 0%, transparent 50%)" }}
+                    />
+                </div>
+                <TopoBackground opacity={0.05} />
+
+                <div className="relative max-w-6xl mx-auto px-4 py-14 md:py-16">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 lg:gap-x-0 lg:divide-x lg:divide-white/10">
                         {HIGHLIGHT_CARDS.map((card) => (
-                            <div
-                                key={card.title}
-                                className="bg-white rounded-2xl border border-slate-200 shadow-card p-5 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300"
-                            >
-                                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                            <div key={card.title} className="lg:px-7 lg:first:pl-0 lg:last:pr-0">
+                                <div className="w-11 h-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
                                     {card.icon}
                                 </div>
-                                <h3 className="font-bold text-slate-900 mb-2">{card.title}</h3>
-                                <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
+                                <p className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
+                                    {card.title}
+                                </p>
+                                <p className="text-sm text-slate-300 leading-relaxed">{card.body}</p>
                             </div>
                         ))}
                     </div>
@@ -249,14 +263,24 @@ export const HockeyPage = () => {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         {TRAINING_CARDS.map((card) => (
                             <div
-                                key={card.title}
-                                className="bg-white rounded-2xl border border-slate-200 shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300"
+                                key={card.label}
+                                className="group relative flex flex-col overflow-hidden bg-white rounded-2xl border border-slate-200 shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
                             >
-                                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-aqua scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                                     {card.icon}
                                 </div>
-                                <h3 className="font-bold text-slate-900 mb-2">{card.title}</h3>
-                                <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
+                                {card.value && (
+                                    <p className="text-3xl font-extrabold text-primary tabular-nums leading-none mb-2">
+                                        {card.value}
+                                    </p>
+                                )}
+                                <h3 className="font-bold text-slate-900 mb-1">{card.label}</h3>
+                                {/* mt-auto keeps the detail line on a common baseline across the
+                                    row, including the one card that carries no figure. */}
+                                <p className="text-slate-600 text-sm leading-relaxed mt-auto pt-2">
+                                    {card.detail}
+                                </p>
                             </div>
                         ))}
                     </div>
