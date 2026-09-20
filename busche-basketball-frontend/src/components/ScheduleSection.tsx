@@ -151,7 +151,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, isResult }) => {
     );
 };
 
-export const SchedulePage: React.FC = () => {
+export const ScheduleSection: React.FC = () => {
     const [games, setGames] = useState<GameDto[]>([]);
     const [teams, setTeams] = useState<TeamDto[]>([]);
     const [teamFilter, setTeamFilter] = useState<TeamFilter>("ALL");
@@ -215,25 +215,9 @@ export const SchedulePage: React.FC = () => {
     const displayedGames = viewTab === "upcoming" ? upcomingGames : pastGames;
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            {/* Hero header */}
-            <div className="bg-slate-900 text-white">
-                <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-                    <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-primary mb-3">
-                        2026-27 Season
-                    </p>
-                    <h1 className="text-3xl md:text-4xl font-bold mb-3">
-                        Game Schedule
-                    </h1>
-                    <p className="text-slate-400 max-w-xl">
-                        Follow Busche Academy Basketball through the season.
-                        View upcoming matchups and recent results.
-                    </p>
-                </div>
-            </div>
-
+        <>
             {/* Controls bar */}
-            <div className="bg-white border-b border-slate-200 sticky top-[73px] z-20">
+            <div className="border-b border-slate-200 mb-8">
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         {/* View tabs */}
@@ -422,6 +406,6 @@ export const SchedulePage: React.FC = () => {
                     </>
                 )}
             </div>
-        </div>
+        </>
     );
 };

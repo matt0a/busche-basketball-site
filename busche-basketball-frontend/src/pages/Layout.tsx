@@ -146,27 +146,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 Hockey
                             </NavLink>
 
-                            <NavLink
-                                to="/roster"
-                                className={({ isActive }) =>
-                                    `${flatLinkClasses} ${
-                                        isActive ? "border-b-2 border-primary text-primary" : ""
-                                    }`
-                                }
-                            >
-                                Roster
-                            </NavLink>
 
-                            <NavLink
-                                to="/schedule"
-                                className={({ isActive }) =>
-                                    `${flatLinkClasses} ${
-                                        isActive ? "border-b-2 border-primary text-primary" : ""
-                                    }`
-                                }
-                            >
-                                Schedule
-                            </NavLink>
 
                             {isAuthenticated ? (
                                 <>
@@ -381,33 +361,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             Hockey
                         </NavLink>
 
-                        <NavLink
-                            to="/roster"
-                            className={({ isActive }) =>
-                                `block rounded-md px-3 py-2 text-sm font-medium ${
-                                    isActive
-                                        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary pl-[10px]"
-                                        : "hover:bg-slate-50 hover:text-primary"
-                                }`
-                            }
-                            onClick={closeMobileNav}
-                        >
-                            Roster
-                        </NavLink>
 
-                        <NavLink
-                            to="/schedule"
-                            className={({ isActive }) =>
-                                `block rounded-md px-3 py-2 text-sm font-medium ${
-                                    isActive
-                                        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary pl-[10px]"
-                                        : "hover:bg-slate-50 hover:text-primary"
-                                }`
-                            }
-                            onClick={closeMobileNav}
-                        >
-                            Schedule
-                        </NavLink>
 
                         {/* Bottom auth section */}
                         <div className="mt-4 border-t border-slate-100 pt-4">
@@ -493,8 +447,6 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                 { label: "Student Life", href: "/student-life" },
                                 { label: "Basketball", href: "/basketball" },
                                 { label: "Hockey", href: "/hockey" },
-                                { label: "Roster", href: "/roster" },
-                                { label: "Schedule", href: "/schedule" },
                             ].map((l) => (
                                 <li key={l.href}>
                                     <Link to={l.href} className="text-sm text-slate-600 hover:text-primary transition-colors">

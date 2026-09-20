@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { publicApi } from "../api/publicApi";
 import type { PlayerDto, TeamDto, TeamLevel } from "../types";
-import { gsap } from "gsap";
 
 const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
@@ -94,23 +93,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player }) => {
     );
 };
 
-export const RosterPage: React.FC = () => {
-    const heroRef = useRef<HTMLDivElement | null>(null);
+export const RosterSection: React.FC = () => {
     const [teams, setTeams] = useState<TeamDto[]>([]);
     const [playersByTeam, setPlayersByTeam] = useState<Record<number, PlayerDto[]>>({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [activeLevel, setActiveLevel] = useState<TeamLevel>("NATIONAL");
-
-    useEffect(() => {
-        if (heroRef.current) {
-            gsap.fromTo(
-                heroRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
-            );
-        }
-    }, []);
 
     useEffect(() => {
         let isMounted = true;
@@ -175,32 +163,9 @@ export const RosterPage: React.FC = () => {
     }, [activeTeams, playersByTeam]);
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            {/* Hero Section */}
-            <section className="relative bg-slate-900 text-white overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: `radial-gradient(circle at 25% 25%, #009FFD 0%, transparent 50%), radial-gradient(circle at 75% 75%, #2AFC98 0%, transparent 50%)`
-                    }} />
-                </div>
-
-                <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-3">
-                        2026-27 Season
-                    </p>
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                        Team Roster
-                    </h1>
-                    <p className="text-lg text-slate-300 max-w-2xl">
-                        Meet the student-athletes representing Busche Academy Basketball.
-                        Our roster includes talented players from across the United States
-                        and around the world.
-                    </p>
-                </div>
-            </section>
-
+        <>
             {/* Controls bar */}
-            <div className="bg-white border-b border-slate-200 sticky top-[73px] z-20">
+            <div className="border-b border-slate-200 mb-8">
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         {/* Team level toggle */}
@@ -314,24 +279,12 @@ export const RosterPage: React.FC = () => {
                 )}
             </div>
 
-            {/* Join CTA */}
-            <section className="bg-white border-t border-slate-200 py-12">
-                <div className="max-w-6xl mx-auto px-4 text-center">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-3">
-                        Interested in Joining the Team?
-                    </h2>
-                    <p className="text-slate-600 mb-6 max-w-xl mx-auto">
-                        We're always looking for talented, dedicated student-athletes who want
-                        to compete at a high level while excelling academically.
-                    </p>
-                    <p className="text-slate-600">
-                        To inquire about tryouts, email our coach at{" "}
-                        <a href="mailto:mmason@buscheacademy.org" className="text-primary hover:underline font-medium">
-                            mmason@buscheacademy.org
-                        </a>
-                    </p>
-                </div>
-            </section>
-        </div>
+            <p className="max-w-6xl mx-auto px-4 pt-8 text-sm text-slate-600">
+                To inquire about tryouts, email our coach at{" "}
+                <a href="mailto:mmason@buscheacademy.org" className="text-primary hover:underline font-medium">
+                    mmason@buscheacademy.org
+                </a>
+            </p>
+        </>
     );
 };

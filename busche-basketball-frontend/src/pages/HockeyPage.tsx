@@ -11,6 +11,7 @@ const SECTIONS = [
 ];
 
 const SPA_INSTAGRAM = "https://www.instagram.com/seacoastperformanceacademy";
+const SPA_WEBSITE = "https://seacoastperformanceacademy.com/";
 const APPLY_URL = "https://bit.ly/gobuscheacademy";
 
 const HIGHLIGHT_CARDS = [
@@ -152,7 +153,7 @@ export const HockeyPage = () => {
                         HOCKEY PROGRAM
                     </p>
                     <h1 className="text-4xl md:text-6xl font-bold mb-5 leading-tight">
-                        Develop. Compete. Advance.
+                        Be Ready. Go Further.
                     </h1>
                     <p className="text-lg text-slate-300 max-w-2xl mb-8 leading-relaxed">
                         Busche Academy hockey is operated jointly with Seacoast Performance Academy
@@ -161,7 +162,7 @@ export const HockeyPage = () => {
                     </p>
                     <div className="flex flex-wrap gap-4">
                         <a
-                            href={APPLY_URL}
+                            href={SPA_WEBSITE}
                             target="_blank"
                             rel="noreferrer"
                             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg transition-colors"

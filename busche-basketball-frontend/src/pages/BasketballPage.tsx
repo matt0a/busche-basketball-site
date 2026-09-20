@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { publicApi } from "../api/publicApi";
 import { SectionNav } from "../components/SectionNav";
 import { TopoBackground } from "../components/TopoBackground";
+import { RosterSection } from "../components/RosterSection";
+import { ScheduleSection } from "../components/ScheduleSection";
 import type { StaffMemberDto } from "../types";
 
 const API_BASE_URL =
@@ -17,6 +18,8 @@ function buildStaffPhotoUrl(path: string | null | undefined): string | null {
 
 const SECTIONS = [
     { id: "overview", label: "Overview" },
+    { id: "roster", label: "Roster" },
+    { id: "schedule", label: "Schedule" },
     { id: "coaches", label: "Coaches" },
     { id: "media", label: "Media" },
     { id: "follow", label: "Follow" },
@@ -137,7 +140,7 @@ export const BasketballPage = () => {
                         BASKETBALL PROGRAM
                     </p>
                     <h1 className="text-4xl md:text-6xl font-bold mb-5 leading-tight">
-                        Compete. Develop. Advance.
+                        Develop. Compete. Advance.
                     </h1>
                     <p className="text-lg text-slate-300 max-w-2xl mb-8 leading-relaxed">
                         Busche Academy fields National and Regional teams competing against the best prep
@@ -145,18 +148,18 @@ export const BasketballPage = () => {
                         an unmatched academic environment.
                     </p>
                     <div className="flex flex-wrap gap-4">
-                        <Link
-                            to="/roster"
+                        <a
+                            href="#roster"
                             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                         >
                             View Roster
-                        </Link>
-                        <Link
-                            to="/schedule"
+                        </a>
+                        <a
+                            href="#schedule"
                             className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 transition-colors"
                         >
                             View Schedule
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -251,6 +254,52 @@ export const BasketballPage = () => {
                         ))}
                     </div>
                 </div>
+            </section>
+
+            {/* ── Roster ─────────────────────────────────────── */}
+            <section
+                id="roster"
+                className="bg-white border-t border-slate-200 py-16 md:py-20"
+                style={{ scrollMarginTop: "80px" }}
+            >
+                <div className="max-w-6xl mx-auto px-4 mb-8">
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        2026-27 SEASON
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                        Team Roster
+                    </h2>
+                    <p className="text-slate-600 leading-relaxed max-w-2xl">
+                        Meet the student-athletes representing Busche Academy Basketball. Our roster
+                        includes talented players from across the United States and around the world.
+                    </p>
+                </div>
+
+                <RosterSection />
+            </section>
+
+            {/* ── Schedule ────────────────────────────────── */}
+            <section
+                id="schedule"
+                className="border-t border-slate-200 py-16 md:py-20"
+                style={{ scrollMarginTop: "80px" }}
+            >
+                <div className="max-w-6xl mx-auto px-4 mb-8">
+                    <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em] mb-2">
+                        GAME SCHEDULE
+                    </p>
+                    <div className="w-12 h-1 rounded-full bg-gradient-to-r from-primary to-aqua mb-3 mt-1" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                        Upcoming Games &amp; Results
+                    </h2>
+                    <p className="text-slate-600 leading-relaxed max-w-2xl">
+                        Follow Busche Academy Basketball through the season. View upcoming matchups
+                        and recent results.
+                    </p>
+                </div>
+
+                <ScheduleSection />
             </section>
 
             {/* ── Coaches ──────────────────────────────────────────────── */}
@@ -483,12 +532,12 @@ export const BasketballPage = () => {
                         student-athlete.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link
-                            to="/roster"
+                        <a
+                            href="#roster"
                             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                         >
                             View Roster
-                        </Link>
+                        </a>
                         <a
                             href="https://bit.ly/gobuscheacademy"
                             target="_blank"
