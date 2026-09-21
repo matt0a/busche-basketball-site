@@ -57,7 +57,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, attribution })
     <div className="flex-shrink-0 w-80 md:w-96 bg-slate-50 rounded-2xl p-6 border border-slate-200 shadow-card">
         <div className="flex gap-1 mb-4">
             {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} size={20} weight="fill" className="text-amber-400" />
+                <Star key={star} size={20} weight="fill" className="text-amber-400" aria-hidden="true" />
             ))}
         </div>
         <blockquote className="text-slate-700 leading-relaxed mb-4 text-sm md:text-base">

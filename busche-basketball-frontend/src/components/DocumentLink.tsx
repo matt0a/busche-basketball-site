@@ -59,7 +59,7 @@ export const DocumentLink = ({
                 disabled
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 text-slate-400 text-sm font-medium cursor-not-allowed"
             >
-                {icon ?? <FileText size={16} weight="duotone" className="shrink-0" />}
+                {icon ?? <FileText size={16} weight="duotone" className="shrink-0" aria-hidden="true" />}
                 <span>{label}</span>
                 <span className="text-xs text-slate-400">— Not yet available</span>
             </button>
@@ -73,7 +73,7 @@ export const DocumentLink = ({
             rel="noreferrer noopener"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors"
         >
-            {icon ?? <FileText size={16} weight="duotone" className="shrink-0" />}
+            {icon ?? <FileText size={16} weight="duotone" className="shrink-0" aria-hidden="true" />}
             <span>{label}</span>
         </a>
     );

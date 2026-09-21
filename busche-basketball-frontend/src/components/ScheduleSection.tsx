@@ -134,7 +134,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, isResult }) => {
 
                 {/* Location */}
                 <div className="flex items-start gap-2 text-sm text-slate-600">
-                    <MapPin size={16} weight="duotone" className="mt-0.5 text-slate-400 flex-shrink-0" />
+                    <MapPin size={16} weight="duotone" className="mt-0.5 text-slate-400 flex-shrink-0" aria-hidden="true" />
                     <span>{game.location}</span>
                 </div>
 
@@ -290,7 +290,7 @@ export const ScheduleSection: React.FC = () => {
                 {loading && (
                     <div className="flex items-center justify-center py-16">
                         <div className="flex items-center gap-3 text-slate-500">
-                            <CircleNotch size={20} weight="bold" className="animate-spin" />
+                            <CircleNotch size={20} weight="bold" className="animate-spin" aria-hidden="true" />
                             <span>Loading schedule...</span>
                         </div>
                     </div>
@@ -304,7 +304,7 @@ export const ScheduleSection: React.FC = () => {
 
                 {!loading && !error && games.length === 0 && (
                     <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
-                        <CalendarBlank size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" />
+                        <CalendarBlank size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" aria-hidden="true" />
                         <p className="text-slate-600 font-medium">No games scheduled yet</p>
                         <p className="text-sm text-slate-500 mt-1">Check back soon for updates.</p>
                     </div>

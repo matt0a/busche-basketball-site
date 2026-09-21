@@ -215,7 +215,7 @@ export const HomePage = () => {
                     className="absolute right-16 md:right-20 bottom-6 h-9 w-9 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
                     aria-label="Previous slide"
                 >
-                    <CaretLeft size={16} weight="bold" />
+                    <CaretLeft size={16} weight="bold" aria-hidden="true" />
                 </button>
                 <button
                     type="button"
@@ -223,7 +223,7 @@ export const HomePage = () => {
                     className="absolute right-4 md:right-8 bottom-6 h-9 w-9 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
                     aria-label="Next slide"
                 >
-                    <CaretRight size={16} weight="bold" />
+                    <CaretRight size={16} weight="bold" aria-hidden="true" />
                 </button>
 
                 {/* Slide dots */}
@@ -292,7 +292,7 @@ export const HomePage = () => {
                                 <div
                                     className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${section.color} group-hover:scale-110 transition-transform duration-300`}
                                 >
-                                    <section.Icon size={24} weight="duotone" />
+                                    <section.Icon size={24} weight="duotone" aria-hidden="true" />
                                 </div>
                                 <p className="font-bold text-slate-900 text-base mb-2 tracking-tight">
                                     {section.title}
@@ -302,7 +302,7 @@ export const HomePage = () => {
                                 </p>
                                 <p className="mt-5 text-primary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all duration-200">
                                     Learn More
-                                    <CaretRight size={14} weight="bold" />
+                                    <CaretRight size={14} weight="bold" aria-hidden="true" />
                                 </p>
                             </Link>
                         ))}
@@ -337,7 +337,7 @@ export const HomePage = () => {
                                 className="inline-flex items-center gap-2 text-primary hover:text-sky-600 font-medium transition-colors"
                             >
                                 Explore the Program
-                                <CaretRight size={16} weight="bold" />
+                                <CaretRight size={16} weight="bold" aria-hidden="true" />
                             </Link>
                         </div>
 
@@ -348,7 +348,7 @@ export const HomePage = () => {
                                 <div className="flex items-center gap-2 mb-3">
                                     {/* Clock / history icon well */}
                                     <div className="w-6 h-6 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
-                                        <Clock size={14} weight="duotone" />
+                                        <Clock size={14} weight="duotone" aria-hidden="true" />
                                     </div>
                                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Last Game
@@ -394,7 +394,7 @@ export const HomePage = () => {
                                 <div className="flex items-center gap-2 mb-3">
                                     {/* Calendar icon well */}
                                     <div className="w-6 h-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                                        <CalendarBlank size={14} weight="duotone" />
+                                        <CalendarBlank size={14} weight="duotone" aria-hidden="true" />
                                     </div>
                                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Next Game
@@ -494,7 +494,7 @@ export const HomePage = () => {
                         {/* Upgrade #8 — pin icon well before "Our Campus" label */}
                         <div className="flex items-start gap-4">
                             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <MapPin size={16} weight="duotone" />
+                                <MapPin size={16} weight="duotone" aria-hidden="true" />
                             </div>
                             <div>
                                 <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-1">

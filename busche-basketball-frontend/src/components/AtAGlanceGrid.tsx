@@ -145,7 +145,7 @@ export const AtAGlanceGrid = () => {
                                         ${idx === active ? "scale-[1.45] sm:scale-110" : "scale-[1.3] sm:scale-100 group-hover:scale-[1.45] sm:group-hover:scale-110 opacity-60 group-hover:opacity-100"}
                                     `}
                                 >
-                                    <t.Icon size={36} weight="duotone" />
+                                    <t.Icon size={36} weight="duotone" aria-hidden="true" />
                                 </span>
                             </button>
                         ))}

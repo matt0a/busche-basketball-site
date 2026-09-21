@@ -129,7 +129,7 @@ export const AdmissionsPage = () => (
                                             {idx + 1}
                                         </span>
                                         <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                            <step.Icon size={16} weight="duotone" />
+                                            <step.Icon size={16} weight="duotone" aria-hidden="true" />
                                         </div>
                                     </div>
                                     <p className="text-slate-700 leading-relaxed pt-1">{step.text}</p>
@@ -208,7 +208,7 @@ export const AdmissionsPage = () => (
                     {/* Day Student */}
                     <div className="bg-white rounded-2xl border border-slate-200 border-l-4 border-l-primary shadow-card p-8 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                            <Sun size={20} weight="duotone" />
+                            <Sun size={20} weight="duotone" aria-hidden="true" />
                         </div>
                         <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Day Student</p>
                         <p className="text-4xl font-bold text-primary mb-3">$39,500</p>
@@ -217,7 +217,7 @@ export const AdmissionsPage = () => (
                     {/* Boarding Student */}
                     <div className="bg-white rounded-2xl border border-slate-200 border-l-4 border-l-aqua shadow-card p-8 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                            <Buildings size={20} weight="duotone" />
+                            <Buildings size={20} weight="duotone" aria-hidden="true" />
                         </div>
                         <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Boarding Student</p>
                         <p className="text-4xl font-bold text-primary mb-3">$59,500</p>
@@ -257,7 +257,7 @@ export const AdmissionsPage = () => (
                 {/* #13 — Financial aid box with icon well above eyebrow */}
                 <div className="bg-primary/5 border-l-4 border-primary rounded-r-2xl p-6">
                     <div className="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-3">
-                        <ShieldCheck size={20} weight="duotone" />
+                        <ShieldCheck size={20} weight="duotone" aria-hidden="true" />
                     </div>
                     <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-2">
                         FINANCIAL AID

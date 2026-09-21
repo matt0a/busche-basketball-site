@@ -184,7 +184,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             aria-label="Open navigation menu"
                         >
                             <span className="sr-only">Open main menu</span>
-                            <List size={20} weight="bold" />
+                            <List size={20} weight="bold" aria-hidden="true" />
                         </button>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             onClick={closeMobileNav}
                             aria-label="Close navigation menu"
                         >
-                            <X size={16} weight="bold" />
+                            <X size={16} weight="bold" aria-hidden="true" />
                         </button>
                     </div>
 
@@ -460,7 +460,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                     aria-label={social.label}
                                     className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-slate-500 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors"
                                 >
-                                    <InstagramLogo size={16} weight="fill" className="shrink-0" />
+                                    <InstagramLogo size={16} weight="fill" className="shrink-0" aria-hidden="true" />
                                     <span className="text-xs font-medium">{social.handle}</span>
                                 </a>
                             ))}

@@ -115,7 +115,7 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({
                     />
                 ) : (
                     <div className="h-24 w-24 rounded-md bg-white flex items-center justify-center mb-3 border border-slate-200">
-                        <UploadSimple size={40} weight="duotone" className="text-slate-400" />
+                        <UploadSimple size={40} weight="duotone" className="text-slate-400" aria-hidden="true" />
                     </div>
                 )}
 

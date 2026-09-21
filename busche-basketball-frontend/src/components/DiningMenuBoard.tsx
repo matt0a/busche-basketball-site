@@ -42,7 +42,7 @@ export const DiningMenuBoard = () => {
         <div className="mt-10">
             <div className="flex items-center gap-3 mb-5">
                 <div className="bg-primary/10 text-primary rounded-xl p-2.5">
-                    <ForkKnife size={20} weight="duotone" />
+                    <ForkKnife size={20} weight="duotone" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">Current Menus</h3>
             </div>

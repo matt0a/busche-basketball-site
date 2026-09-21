@@ -64,7 +64,7 @@ export const MissionSection = () => {
                     <div className="rounded-2xl bg-white p-8 md:p-10 flex flex-col gap-5 border border-transparent hover:-translate-y-2 hover:shadow-[0_24px_48px_rgba(0,0,0,0.18)] transition-all duration-300 cursor-default group">
                         {/* Icon */}
                         <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary/15 transition-colors duration-300">
-                            <Eye size={20} weight="duotone" />
+                            <Eye size={20} weight="duotone" aria-hidden="true" />
                         </div>
 
                         <div>
@@ -85,7 +85,7 @@ export const MissionSection = () => {
                     <div className="rounded-2xl bg-primary p-8 md:p-10 flex flex-col gap-6 hover:-translate-y-2 hover:shadow-[0_24px_48px_rgba(0,159,253,0.35)] transition-all duration-300 cursor-default group">
                         {/* Icon */}
                         <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-white shrink-0 group-hover:bg-white/30 transition-colors duration-300">
-                            <Star size={20} weight="duotone" />
+                            <Star size={20} weight="duotone" aria-hidden="true" />
                         </div>
 
                         <div>

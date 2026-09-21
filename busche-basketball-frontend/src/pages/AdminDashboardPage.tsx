@@ -156,7 +156,7 @@ const ImageDropzone = ({
                 ) : (
                     <div className="h-24 w-24 rounded-md bg-white flex items-center justify-center mb-3 border border-slate-200">
                         {/* upload icon: arrow into a tray */}
-                        <UploadSimple size={40} weight="duotone" className="text-slate-400" />
+                        <UploadSimple size={40} weight="duotone" className="text-slate-400" aria-hidden="true" />
                     </div>
                 )}
 
@@ -866,7 +866,7 @@ export const AdminDashboardPage = () => {
                                     onClick={() => setSelectedStaffMember(null)}
                                     className="shrink-0 w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
                                 >
-                                    <X size={16} weight="bold" />
+                                    <X size={16} weight="bold" aria-hidden="true" />
                                 </button>
                             </div>
 
@@ -875,13 +875,13 @@ export const AdminDashboardPage = () => {
                                     <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Contact</p>
                                     {m.email && (
                                         <a href={`mailto:${m.email}`} className="flex items-center gap-2 text-sm text-slate-700 hover:text-sky-600 transition-colors">
-                                            <EnvelopeSimple size={16} weight="duotone" className="text-slate-400" />
+                                            <EnvelopeSimple size={16} weight="duotone" className="text-slate-400" aria-hidden="true" />
                                             {m.email}
                                         </a>
                                     )}
                                     {m.phone && (
                                         <p className="flex items-center gap-2 text-sm text-slate-700">
-                                            <Phone size={16} weight="duotone" className="text-slate-400" />
+                                            <Phone size={16} weight="duotone" className="text-slate-400" aria-hidden="true" />
                                             {m.phone}
                                         </p>
                                     )}

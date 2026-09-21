@@ -32,7 +32,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player }) => {
                     />
                 ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                        <User size={64} weight="duotone" />
+                        <User size={64} weight="duotone" aria-hidden="true" />
                     </div>
                 )}
 
@@ -211,7 +211,7 @@ export const RosterSection: React.FC = () => {
                 {loading && (
                     <div className="flex items-center justify-center py-20">
                         <div className="flex items-center gap-3 text-slate-500">
-                            <CircleNotch size={20} weight="bold" className="animate-spin" />
+                            <CircleNotch size={20} weight="bold" className="animate-spin" aria-hidden="true" />
                             <span>Loading roster...</span>
                         </div>
                     </div>
@@ -263,7 +263,7 @@ export const RosterSection: React.FC = () => {
                         {/* Empty state */}
                         {activeTeams.every((t) => (playersByTeam[t.id] ?? []).length === 0) && (
                             <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
-                                <UsersThree size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" />
+                                <UsersThree size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" aria-hidden="true" />
                                 <p className="text-slate-600 font-medium">No players on this roster yet</p>
                                 <p className="text-sm text-slate-500 mt-1">Check back soon for updates.</p>
                             </div>

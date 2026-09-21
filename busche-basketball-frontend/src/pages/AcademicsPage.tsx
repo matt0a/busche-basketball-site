@@ -40,19 +40,19 @@ const HIGHLIGHT_CARDS: HighlightCard[] = [
     {
         title: "CMCC Partnership",
         body: "Through our concurrent enrollment partnership with Central Maine Community College (CMCC), students have the opportunity to earn college credits in high school, helping reduce time and cost in college.",
-        icon: <GraduationCap size={24} weight="duotone" />,
+        icon: <GraduationCap size={24} weight="duotone" aria-hidden="true" />,
         accent: "primary",
     },
     {
         title: "9:1 Student–Teacher Ratio",
         body: "Small class sizes mean every student receives personal attention and mentorship from faculty who know them individually — not just as a name on a roster.",
-        icon: <UsersThree size={24} weight="duotone" />,
+        icon: <UsersThree size={24} weight="duotone" aria-hidden="true" />,
         accent: "aqua",
     },
     {
         title: "Grades 6–12 + PG",
         body: "We serve students from middle school through high school and postgraduate year. PG students have additional pathways to earn college credits through CLEP exams, with free preparation available through Modern States.",
-        icon: <BookOpen size={24} weight="duotone" />,
+        icon: <BookOpen size={24} weight="duotone" aria-hidden="true" />,
         accent: "primary",
     },
 ];
@@ -67,17 +67,17 @@ const ACCREDITATION_ITEMS: AccreditationItem[] = [
     {
         heading: "NCAA Certified Program",
         body: "Student-athletes meet eligibility requirements for collegiate athletics at D1, D2, and D3 programs.",
-        icon: <Trophy size={20} weight="duotone" />,
+        icon: <Trophy size={20} weight="duotone" aria-hidden="true" />,
     },
     {
         heading: "NH Dept. of Education",
         body: "Approved by the New Hampshire Department of Education.",
-        icon: <Buildings size={20} weight="duotone" />,
+        icon: <Buildings size={20} weight="duotone" aria-hidden="true" />,
     },
     {
         heading: "CMCC Partnership",
         body: "Concurrent enrollment through Central Maine Community College (CMCC).",
-        icon: <Star size={20} weight="duotone" />,
+        icon: <Star size={20} weight="duotone" aria-hidden="true" />,
     },
 ];
 
@@ -266,7 +266,7 @@ export const AcademicsPage = () => (
                             className="bg-white rounded-2xl border border-slate-200 shadow-card p-4 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-primary/30 transition-all duration-300"
                         >
                             <div className="flex-shrink-0 bg-primary/10 text-primary rounded-xl p-2.5">
-                                <FileText size={20} weight="duotone" />
+                                <FileText size={20} weight="duotone" aria-hidden="true" />
                             </div>
                             <DocumentLink documentKey={documentKey} label={label} />
                         </div>
@@ -318,7 +318,7 @@ export const AcademicsPage = () => (
                                 "Located in Chester, New Hampshire",
                             ].map((point) => (
                                 <div key={point} className="flex items-start gap-3">
-                                    <Check size={16} weight="bold" className="flex-shrink-0 mt-0.5 text-primary" />
+                                    <Check size={16} weight="bold" className="flex-shrink-0 mt-0.5 text-primary" aria-hidden="true" />
                                     <p className="text-slate-700 text-sm leading-relaxed">{point}</p>
                                 </div>
                             ))}
@@ -362,7 +362,7 @@ export const AcademicsPage = () => (
                 {/* Decorative "check" row before marquee */}
                 <div className="flex items-center gap-2 mb-6">
                     <div className="bg-aqua/10 text-emerald-600 rounded-xl p-1.5">
-                        <CheckCircle size={20} weight="duotone" />
+                        <CheckCircle size={20} weight="duotone" aria-hidden="true" />
                     </div>
                     <span className="text-sm font-medium text-slate-600">D1, D2, D3 &amp; Ivy League placements</span>
                 </div>

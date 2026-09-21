@@ -71,7 +71,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
                     </>
                 ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                        <User size={64} weight="duotone" />
+                        <User size={64} weight="duotone" aria-hidden="true" />
                     </div>
                 )}
                 {/* Team badge */}
@@ -108,7 +108,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
 
                 <p className="hidden sm:flex mt-4 text-xs text-slate-500 group-hover:text-primary transition-colors items-center gap-1">
                     View full profile
-                    <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" />
+                    <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </p>
             </div>
         </button>
@@ -228,7 +228,7 @@ export const StaffPage: React.FC = () => {
                 {loading && (
                     <div className="flex items-center justify-center py-20">
                         <div className="flex items-center gap-3 text-slate-500">
-                            <CircleNotch size={20} weight="bold" className="animate-spin" />
+                            <CircleNotch size={20} weight="bold" className="animate-spin" aria-hidden="true" />
                             <span>Loading staff...</span>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ export const StaffPage: React.FC = () => {
 
                         {nationalStaff.length === 0 && regionalStaff.length === 0 && (
                             <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
-                                <UsersThree size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" />
+                                <UsersThree size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" aria-hidden="true" />
                                 <p className="text-slate-600 font-medium">No staff members listed yet</p>
                                 <p className="text-sm text-slate-500 mt-1">Check back soon for updates.</p>
                             </div>
@@ -309,7 +309,7 @@ export const StaffPage: React.FC = () => {
                                 className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
                             >
                                 <span className="sr-only">Close</span>
-                                <X size={20} weight="bold" />
+                                <X size={20} weight="bold" aria-hidden="true" />
                             </button>
 
                             {/* Photo overlapping header */}
@@ -323,7 +323,7 @@ export const StaffPage: React.FC = () => {
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                            <User size={48} weight="duotone" />
+                                            <User size={48} weight="duotone" aria-hidden="true" />
                                         </div>
                                     )}
                                 </div>
@@ -367,13 +367,13 @@ export const StaffPage: React.FC = () => {
                                                 href={`mailto:${selectedStaff.email}`}
                                                 className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary transition-colors"
                                             >
-                                                <EnvelopeSimple size={16} weight="duotone" />
+                                                <EnvelopeSimple size={16} weight="duotone" aria-hidden="true" />
                                                 {selectedStaff.email}
                                             </a>
                                         )}
                                         {selectedStaff.phone && (
                                             <p className="flex items-center gap-2 text-sm text-slate-700">
-                                                <Phone size={16} weight="duotone" />
+                                                <Phone size={16} weight="duotone" aria-hidden="true" />
                                                 {selectedStaff.phone}
                                             </p>
                                         )}

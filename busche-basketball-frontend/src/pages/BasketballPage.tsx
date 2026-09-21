@@ -240,7 +240,7 @@ export const BasketballPage = () => {
                         {HIGHLIGHT_CARDS.map((card) => (
                             <div key={card.title} className="lg:px-7 lg:first:pl-0 lg:last:pr-0">
                                 <div className="w-11 h-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
-                                    <card.Icon size={24} weight="duotone" />
+                                    <card.Icon size={24} weight="duotone" aria-hidden="true" />
                                 </div>
                                 <p className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                                     {card.title}
@@ -315,7 +315,7 @@ export const BasketballPage = () => {
 
                     {staffLoading && (
                         <div className="flex items-center gap-3 text-slate-500 py-12">
-                            <CircleNotch size={20} weight="bold" className="animate-spin" />
+                            <CircleNotch size={20} weight="bold" className="animate-spin" aria-hidden="true" />
                             <span>Loading coaches...</span>
                         </div>
                     )}
@@ -365,7 +365,7 @@ export const BasketballPage = () => {
                                                 </>
                                             ) : (
                                                 <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                                                    <User size={64} weight="duotone" />
+                                                    <User size={64} weight="duotone" aria-hidden="true" />
                                                 </div>
                                             )}
                                             <div className="absolute top-3 left-3">
@@ -397,7 +397,7 @@ export const BasketballPage = () => {
                                             )}
                                             <p className="mt-4 text-xs text-slate-500 group-hover:text-primary transition-colors flex items-center gap-1">
                                                 View full profile
-                                                <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" />
+                                                <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                                             </p>
                                         </div>
                                     </button>
@@ -485,7 +485,7 @@ export const BasketballPage = () => {
                     <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-2 text-slate-900 mb-2">
-                                <InstagramLogo size={20} weight="fill" className="shrink-0 text-primary" />
+                                <InstagramLogo size={20} weight="fill" className="shrink-0 text-primary" aria-hidden="true" />
                                 <span className="font-bold">@buschebasketball</span>
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed max-w-xl">
@@ -561,7 +561,7 @@ export const BasketballPage = () => {
                                 className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
                             >
                                 <span className="sr-only">Close</span>
-                                <X size={20} weight="bold" />
+                                <X size={20} weight="bold" aria-hidden="true" />
                             </button>
                             <div className="absolute -bottom-16 left-8">
                                 <div className="w-32 h-32 rounded-2xl overflow-hidden bg-slate-200 border-4 border-white shadow-lg">
@@ -573,7 +573,7 @@ export const BasketballPage = () => {
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                            <User size={48} weight="duotone" />
+                                            <User size={48} weight="duotone" aria-hidden="true" />
                                         </div>
                                     )}
                                 </div>
@@ -619,13 +619,13 @@ export const BasketballPage = () => {
                                                 href={`mailto:${selectedStaff.email}`}
                                                 className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary transition-colors"
                                             >
-                                                <EnvelopeSimple size={16} weight="duotone" />
+                                                <EnvelopeSimple size={16} weight="duotone" aria-hidden="true" />
                                                 {selectedStaff.email}
                                             </a>
                                         )}
                                         {selectedStaff.phone && (
                                             <p className="flex items-center gap-2 text-sm text-slate-700">
-                                                <Phone size={16} weight="duotone" />
+                                                <Phone size={16} weight="duotone" aria-hidden="true" />
                                                 {selectedStaff.phone}
                                             </p>
                                         )}

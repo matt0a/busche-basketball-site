@@ -209,7 +209,7 @@ export const HockeyPage = () => {
                         {HIGHLIGHT_CARDS.map((card) => (
                             <div key={card.title} className="lg:px-7 lg:first:pl-0 lg:last:pr-0">
                                 <div className="w-11 h-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
-                                    <card.Icon size={24} weight="duotone" />
+                                    <card.Icon size={24} weight="duotone" aria-hidden="true" />
                                 </div>
                                 <p className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                                     {card.title}
@@ -248,7 +248,7 @@ export const HockeyPage = () => {
                             >
                                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-aqua scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <card.Icon size={22} weight="duotone" />
+                                    <card.Icon size={22} weight="duotone" aria-hidden="true" />
                                 </div>
                                 {card.value && (
                                     <p className="text-3xl font-extrabold text-primary tabular-nums leading-none mb-2">
@@ -311,7 +311,7 @@ export const HockeyPage = () => {
                     <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-2 text-slate-900 mb-2">
-                                <InstagramLogo size={20} weight="fill" className="shrink-0 text-primary" />
+                                <InstagramLogo size={20} weight="fill" className="shrink-0 text-primary" aria-hidden="true" />
                                 <span className="font-bold">@seacoastperformanceacademy</span>
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed max-w-xl">

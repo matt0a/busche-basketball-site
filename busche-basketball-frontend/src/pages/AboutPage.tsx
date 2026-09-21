@@ -84,7 +84,7 @@ const StaffCard = ({ member, onSelect }: { member: StaffMemberDto; onSelect: (m:
             </p>
             <p className="hidden sm:flex mt-2 text-xs text-slate-400 group-hover:text-primary transition-colors items-center gap-1">
                 View profile
-                <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" />
+                <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </p>
         </div>
     </button>
@@ -268,7 +268,7 @@ export const AboutPage = () => {
                                     className={`bg-white rounded-2xl border border-slate-200 border-l-4 ${card.borderColor} shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300`}
                                 >
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                                        <card.Icon size={20} weight="duotone" />
+                                        <card.Icon size={20} weight="duotone" aria-hidden="true" />
                                     </div>
                                     <h3 className="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
                                     <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
@@ -327,7 +327,7 @@ export const AboutPage = () => {
                                     className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm"
                                 >
                                     Learn more about Academics
-                                    <CaretRight size={16} weight="bold" />
+                                    <CaretRight size={16} weight="bold" aria-hidden="true" />
                                 </Link>
                             </div>
                             {/* #9 — CMCC bullet points upgraded to icon wells */}
@@ -361,7 +361,7 @@ export const AboutPage = () => {
                                 ].map((item) => (
                                     <div key={item.title} className="flex items-start gap-3">
                                         <div className="w-6 h-6 rounded-lg bg-primary/20 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <item.Icon size={14} weight="duotone" />
+                                            <item.Icon size={14} weight="duotone" aria-hidden="true" />
                                         </div>
                                         <div>
                                             <p className="font-semibold text-white text-sm">{item.title}</p>
@@ -402,7 +402,7 @@ export const AboutPage = () => {
                                 className="bg-white rounded-2xl border border-slate-200 shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                                    <card.Icon size={24} weight="duotone" />
+                                    <card.Icon size={24} weight="duotone" aria-hidden="true" />
                                 </div>
                                 <h3 className="font-bold text-slate-900 mb-2">{card.title}</h3>
                                 <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
@@ -475,7 +475,7 @@ export const AboutPage = () => {
 
                     {staffLoading && (
                         <div className="flex items-center gap-3 text-slate-500 py-12">
-                            <CircleNotch size={20} weight="bold" className="animate-spin" />
+                            <CircleNotch size={20} weight="bold" className="animate-spin" aria-hidden="true" />
                             <span>Loading faculty...</span>
                         </div>
                     )}
@@ -541,7 +541,7 @@ export const AboutPage = () => {
                         {/* Left: contact info */}
                         <div className="bg-slate-900 text-white rounded-2xl p-8 space-y-5">
                             <div className="flex items-start gap-3">
-                                <MapPin size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
+                                <MapPin size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Address</p>
                                     <p className="text-slate-100">40 Chester Street</p>
@@ -549,14 +549,14 @@ export const AboutPage = () => {
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Phone size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
+                                <Phone size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Phone</p>
                                     <p className="text-slate-100">(603) 887-5200</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <EnvelopeSimple size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
+                                <EnvelopeSimple size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Email</p>
                                     <a
@@ -568,7 +568,7 @@ export const AboutPage = () => {
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Clock size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
+                                <Clock size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Office Hours</p>
                                     <p className="text-slate-100">Monday–Friday, 8:00am–4:30pm</p>
@@ -599,13 +599,13 @@ export const AboutPage = () => {
                                 className="flex items-center gap-4 w-full bg-primary text-white rounded-2xl p-6 hover:bg-primary/90 transition-all duration-200 group"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center flex-shrink-0">
-                                    <ArrowSquareOut size={20} weight="duotone" />
+                                    <ArrowSquareOut size={20} weight="duotone" aria-hidden="true" />
                                 </div>
                                 <div className="flex-1">
                                     <p className="font-bold">Apply Now</p>
                                     <p className="text-sm text-blue-100 mt-0.5">Start your application today</p>
                                 </div>
-                                <CaretRight size={20} weight="bold" />
+                                <CaretRight size={20} weight="bold" aria-hidden="true" />
                             </a>
                         </div>
                     </div>
@@ -660,7 +660,7 @@ export const AboutPage = () => {
                             className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
                         >
                             <span className="sr-only">Close</span>
-                            <X size={20} weight="bold" />
+                            <X size={20} weight="bold" aria-hidden="true" />
                         </button>
                         <div className="absolute -bottom-12 left-8">
                             <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-200 border-4 border-white shadow-lg">
@@ -668,7 +668,7 @@ export const AboutPage = () => {
                                     <img src={buildStaffPhotoUrl(selectedStaff.primaryPhotoUrl)!} alt={selectedStaff.fullName} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                        <User size={40} weight="duotone" />
+                                        <User size={40} weight="duotone" aria-hidden="true" />
                                     </div>
                                 )}
                             </div>
@@ -695,13 +695,13 @@ export const AboutPage = () => {
                                 <div className="space-y-2">
                                     {selectedStaff.email && (
                                         <a href={`mailto:${selectedStaff.email}`} className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary transition-colors">
-                                            <EnvelopeSimple size={16} weight="duotone" />
+                                            <EnvelopeSimple size={16} weight="duotone" aria-hidden="true" />
                                             {selectedStaff.email}
                                         </a>
                                     )}
                                     {selectedStaff.phone && (
                                         <p className="flex items-center gap-2 text-sm text-slate-700">
-                                            <Phone size={16} weight="duotone" />
+                                            <Phone size={16} weight="duotone" aria-hidden="true" />
                                             {selectedStaff.phone}
                                         </p>
                                     )}

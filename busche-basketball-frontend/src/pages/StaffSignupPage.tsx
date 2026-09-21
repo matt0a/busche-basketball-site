@@ -143,9 +143,9 @@ export const StaffSignupPage: React.FC = () => {
                                 aria-label={showPassword ? "Hide password" : "Show password"}
                             >
                                 {showPassword ? (
-                                    <EyeSlash size={16} weight="duotone" />
+                                    <EyeSlash size={16} weight="duotone" aria-hidden="true" />
                                 ) : (
-                                    <Eye size={16} weight="duotone" />
+                                    <Eye size={16} weight="duotone" aria-hidden="true" />
                                 )}
                             </button>
                         </div>

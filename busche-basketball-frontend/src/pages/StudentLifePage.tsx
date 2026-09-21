@@ -4,9 +4,11 @@ import { DiningMenuBoard } from "../components/DiningMenuBoard";
 import {
     Bed,
     Buildings,
+    Chair,
     CheckCircle,
     Clock,
     Desk,
+    Dresser,
     ForkKnife,
     ShieldCheck,
     WifiHigh,
@@ -34,20 +36,20 @@ type AmenityEntry = {
 };
 
 const ROOM_AMENITIES: AmenityEntry[] = [
-    { label: "Bed (height adjustable)", icon: <Bed size={20} weight="duotone" />, accent: "primary" },
-    { label: "Mattress", icon: <Bed size={20} weight="duotone" />, accent: "aqua" },
-    { label: "Writing Desk", icon: <Desk size={20} weight="duotone" />, accent: "primary" },
-    { label: "Chair", icon: <Desk size={20} weight="duotone" />, accent: "aqua" },
-    { label: "Dresser", icon: <Desk size={20} weight="duotone" />, accent: "primary" },
-    { label: "High-Speed WiFi", icon: <WifiHigh size={20} weight="duotone" />, accent: "aqua" },
+    { label: "Bed (height adjustable)", icon: <Bed size={20} weight="duotone" aria-hidden="true" />, accent: "primary" },
+    { label: "Mattress", icon: <Bed size={20} weight="duotone" aria-hidden="true" />, accent: "aqua" },
+    { label: "Writing Desk", icon: <Desk size={20} weight="duotone" aria-hidden="true" />, accent: "primary" },
+    { label: "Chair", icon: <Chair size={20} weight="duotone" aria-hidden="true" />, accent: "aqua" },
+    { label: "Dresser", icon: <Dresser size={20} weight="duotone" aria-hidden="true" />, accent: "primary" },
+    { label: "High-Speed WiFi", icon: <WifiHigh size={20} weight="duotone" aria-hidden="true" />, accent: "aqua" },
 ];
 
 const ON_SITE_ACCESS: AmenityEntry[] = [
-    { label: "Student Lounges", icon: <Buildings size={24} weight="duotone" />, accent: "primary" },
-    { label: "Laundry Facilities", icon: <CheckCircle size={20} weight="duotone" />, accent: "aqua" },
-    { label: "Ice Machine", icon: <CheckCircle size={20} weight="duotone" />, accent: "primary" },
-    { label: "Vending Machine", icon: <CheckCircle size={20} weight="duotone" />, accent: "aqua" },
-    { label: "Water Fountain", icon: <CheckCircle size={20} weight="duotone" />, accent: "primary" },
+    { label: "Student Lounges", icon: <Buildings size={24} weight="duotone" aria-hidden="true" />, accent: "primary" },
+    { label: "Laundry Facilities", icon: <CheckCircle size={20} weight="duotone" aria-hidden="true" />, accent: "aqua" },
+    { label: "Ice Machine", icon: <CheckCircle size={20} weight="duotone" aria-hidden="true" />, accent: "primary" },
+    { label: "Vending Machine", icon: <CheckCircle size={20} weight="duotone" aria-hidden="true" />, accent: "aqua" },
+    { label: "Water Fountain", icon: <CheckCircle size={20} weight="duotone" aria-hidden="true" />, accent: "primary" },
 ];
 
 // ── Core values pill colors ───────────────────────────────────────────────────
@@ -233,7 +235,7 @@ export const StudentLifePage = () => (
                     <div className="bg-slate-900 text-white rounded-2xl p-8">
                         <div className="flex items-center gap-3 mb-5">
                             <div className="bg-primary/20 text-primary rounded-xl p-2.5">
-                                <ForkKnife size={20} weight="duotone" />
+                                <ForkKnife size={20} weight="duotone" aria-hidden="true" />
                             </div>
                             <p className="text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">
                                 Meet the Chef
@@ -257,7 +259,7 @@ export const StudentLifePage = () => (
                     <div className="bg-white rounded-2xl border border-slate-200 shadow-card p-6">
                         <div className="flex items-center gap-3 mb-5">
                             <div className="bg-primary/10 text-primary rounded-xl p-2.5">
-                                <Clock size={20} weight="duotone" />
+                                <Clock size={20} weight="duotone" aria-hidden="true" />
                             </div>
                             <h3 className="text-lg font-bold text-slate-900">Hours of Operation</h3>
                         </div>
@@ -341,7 +343,7 @@ export const StudentLifePage = () => (
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex items-center gap-3 mb-2">
                     <div className="bg-primary/10 text-primary rounded-xl p-2.5">
-                        <ShieldCheck size={24} weight="duotone" />
+                        <ShieldCheck size={24} weight="duotone" aria-hidden="true" />
                     </div>
                     <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em]">
                         RESIDENTIAL LIFE
