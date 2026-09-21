@@ -88,8 +88,8 @@ const TILES: Tile[] = [
         ),
     },
     {
-        stat: "2",
-        headline: "2 elite basketball programs",
+        stat: "3",
+        headline: "3 elite basketball teams",
         description:
             "Our National and Regional teams compete at the highest prep school level with college-track coaching.",
         icon: (
