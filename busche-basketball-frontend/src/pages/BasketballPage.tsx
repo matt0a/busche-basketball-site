@@ -5,6 +5,19 @@ import { TopoBackground } from "../components/TopoBackground";
 import { RosterSection } from "../components/RosterSection";
 import { ScheduleSection } from "../components/ScheduleSection";
 import type { StaffMemberDto } from "../types";
+import {
+    CaretRight,
+    CircleNotch,
+    EnvelopeSimple,
+    Globe,
+    GraduationCap,
+    InstagramLogo,
+    Phone,
+    SealCheck,
+    User,
+    UsersThree,
+    X,
+} from "@phosphor-icons/react";
 
 const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
@@ -29,39 +42,22 @@ const BASKETBALL_INSTAGRAM = "https://www.instagram.com/buschebasketball";
 
 const HIGHLIGHT_CARDS = [
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-        ),
+        Icon: UsersThree,
         title: "3 Teams",
         body: "National and Regional squads allow athletes to compete at the right level for their development.",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-        ),
+        Icon: SealCheck,
         title: "College Exposure",
         body: "Games, showcases, and film help players connect with college coaches at all levels.",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-            </svg>
-        ),
+        Icon: GraduationCap,
         title: "60+ College Credits",
         body: "Through CMCC, student-athletes have opportunities to earn college credits in high school, helping reduce time and cost in college.",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        ),
+        Icon: Globe,
         title: "Global Roster",
         body: "Players from the US and around the world create a diverse, competitive locker room environment.",
     },
@@ -244,7 +240,7 @@ export const BasketballPage = () => {
                         {HIGHLIGHT_CARDS.map((card) => (
                             <div key={card.title} className="lg:px-7 lg:first:pl-0 lg:last:pr-0">
                                 <div className="w-11 h-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
-                                    {card.icon}
+                                    <card.Icon size={24} weight="duotone" />
                                 </div>
                                 <p className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                                     {card.title}
@@ -319,10 +315,7 @@ export const BasketballPage = () => {
 
                     {staffLoading && (
                         <div className="flex items-center gap-3 text-slate-500 py-12">
-                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
+                            <CircleNotch size={20} weight="bold" className="animate-spin" />
                             <span>Loading coaches...</span>
                         </div>
                     )}
@@ -372,10 +365,7 @@ export const BasketballPage = () => {
                                                 </>
                                             ) : (
                                                 <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                                                    <svg viewBox="0 0 24 24" className="w-16 h-16" aria-hidden="true">
-                                                        <circle cx="12" cy="8" r="3.5" className="fill-none stroke-current" strokeWidth="1.5" />
-                                                        <path d="M6 18.5c1.6-2.2 3.5-3.3 6-3.3s4.4 1.1 6 3.3" className="fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" />
-                                                    </svg>
+                                                    <User size={64} weight="duotone" />
                                                 </div>
                                             )}
                                             <div className="absolute top-3 left-3">
@@ -407,9 +397,7 @@ export const BasketballPage = () => {
                                             )}
                                             <p className="mt-4 text-xs text-slate-500 group-hover:text-primary transition-colors flex items-center gap-1">
                                                 View full profile
-                                                <svg className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                </svg>
+                                                <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" />
                                             </p>
                                         </div>
                                     </button>
@@ -497,11 +485,7 @@ export const BasketballPage = () => {
                     <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-2 text-slate-900 mb-2">
-                                <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-primary" aria-hidden="true">
-                                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="17" cy="7" r="1.2" fill="currentColor" />
-                                </svg>
+                                <InstagramLogo size={20} weight="fill" className="shrink-0 text-primary" />
                                 <span className="font-bold">@buschebasketball</span>
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed max-w-xl">
@@ -577,9 +561,7 @@ export const BasketballPage = () => {
                                 className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
                             >
                                 <span className="sr-only">Close</span>
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                                <X size={20} weight="bold" />
                             </button>
                             <div className="absolute -bottom-16 left-8">
                                 <div className="w-32 h-32 rounded-2xl overflow-hidden bg-slate-200 border-4 border-white shadow-lg">
@@ -591,10 +573,7 @@ export const BasketballPage = () => {
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                            <svg viewBox="0 0 24 24" className="w-12 h-12" aria-hidden="true">
-                                                <circle cx="12" cy="8" r="3.5" className="fill-none stroke-current" strokeWidth="1.5" />
-                                                <path d="M6 18.5c1.6-2.2 3.5-3.3 6-3.3s4.4 1.1 6 3.3" className="fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" />
-                                            </svg>
+                                            <User size={48} weight="duotone" />
                                         </div>
                                     )}
                                 </div>
@@ -640,17 +619,13 @@ export const BasketballPage = () => {
                                                 href={`mailto:${selectedStaff.email}`}
                                                 className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary transition-colors"
                                             >
-                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                </svg>
+                                                <EnvelopeSimple size={16} weight="duotone" />
                                                 {selectedStaff.email}
                                             </a>
                                         )}
                                         {selectedStaff.phone && (
                                             <p className="flex items-center gap-2 text-sm text-slate-700">
-                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                                </svg>
+                                                <Phone size={16} weight="duotone" />
                                                 {selectedStaff.phone}
                                             </p>
                                         )}

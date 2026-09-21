@@ -1,4 +1,13 @@
 import { SectionNav } from "../components/SectionNav";
+import {
+    Buildings,
+    CreditCard,
+    FileText,
+    PencilSimple,
+    ShieldCheck,
+    Sun,
+} from "@phosphor-icons/react";
+import type { Icon } from "@phosphor-icons/react";
 
 const SECTION_NAV = [
     { id: "how-to-apply", label: "How to Apply" },
@@ -6,38 +15,22 @@ const SECTION_NAV = [
 ];
 
 // Step metadata: text + icon per step
-const STEPS: Array<{ text: string; icon: React.ReactNode }> = [
+const STEPS: Array<{ text: string; Icon: Icon }> = [
     {
         text: "Complete the online application via the button below.",
-        icon: (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-        ),
+        Icon: PencilSimple,
     },
     {
         text: "Submit a processing fee (required).",
-        icon: (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
-        ),
+        Icon: CreditCard,
     },
     {
         text: "Schedule a campus visit or phone interview.",
-        icon: (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-        ),
+        Icon: Buildings,
     },
     {
         text: "Provide school records and teacher recommendations.",
-        icon: (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-        ),
+        Icon: FileText,
     },
 ];
 
@@ -136,7 +129,7 @@ export const AdmissionsPage = () => (
                                             {idx + 1}
                                         </span>
                                         <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                            {step.icon}
+                                            <step.Icon size={16} weight="duotone" />
                                         </div>
                                     </div>
                                     <p className="text-slate-700 leading-relaxed pt-1">{step.text}</p>
@@ -215,9 +208,7 @@ export const AdmissionsPage = () => (
                     {/* Day Student */}
                     <div className="bg-white rounded-2xl border border-slate-200 border-l-4 border-l-primary shadow-card p-8 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
+                            <Sun size={20} weight="duotone" />
                         </div>
                         <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Day Student</p>
                         <p className="text-4xl font-bold text-primary mb-3">$39,500</p>
@@ -226,9 +217,7 @@ export const AdmissionsPage = () => (
                     {/* Boarding Student */}
                     <div className="bg-white rounded-2xl border border-slate-200 border-l-4 border-l-aqua shadow-card p-8 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                            </svg>
+                            <Buildings size={20} weight="duotone" />
                         </div>
                         <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Boarding Student</p>
                         <p className="text-4xl font-bold text-primary mb-3">$59,500</p>
@@ -268,9 +257,7 @@ export const AdmissionsPage = () => (
                 {/* #13 — Financial aid box with icon well above eyebrow */}
                 <div className="bg-primary/5 border-l-4 border-primary rounded-r-2xl p-6">
                     <div className="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-3">
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                        <ShieldCheck size={20} weight="duotone" />
                     </div>
                     <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-2">
                         FINANCIAL AID

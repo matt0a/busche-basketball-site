@@ -2,6 +2,17 @@ import { useEffect, useRef } from "react";
 import { SectionNav } from "../components/SectionNav";
 import { VideoEmbed } from "../components/VideoEmbed";
 import { TopoBackground } from "../components/TopoBackground";
+import {
+    Barbell,
+    Hockey,
+    InstagramLogo,
+    PersonSimpleSki,
+    ShareNetwork,
+    Strategy,
+    Target,
+    Trophy,
+    UsersThree,
+} from "@phosphor-icons/react";
 
 const SECTIONS = [
     { id: "overview", label: "Overview" },
@@ -16,38 +27,22 @@ const APPLY_URL = "https://bit.ly/gobuscheacademy";
 
 const HIGHLIGHT_CARDS = [
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-        ),
+        Icon: UsersThree,
         title: "6 Teams",
         body: "U13, U14, U15, U16, U18 Prep, U18 National",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-        ),
+        Icon: Hockey,
         title: "65+ Games",
         body: "Leagues, Showcases, Tournaments, National Championships",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4zM7 4H5a2 2 0 000 4h2M17 4h2a2 2 0 010 4h-2" />
-            </svg>
-        ),
+        Icon: Trophy,
         title: "Success",
         body: "10+ NCAA D1 Commitments in 2025 & 2026. Plus a recent USHL Tender.",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342a3 3 0 100-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.368-2.684 3 3 0 00-5.368 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-        ),
+        Icon: ShareNetwork,
         title: "Network",
         body: "Our coaching staff includes multiple USHL, WHL, OHL, and QMJHL Scouts",
     },
@@ -55,41 +50,25 @@ const HIGHLIGHT_CARDS = [
 
 const TRAINING_CARDS = [
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-        ),
+        Icon: Strategy,
         value: "100+",
         label: "Team Practices",
         detail: "3-4x per week",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-        ),
+        Icon: Target,
         value: "50+",
         label: "Position Skills Sessions",
         detail: "2x per week",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-        ),
+        Icon: PersonSimpleSki,
         value: "50+",
         label: "Edge Work & Power Skating Sessions",
         detail: "2x per week",
     },
     {
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.5 6.5v11m11-11v11M4 9v6m16-6v6M6.5 12h11" />
-            </svg>
-        ),
+        Icon: Barbell,
         value: "",
         label: "Off-Ice Training",
         detail: "Team Workouts 2-3x per week, Unlimited Strength & Conditioning",
@@ -230,7 +209,7 @@ export const HockeyPage = () => {
                         {HIGHLIGHT_CARDS.map((card) => (
                             <div key={card.title} className="lg:px-7 lg:first:pl-0 lg:last:pr-0">
                                 <div className="w-11 h-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
-                                    {card.icon}
+                                    <card.Icon size={24} weight="duotone" />
                                 </div>
                                 <p className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                                     {card.title}
@@ -269,7 +248,7 @@ export const HockeyPage = () => {
                             >
                                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-aqua scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    {card.icon}
+                                    <card.Icon size={22} weight="duotone" />
                                 </div>
                                 {card.value && (
                                     <p className="text-3xl font-extrabold text-primary tabular-nums leading-none mb-2">
@@ -332,11 +311,7 @@ export const HockeyPage = () => {
                     <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-2 text-slate-900 mb-2">
-                                <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-primary" aria-hidden="true">
-                                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                    <circle cx="17" cy="7" r="1.2" fill="currentColor" />
-                                </svg>
+                                <InstagramLogo size={20} weight="fill" className="shrink-0 text-primary" />
                                 <span className="font-bold">@seacoastperformanceacademy</span>
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed max-w-xl">

@@ -6,6 +6,26 @@ import { TestimonialsMarquee } from "../components/TestimonialsMarquee";
 import { MissionSection } from "../components/MissionSection";
 import { publicApi } from "../api/publicApi";
 import type { StaffMemberDto } from "../types";
+import {
+    ArrowSquareOut,
+    BookOpen,
+    CaretRight,
+    Certificate,
+    CircleNotch,
+    Clock,
+    CurrencyDollar,
+    EnvelopeSimple,
+    Globe,
+    GraduationCap,
+    Heart,
+    Lightning,
+    MapPin,
+    Phone,
+    SealCheck,
+    Star,
+    User,
+    X,
+} from "@phosphor-icons/react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
 
@@ -64,9 +84,7 @@ const StaffCard = ({ member, onSelect }: { member: StaffMemberDto; onSelect: (m:
             </p>
             <p className="hidden sm:flex mt-2 text-xs text-slate-400 group-hover:text-primary transition-colors items-center gap-1">
                 View profile
-                <svg className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" />
             </p>
         </div>
     </button>
@@ -230,31 +248,19 @@ export const AboutPage = () => {
                                     title: "Diversity",
                                     body: "The school deeply values the diverse makeup of its school community and encourages students from every possible cultural background.",
                                     borderColor: "border-l-primary",
-                                    icon: (
-                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    ),
+                                    Icon: Globe,
                                 },
                                 {
                                     title: "Excellence",
                                     body: "A high level of rigor and expectation of excellence in all components of the school's operation — academic, athletic, and boarding program.",
                                     borderColor: "border-l-aqua",
-                                    icon: (
-                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                        </svg>
-                                    ),
+                                    Icon: Lightning,
                                 },
                                 {
                                     title: "Community & Family",
                                     body: "The sense of community and family, not only within the school itself, but also in the greater Chester community, is a critical value.",
                                     borderColor: "border-l-primary",
-                                    icon: (
-                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                        </svg>
-                                    ),
+                                    Icon: Heart,
                                 },
                             ].map((card) => (
                                 <div
@@ -262,7 +268,7 @@ export const AboutPage = () => {
                                     className={`bg-white rounded-2xl border border-slate-200 border-l-4 ${card.borderColor} shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300`}
                                 >
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                                        {card.icon}
+                                        <card.Icon size={20} weight="duotone" />
                                     </div>
                                     <h3 className="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
                                     <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
@@ -321,9 +327,7 @@ export const AboutPage = () => {
                                     className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm"
                                 >
                                     Learn more about Academics
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    <CaretRight size={16} weight="bold" />
                                 </Link>
                             </div>
                             {/* #9 — CMCC bullet points upgraded to icon wells */}
@@ -332,52 +336,32 @@ export const AboutPage = () => {
                                     {
                                         title: "Earn Credits Early",
                                         body: "Students have the opportunity to earn college credits while completing their high school diploma.",
-                                        icon: (
-                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                            </svg>
-                                        ),
+                                        Icon: SealCheck,
                                     },
                                     {
                                         title: "60+ College Credits",
                                         body: "Earn transferable credits that count toward a Bachelor's Degree at most universities.",
-                                        icon: (
-                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                            </svg>
-                                        ),
+                                        Icon: Certificate,
                                     },
                                     {
                                         title: "Save on Tuition",
                                         body: "Arrive at university as a sophomore — significantly reducing the time and cost of your degree.",
-                                        icon: (
-                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        ),
+                                        Icon: CurrencyDollar,
                                     },
                                     {
                                         title: "Stand Out in Admissions",
                                         body: "College admissions officers take notice of students who have earned college credits before graduating high school.",
-                                        icon: (
-                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                                            </svg>
-                                        ),
+                                        Icon: Star,
                                     },
                                     {
                                         title: "PG Year Advantage",
                                         body: "Postgraduate students have additional opportunities to earn college credits through CLEP exams, with free preparation available through Modern States.",
-                                        icon: (
-                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 7v-7m0 0l-9-5m9 5l9-5" />
-                                            </svg>
-                                        ),
+                                        Icon: GraduationCap,
                                     },
                                 ].map((item) => (
                                     <div key={item.title} className="flex items-start gap-3">
                                         <div className="w-6 h-6 rounded-lg bg-primary/20 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            {item.icon}
+                                            <item.Icon size={14} weight="duotone" />
                                         </div>
                                         <div>
                                             <p className="font-semibold text-white text-sm">{item.title}</p>
@@ -393,38 +377,22 @@ export const AboutPage = () => {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
                         {[
                             {
-                                icon: (
-                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                ),
+                                Icon: Lightning,
                                 title: "Training Philosophy",
                                 body: "Our coaches focus on individual development, film study, and competitive game preparation to maximize each athlete's potential.",
                             },
                             {
-                                icon: (
-                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                    </svg>
-                                ),
+                                Icon: BookOpen,
                                 title: "Academic Excellence",
                                 body: "Small class sizes, dedicated faculty, and the CMCC partnership ensure every student thrives academically.",
                             },
                             {
-                                icon: (
-                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                    </svg>
-                                ),
+                                Icon: SealCheck,
                                 title: "Recruiting Pipeline",
                                 body: "Exposure games, film, and direct coach relationships connect our athletes with college programs across all divisions.",
                             },
                             {
-                                icon: (
-                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                ),
+                                Icon: Globe,
                                 title: "Global Community",
                                 body: "Students from the US and around the world build lifelong friendships and a truly international network.",
                             },
@@ -434,7 +402,7 @@ export const AboutPage = () => {
                                 className="bg-white rounded-2xl border border-slate-200 shadow-card p-6 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
-                                    {card.icon}
+                                    <card.Icon size={24} weight="duotone" />
                                 </div>
                                 <h3 className="font-bold text-slate-900 mb-2">{card.title}</h3>
                                 <p className="text-slate-600 text-sm leading-relaxed">{card.body}</p>
@@ -507,22 +475,7 @@ export const AboutPage = () => {
 
                     {staffLoading && (
                         <div className="flex items-center gap-3 text-slate-500 py-12">
-                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                                <circle
-                                    className="opacity-25"
-                                    cx="12"
-                                    cy="12"
-                                    r="10"
-                                    stroke="currentColor"
-                                    strokeWidth="4"
-                                    fill="none"
-                                />
-                                <path
-                                    className="opacity-75"
-                                    fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                />
-                            </svg>
+                            <CircleNotch size={20} weight="bold" className="animate-spin" />
                             <span>Loading faculty...</span>
                         </div>
                     )}
@@ -588,10 +541,7 @@ export const AboutPage = () => {
                         {/* Left: contact info */}
                         <div className="bg-slate-900 text-white rounded-2xl p-8 space-y-5">
                             <div className="flex items-start gap-3">
-                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
+                                <MapPin size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Address</p>
                                     <p className="text-slate-100">40 Chester Street</p>
@@ -599,18 +549,14 @@ export const AboutPage = () => {
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
+                                <Phone size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Phone</p>
                                     <p className="text-slate-100">(603) 887-5200</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
+                                <EnvelopeSimple size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Email</p>
                                     <a
@@ -622,9 +568,7 @@ export const AboutPage = () => {
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <svg className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                <Clock size={20} weight="duotone" className="text-primary mt-0.5 flex-shrink-0" />
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Office Hours</p>
                                     <p className="text-slate-100">Monday–Friday, 8:00am–4:30pm</p>
@@ -655,17 +599,13 @@ export const AboutPage = () => {
                                 className="flex items-center gap-4 w-full bg-primary text-white rounded-2xl p-6 hover:bg-primary/90 transition-all duration-200 group"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center flex-shrink-0">
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                    </svg>
+                                    <ArrowSquareOut size={20} weight="duotone" />
                                 </div>
                                 <div className="flex-1">
                                     <p className="font-bold">Apply Now</p>
                                     <p className="text-sm text-blue-100 mt-0.5">Start your application today</p>
                                 </div>
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
+                                <CaretRight size={20} weight="bold" />
                             </a>
                         </div>
                     </div>
@@ -720,9 +660,7 @@ export const AboutPage = () => {
                             className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
                         >
                             <span className="sr-only">Close</span>
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                            <X size={20} weight="bold" />
                         </button>
                         <div className="absolute -bottom-12 left-8">
                             <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-200 border-4 border-white shadow-lg">
@@ -730,10 +668,7 @@ export const AboutPage = () => {
                                     <img src={buildStaffPhotoUrl(selectedStaff.primaryPhotoUrl)!} alt={selectedStaff.fullName} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                        <svg viewBox="0 0 24 24" className="w-10 h-10" aria-hidden="true">
-                                            <circle cx="12" cy="8" r="3.5" className="fill-none stroke-current" strokeWidth="1.5" />
-                                            <path d="M6 18.5c1.6-2.2 3.5-3.3 6-3.3s4.4 1.1 6 3.3" className="fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" />
-                                        </svg>
+                                        <User size={40} weight="duotone" />
                                     </div>
                                 )}
                             </div>
@@ -760,17 +695,13 @@ export const AboutPage = () => {
                                 <div className="space-y-2">
                                     {selectedStaff.email && (
                                         <a href={`mailto:${selectedStaff.email}`} className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary transition-colors">
-                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
+                                            <EnvelopeSimple size={16} weight="duotone" />
                                             {selectedStaff.email}
                                         </a>
                                     )}
                                     {selectedStaff.phone && (
                                         <p className="flex items-center gap-2 text-sm text-slate-700">
-                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                            </svg>
+                                            <Phone size={16} weight="duotone" />
                                             {selectedStaff.phone}
                                         </p>
                                     )}

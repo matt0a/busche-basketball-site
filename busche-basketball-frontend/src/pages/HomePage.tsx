@@ -6,6 +6,17 @@ import { gsap } from "gsap";
 import { CollegeMarquee } from "../components/CollegeMarquee";
 import { AtAGlanceGrid } from "../components/AtAGlanceGrid";
 import { MissionSection } from "../components/MissionSection";
+import {
+    Basketball,
+    CalendarBlank,
+    CaretLeft,
+    CaretRight,
+    Clock,
+    FileText,
+    GraduationCap,
+    House,
+    MapPin,
+} from "@phosphor-icons/react";
 
 const slides = [
     {
@@ -41,12 +52,7 @@ const sections = [
         description:
             "College-prep curriculum, CMCC partnership, AP courses, and 60+ college credits available.",
         href: "/academics",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-            </svg>
-        ),
+        Icon: GraduationCap,
         color: "bg-primary/10 text-primary",
     },
     {
@@ -54,11 +60,7 @@ const sections = [
         description:
             "Adams Hall & Preston Hall dorms, chef-prepared dining, and a 70-acre campus to explore.",
         href: "/student-life",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-        ),
+        Icon: House,
         color: "bg-aqua/10 text-emerald-700",
     },
     {
@@ -66,12 +68,7 @@ const sections = [
         description:
             "National and Regional teams with elite coaching, competitive schedules, and college exposure.",
         href: "/basketball",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <circle cx="12" cy="12" r="9" strokeWidth={1.5} />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3c2.5 3 4 5.7 4 9s-1.5 6-4 9M12 3c-2.5 3-4 5.7-4 9s1.5 6 4 9M3 12h18" />
-            </svg>
-        ),
+        Icon: Basketball,
         color: "bg-primary/10 text-primary",
     },
     {
@@ -79,11 +76,7 @@ const sections = [
         description:
             "Open to US and international students. Financial aid available. Day and boarding options.",
         href: "/admissions",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-        ),
+        Icon: FileText,
         color: "bg-slate-100 text-slate-700",
     },
 ];
@@ -222,9 +215,7 @@ export const HomePage = () => {
                     className="absolute right-16 md:right-20 bottom-6 h-9 w-9 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
                     aria-label="Previous slide"
                 >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
+                    <CaretLeft size={16} weight="bold" />
                 </button>
                 <button
                     type="button"
@@ -232,9 +223,7 @@ export const HomePage = () => {
                     className="absolute right-4 md:right-8 bottom-6 h-9 w-9 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
                     aria-label="Next slide"
                 >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <CaretRight size={16} weight="bold" />
                 </button>
 
                 {/* Slide dots */}
@@ -303,7 +292,7 @@ export const HomePage = () => {
                                 <div
                                     className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${section.color} group-hover:scale-110 transition-transform duration-300`}
                                 >
-                                    {section.icon}
+                                    <section.Icon size={24} weight="duotone" />
                                 </div>
                                 <p className="font-bold text-slate-900 text-base mb-2 tracking-tight">
                                     {section.title}
@@ -313,9 +302,7 @@ export const HomePage = () => {
                                 </p>
                                 <p className="mt-5 text-primary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all duration-200">
                                     Learn More
-                                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    <CaretRight size={14} weight="bold" />
                                 </p>
                             </Link>
                         ))}
@@ -350,9 +337,7 @@ export const HomePage = () => {
                                 className="inline-flex items-center gap-2 text-primary hover:text-sky-600 font-medium transition-colors"
                             >
                                 Explore the Program
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
+                                <CaretRight size={16} weight="bold" />
                             </Link>
                         </div>
 
@@ -363,9 +348,7 @@ export const HomePage = () => {
                                 <div className="flex items-center gap-2 mb-3">
                                     {/* Clock / history icon well */}
                                     <div className="w-6 h-6 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
+                                        <Clock size={14} weight="duotone" />
                                     </div>
                                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Last Game
@@ -411,9 +394,7 @@ export const HomePage = () => {
                                 <div className="flex items-center gap-2 mb-3">
                                     {/* Calendar icon well */}
                                     <div className="w-6 h-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
+                                        <CalendarBlank size={14} weight="duotone" />
                                     </div>
                                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Next Game
@@ -513,10 +494,7 @@ export const HomePage = () => {
                         {/* Upgrade #8 — pin icon well before "Our Campus" label */}
                         <div className="flex items-start gap-4">
                             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
+                                <MapPin size={16} weight="duotone" />
                             </div>
                             <div>
                                 <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-1">

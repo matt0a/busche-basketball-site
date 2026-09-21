@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import { InstagramLogo, List, X } from "@phosphor-icons/react";
 
 const flatLinkClasses =
     "text-sm tracking-wide hover:text-primary transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-slate-50";
@@ -23,13 +24,6 @@ const SOCIAL_LINKS = [
     },
 ];
 
-const InstagramIcon = () => (
-    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-        <circle cx="17" cy="7" r="1.2" fill="currentColor" />
-    </svg>
-);
 
 
 export const Layout = ({ children }: { children: ReactNode }) => {
@@ -190,20 +184,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             aria-label="Open navigation menu"
                         >
                             <span className="sr-only">Open main menu</span>
-                            <svg
-                                className="h-5 w-5"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M4 7H20M4 12H20M4 17H20"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
+                            <List size={20} weight="bold" />
                         </button>
                     </div>
                 </div>
@@ -245,19 +226,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                             onClick={closeMobileNav}
                             aria-label="Close navigation menu"
                         >
-                            <svg
-                                className="h-4 w-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M6 6L18 18M6 18L18 6"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                />
-                            </svg>
+                            <X size={16} weight="bold" />
                         </button>
                     </div>
 
@@ -491,7 +460,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                                     aria-label={social.label}
                                     className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-slate-500 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors"
                                 >
-                                    <InstagramIcon />
+                                    <InstagramLogo size={16} weight="fill" className="shrink-0" />
                                     <span className="text-xs font-medium">{social.handle}</span>
                                 </a>
                             ))}

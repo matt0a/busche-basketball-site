@@ -6,6 +6,7 @@ import { adminStaffApi } from "../api/adminStaffApi";
 import type { StaffMemberInput } from "../api/adminStaffApi";
 import { AdminRosterManager } from "../components/AdminRosterManager";
 import { AdminScheduleManager } from "../components/AdminScheduleManager";
+import { EnvelopeSimple, Phone, UploadSimple, X } from "@phosphor-icons/react";
 import { AdminTeamManager } from "../components/AdminTeamManager";
 import { AdminDocumentManager } from "../components/AdminDocumentManager";
 import { AdminDiningMenuManager } from "../components/AdminDiningMenuManager";
@@ -155,30 +156,7 @@ const ImageDropzone = ({
                 ) : (
                     <div className="h-24 w-24 rounded-md bg-white flex items-center justify-center mb-3 border border-slate-200">
                         {/* upload icon: arrow into a tray */}
-                        <svg
-                            className="h-10 w-10 text-slate-400"
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                        >
-                            {/* tray */}
-                            <path
-                                d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                            {/* arrow down */}
-                            <path
-                                d="M12 4v9m0 0-3-3m3 3 3-3"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
+                        <UploadSimple size={40} weight="duotone" className="text-slate-400" />
                     </div>
                 )}
 
@@ -888,9 +866,7 @@ export const AdminDashboardPage = () => {
                                     onClick={() => setSelectedStaffMember(null)}
                                     className="shrink-0 w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
                                 >
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
+                                    <X size={16} weight="bold" />
                                 </button>
                             </div>
 
@@ -899,17 +875,13 @@ export const AdminDashboardPage = () => {
                                     <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Contact</p>
                                     {m.email && (
                                         <a href={`mailto:${m.email}`} className="flex items-center gap-2 text-sm text-slate-700 hover:text-sky-600 transition-colors">
-                                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
+                                            <EnvelopeSimple size={16} weight="duotone" className="text-slate-400" />
                                             {m.email}
                                         </a>
                                     )}
                                     {m.phone && (
                                         <p className="flex items-center gap-2 text-sm text-slate-700">
-                                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                            </svg>
+                                            <Phone size={16} weight="duotone" className="text-slate-400" />
                                             {m.phone}
                                         </p>
                                     )}

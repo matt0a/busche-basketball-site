@@ -4,6 +4,7 @@ import { publicApi } from "../api/publicApi";
 import { adminPlayerApi, type PlayerInput } from "../api/adminPlayerApi";
 import { clearPlayersCache } from "../lib/ttlCache";
 import type { PlayerDto, TeamDto } from "../types";
+import { UploadSimple } from "@phosphor-icons/react";
 
 const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
@@ -114,28 +115,7 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({
                     />
                 ) : (
                     <div className="h-24 w-24 rounded-md bg-white flex items-center justify-center mb-3 border border-slate-200">
-                        <svg
-                            className="h-10 w-10 text-slate-400"
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                        >
-                            <path
-                                d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                            <path
-                                d="M12 4v9m0 0-3-3m3 3 3-3"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
+                        <UploadSimple size={40} weight="duotone" className="text-slate-400" />
                     </div>
                 )}
 

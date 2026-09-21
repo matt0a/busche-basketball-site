@@ -1,6 +1,16 @@
 import { SectionNav } from "../components/SectionNav";
 import { DocumentLink } from "../components/DocumentLink";
 import { DiningMenuBoard } from "../components/DiningMenuBoard";
+import {
+    Bed,
+    Buildings,
+    CheckCircle,
+    Clock,
+    Desk,
+    ForkKnife,
+    ShieldCheck,
+    WifiHigh,
+} from "@phosphor-icons/react";
 
 const SECTION_NAV = [
     { id: "housing", label: "Housing" },
@@ -8,59 +18,6 @@ const SECTION_NAV = [
     { id: "policies", label: "Dorm Policies" },
 ];
 
-// ── Inline SVG icons ──────────────────────────────────────────────────────────
-
-const BuildingIcon = () => (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0H3m2 0h14M9 7h1m-1 4h1m4-4h1m-1 4h1M9 15h6" />
-    </svg>
-);
-
-const BedIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h18M3 12V8a2 2 0 012-2h14a2 2 0 012 2v4M3 12v5m18-5v5M5 17h14" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 12V8h14v4" />
-    </svg>
-);
-
-const DeskIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16v4H4zM6 11v6M18 11v6M9 17h6" />
-    </svg>
-);
-
-const WifiIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5.093 11.866a9.5 9.5 0 0113.814 0" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8.516 15.289a5 5 0 016.968 0" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 19h.01" />
-    </svg>
-);
-
-const CheckCircleIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-);
-
-const UtensilsIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 2v7c0 1.5 1 2.5 2 3v10M7 2v20M13 2c0 0 4 2.5 4 7s-4 7-4 7v6" />
-    </svg>
-);
-
-const ClockIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
-    </svg>
-);
-
-const ShieldIcon = () => (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-);
 
 // ── Section divider ───────────────────────────────────────────────────────────
 
@@ -77,20 +34,20 @@ type AmenityEntry = {
 };
 
 const ROOM_AMENITIES: AmenityEntry[] = [
-    { label: "Bed (height adjustable)", icon: <BedIcon />, accent: "primary" },
-    { label: "Mattress", icon: <BedIcon />, accent: "aqua" },
-    { label: "Writing Desk", icon: <DeskIcon />, accent: "primary" },
-    { label: "Chair", icon: <DeskIcon />, accent: "aqua" },
-    { label: "Dresser", icon: <DeskIcon />, accent: "primary" },
-    { label: "High-Speed WiFi", icon: <WifiIcon />, accent: "aqua" },
+    { label: "Bed (height adjustable)", icon: <Bed size={20} weight="duotone" />, accent: "primary" },
+    { label: "Mattress", icon: <Bed size={20} weight="duotone" />, accent: "aqua" },
+    { label: "Writing Desk", icon: <Desk size={20} weight="duotone" />, accent: "primary" },
+    { label: "Chair", icon: <Desk size={20} weight="duotone" />, accent: "aqua" },
+    { label: "Dresser", icon: <Desk size={20} weight="duotone" />, accent: "primary" },
+    { label: "High-Speed WiFi", icon: <WifiHigh size={20} weight="duotone" />, accent: "aqua" },
 ];
 
 const ON_SITE_ACCESS: AmenityEntry[] = [
-    { label: "Student Lounges", icon: <BuildingIcon />, accent: "primary" },
-    { label: "Laundry Facilities", icon: <CheckCircleIcon />, accent: "aqua" },
-    { label: "Ice Machine", icon: <CheckCircleIcon />, accent: "primary" },
-    { label: "Vending Machine", icon: <CheckCircleIcon />, accent: "aqua" },
-    { label: "Water Fountain", icon: <CheckCircleIcon />, accent: "primary" },
+    { label: "Student Lounges", icon: <Buildings size={24} weight="duotone" />, accent: "primary" },
+    { label: "Laundry Facilities", icon: <CheckCircle size={20} weight="duotone" />, accent: "aqua" },
+    { label: "Ice Machine", icon: <CheckCircle size={20} weight="duotone" />, accent: "primary" },
+    { label: "Vending Machine", icon: <CheckCircle size={20} weight="duotone" />, accent: "aqua" },
+    { label: "Water Fountain", icon: <CheckCircle size={20} weight="duotone" />, accent: "primary" },
 ];
 
 // ── Core values pill colors ───────────────────────────────────────────────────
@@ -276,7 +233,7 @@ export const StudentLifePage = () => (
                     <div className="bg-slate-900 text-white rounded-2xl p-8">
                         <div className="flex items-center gap-3 mb-5">
                             <div className="bg-primary/20 text-primary rounded-xl p-2.5">
-                                <UtensilsIcon />
+                                <ForkKnife size={20} weight="duotone" />
                             </div>
                             <p className="text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">
                                 Meet the Chef
@@ -300,7 +257,7 @@ export const StudentLifePage = () => (
                     <div className="bg-white rounded-2xl border border-slate-200 shadow-card p-6">
                         <div className="flex items-center gap-3 mb-5">
                             <div className="bg-primary/10 text-primary rounded-xl p-2.5">
-                                <ClockIcon />
+                                <Clock size={20} weight="duotone" />
                             </div>
                             <h3 className="text-lg font-bold text-slate-900">Hours of Operation</h3>
                         </div>
@@ -384,7 +341,7 @@ export const StudentLifePage = () => (
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex items-center gap-3 mb-2">
                     <div className="bg-primary/10 text-primary rounded-xl p-2.5">
-                        <ShieldIcon />
+                        <ShieldCheck size={24} weight="duotone" />
                     </div>
                     <p className="text-primary font-semibold text-sm uppercase tracking-[0.2em]">
                         RESIDENTIAL LIFE

@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { publicApi } from "../api/publicApi";
 import type { DiningMenuDto } from "../types";
+import { ForkKnife } from "@phosphor-icons/react";
 
-const UtensilsIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 3v7a2 2 0 002 2h0a2 2 0 002-2V3M6 12v9M15 3c-1.5 2-1.5 6 0 8v10" />
-    </svg>
-);
 
 /**
  * Weekly and special-event dining menus, uploaded by staff via the admin dashboard.
@@ -46,7 +42,7 @@ export const DiningMenuBoard = () => {
         <div className="mt-10">
             <div className="flex items-center gap-3 mb-5">
                 <div className="bg-primary/10 text-primary rounded-xl p-2.5">
-                    <UtensilsIcon />
+                    <ForkKnife size={20} weight="duotone" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">Current Menus</h3>
             </div>

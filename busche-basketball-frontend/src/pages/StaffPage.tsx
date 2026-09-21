@@ -2,6 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { publicApi } from "../api/publicApi";
 import type { StaffMemberDto } from "../types";
 import { gsap } from "gsap";
+import {
+    CaretRight,
+    CircleNotch,
+    EnvelopeSimple,
+    Phone,
+    User,
+    UsersThree,
+    X,
+} from "@phosphor-icons/react";
 
 const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
@@ -62,10 +71,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
                     </>
                 ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                        <svg viewBox="0 0 24 24" className="w-16 h-16" aria-hidden="true">
-                            <circle cx="12" cy="8" r="3.5" className="fill-none stroke-current" strokeWidth="1.5" />
-                            <path d="M6 18.5c1.6-2.2 3.5-3.3 6-3.3s4.4 1.1 6 3.3" className="fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" />
-                        </svg>
+                        <User size={64} weight="duotone" />
                     </div>
                 )}
                 {/* Team badge */}
@@ -102,9 +108,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ member, onSelect }) => {
 
                 <p className="hidden sm:flex mt-4 text-xs text-slate-500 group-hover:text-primary transition-colors items-center gap-1">
                     View full profile
-                    <svg className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <CaretRight size={12} weight="bold" className="transition-transform group-hover:translate-x-1" />
                 </p>
             </div>
         </button>
@@ -224,10 +228,7 @@ export const StaffPage: React.FC = () => {
                 {loading && (
                     <div className="flex items-center justify-center py-20">
                         <div className="flex items-center gap-3 text-slate-500">
-                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
+                            <CircleNotch size={20} weight="bold" className="animate-spin" />
                             <span>Loading staff...</span>
                         </div>
                     </div>
@@ -257,9 +258,7 @@ export const StaffPage: React.FC = () => {
 
                         {nationalStaff.length === 0 && regionalStaff.length === 0 && (
                             <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
-                                <svg className="w-12 h-12 text-slate-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
+                                <UsersThree size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" />
                                 <p className="text-slate-600 font-medium">No staff members listed yet</p>
                                 <p className="text-sm text-slate-500 mt-1">Check back soon for updates.</p>
                             </div>
@@ -310,9 +309,7 @@ export const StaffPage: React.FC = () => {
                                 className="absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
                             >
                                 <span className="sr-only">Close</span>
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                                <X size={20} weight="bold" />
                             </button>
 
                             {/* Photo overlapping header */}
@@ -326,10 +323,7 @@ export const StaffPage: React.FC = () => {
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                            <svg viewBox="0 0 24 24" className="w-12 h-12" aria-hidden="true">
-                                                <circle cx="12" cy="8" r="3.5" className="fill-none stroke-current" strokeWidth="1.5" />
-                                                <path d="M6 18.5c1.6-2.2 3.5-3.3 6-3.3s4.4 1.1 6 3.3" className="fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" />
-                                            </svg>
+                                            <User size={48} weight="duotone" />
                                         </div>
                                     )}
                                 </div>
@@ -373,17 +367,13 @@ export const StaffPage: React.FC = () => {
                                                 href={`mailto:${selectedStaff.email}`}
                                                 className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary transition-colors"
                                             >
-                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                </svg>
+                                                <EnvelopeSimple size={16} weight="duotone" />
                                                 {selectedStaff.email}
                                             </a>
                                         )}
                                         {selectedStaff.phone && (
                                             <p className="flex items-center gap-2 text-sm text-slate-700">
-                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                                </svg>
+                                                <Phone size={16} weight="duotone" />
                                                 {selectedStaff.phone}
                                             </p>
                                         )}

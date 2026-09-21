@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { publicApi } from "../api/publicApi";
 import type { GameDto, TeamDto, TeamLevel } from "../types";
+import { CalendarBlank, CircleNotch, MapPin } from "@phosphor-icons/react";
 
 type TeamFilter = "ALL" | "REGIONAL" | "NATIONAL";
 type ViewTab = "upcoming" | "results";
@@ -133,10 +134,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, isResult }) => {
 
                 {/* Location */}
                 <div className="flex items-start gap-2 text-sm text-slate-600">
-                    <svg className="w-4 h-4 mt-0.5 text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+                    <MapPin size={16} weight="duotone" className="mt-0.5 text-slate-400 flex-shrink-0" />
                     <span>{game.location}</span>
                 </div>
 
@@ -292,10 +290,7 @@ export const ScheduleSection: React.FC = () => {
                 {loading && (
                     <div className="flex items-center justify-center py-16">
                         <div className="flex items-center gap-3 text-slate-500">
-                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
+                            <CircleNotch size={20} weight="bold" className="animate-spin" />
                             <span>Loading schedule...</span>
                         </div>
                     </div>
@@ -309,9 +304,7 @@ export const ScheduleSection: React.FC = () => {
 
                 {!loading && !error && games.length === 0 && (
                     <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
-                        <svg className="w-12 h-12 text-slate-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+                        <CalendarBlank size={48} weight="duotone" className="text-slate-300 mx-auto mb-4" />
                         <p className="text-slate-600 font-medium">No games scheduled yet</p>
                         <p className="text-sm text-slate-500 mt-1">Check back soon for updates.</p>
                     </div>
